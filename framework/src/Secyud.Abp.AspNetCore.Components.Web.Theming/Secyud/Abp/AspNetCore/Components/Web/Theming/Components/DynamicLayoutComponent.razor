@@ -1,8 +1,0 @@
-﻿@namespace Secyud.Abp.AspNetCore.Components.Web.Theming.Components
-@if (AbpDynamicLayoutComponentOptions.Value.Components.Any())
-{
-    foreach (var (componentType, parameters) in AbpDynamicLayoutComponentOptions.Value.Components)
-    {
-        <DynamicComponent Type="@componentType" Parameters="@parameters"/>
-    }
-}

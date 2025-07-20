@@ -1,9 +1,12 @@
 <Project>
+  <Import Project="..\secyud.props"/>
+  
   <PropertyGroup>
+    <RootNamespace/>
     <LangVersion>latest</LangVersion>
-    <TargetFramework>net6.0</TargetFramework>
-    <Version>6.0.0</Version>
-    <Authors>Secyud</Authors>
+    <TargetFramework>net9.0</TargetFramework>
+    <Version>9.0.0</Version>
+    <AbpVersion>9.*</AbpVersion>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
   </PropertyGroup>
 

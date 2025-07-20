@@ -1,9 +1,0 @@
-{
-  "name": "abp-masa-blazor-ui",
-  "version": "1.0.0",
-  "dependencies": {
-    "@mdi/font": "^7.0.96",
-    "font-awesome": "^4.7.0",
-    "flag-icons": "^6.6.6"
-  }
-}

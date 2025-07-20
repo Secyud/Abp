@@ -1,0 +1,21 @@
+<Project>
+
+    <Import Project="..\version.props"/>
+
+    <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0'">
+        <AbpVersion>6.*</AbpVersion>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(TargetFramework)' == 'net7.0'">
+        <AbpVersion>7.*</AbpVersion>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0'">
+        <AbpVersion>8.*</AbpVersion>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(TargetFramework)' == 'net9.0'">
+        <AbpVersion>9.*</AbpVersion>
+    </PropertyGroup>
+    
+</Project>
