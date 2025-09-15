@@ -1,0 +1,9 @@
+<Project>
+    <Import Project="..\..\common.props"/>
+
+    <PropertyGroup>
+        <PackageOutputPath>../../$(PackageOutputPath)</PackageOutputPath>
+        <RootNamespace>Secyud.Abp.AspNetCore</RootNamespace>
+    </PropertyGroup>
+
+</Project>

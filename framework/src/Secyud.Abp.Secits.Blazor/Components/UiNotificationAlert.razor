@@ -1,0 +1,39 @@
+﻿<SFloater Class="ui-notify">
+
+    @foreach (var notify in Notifications)
+    {
+        @GenerateNotificationCard(notify)
+    }
+
+</SFloater>
+
+@code
+{
+    RenderFragment GenerateNotificationCard(UiNotification notify)
+    {
+        return
+            __builder =>
+            {
+                <SCard Theme="notify.Theme">
+                    <Header>
+                        @notify.Title
+                    </Header>
+                    <Body>
+                    @notify.Message
+                    </Body>
+                    <Footer>
+                        <SButton Click="CloseAsync">
+                            <AddTemplate>
+                                @notify.ButtonText
+                            </AddTemplate>
+                        </SButton>
+                    </Footer>
+                </SCard>
+            };
+
+        Task CloseAsync()
+        {
+            return CloseNotificationAsync(notify);
+        }
+    }
+}

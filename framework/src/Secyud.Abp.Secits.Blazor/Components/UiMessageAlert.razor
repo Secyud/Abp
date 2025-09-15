@@ -1,0 +1,57 @@
+﻿<SPopup @ref="PopupRef">
+    <SCard Class="ui-message">
+        <Header>
+            @Title
+        </Header>
+        <Body>
+        @if (ShowMessageIcon)
+        {
+            <div class="ui-message-icon">
+                <SIcon IconName="@MessageIcon?.ToString()" Style="@MessageIconStyle"/>
+            </div>
+        }
+        <div class="ui-message-text">
+            @Message
+        </div>
+        </Body>
+        <Footer>
+            @if (IsConfirmation)
+            {
+                <SButton Theme="Theme.Primary" Class="outline" Click="@OnCancelClicked">
+                    @if (Options?.CancelButtonIcon != null)
+                    {
+                        <AddTemplate>
+                            <SIcon IconName="@Options.CancelButtonIcon.ToString()"/>
+                        </AddTemplate>
+                    }
+                    <AddTemplate>
+                        @CancelButtonText
+                    </AddTemplate>
+                </SButton>
+                <SButton Theme="Theme.Primary" Click="@OnConfirmClicked">
+                    @if (Options?.ConfirmButtonIcon != null)
+                    {
+                        <AddTemplate>
+                            <SIcon IconName="@Options.ConfirmButtonIcon.ToString()"/>
+                        </AddTemplate>
+                    }
+                    <AddTemplate>
+                        @ConfirmButtonText
+                    </AddTemplate>
+                </SButton>
+            }
+            else
+            {
+                <SButton Theme="Theme.Primary" Click="@OnOkClicked">
+                    @if (Options?.OkButtonIcon != null)
+                    {
+                        <AddTemplate>
+                            <SIcon IconName="@Options.OkButtonIcon.ToString()"/>
+                        </AddTemplate>
+                    }
+                    @OkButtonText
+                </SButton>
+            }
+        </Footer>
+    </SCard>
+</SPopup>

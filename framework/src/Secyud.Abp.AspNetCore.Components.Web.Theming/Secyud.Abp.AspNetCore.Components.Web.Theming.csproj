@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <Import Project="..\..\..\common.props"/>
+
+    <PropertyGroup>
+        <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+        <RootNamespace>Secyud.Abp.AspNetCore</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Secyud.Abp.Secits.Blazor\Secyud.Abp.Secits.Blazor.csproj"/>
+        <PackageReference Include="Volo.Abp.UI.Navigation" Version="$(AbpVersion)"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\" />
+    </ItemGroup>
+
+</Project>

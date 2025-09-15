@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <Import Project="..\..\..\common.props"/>
+
+    <PropertyGroup>
+        <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+        <RootNamespace>Secyud.Abp.Secits.Blazor</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup Condition="'$(ReferenceType)' == 'Package'">
+        <PackageReference Include="Secyud.Secits.Blazor" Version="$(SecitVersion)"/>
+        <PackageReference Include="Secyud.Secits.Blazor.Preset" Version="$(SecitVersion)"/>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(ReferenceType)' == 'Project'">
+        <ProjectReference Include="$(SecitsSrc)/Secyud.Secits.Blazor/Secyud.Secits.Blazor.csproj"/>
+        <ProjectReference Include="$(SecitsSrc)/Secyud.Secits.Blazor.Preset/Secyud.Secits.Blazor.Preset.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(DotnetVersion)"/>
+        <PackageReference Include="Volo.Abp.AspNetCore.Components.Web" Version="$(AbpVersion)"/>
+        <PackageReference Include="Volo.Abp.Authorization" Version="$(AbpVersion)"/>
+        <PackageReference Include="Volo.Abp.Ddd.Application.Contracts" Version="$(AbpVersion)"/>
+        <PackageReference Include="Volo.Abp.Features" Version="$(AbpVersion)"/>
+        <PackageReference Include="Volo.Abp.GlobalFeatures" Version="$(AbpVersion)"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="wwwroot\"/>
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <Import Project="..\..\common.props"/>
+
+    <PropertyGroup>
+        <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <ProjectReference Include="../../../../framework/src/Secyud.Abp.AspNetCore.Components.Web.Theming/Secyud.Abp.AspNetCore.Components.Web.Theming.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="wwwroot\"/>
+    </ItemGroup>
+
+</Project>
