@@ -376,7 +376,7 @@ public abstract class SecitsCrudPageBase<
     {
         try
         {
-            var validate = CreateModal!.CheckValidate();
+            var validate = CreateModal!.Validate();
             if (validate)
             {
                 await OnCreatingEntityAsync();
@@ -416,7 +416,7 @@ public abstract class SecitsCrudPageBase<
     {
         try
         {
-            var validate = UpdateModal!.CheckValidate();
+            var validate = UpdateModal!.Validate();
 
             if (validate)
             {
