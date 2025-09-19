@@ -1,4 +1,4 @@
-﻿namespace Secyud.Abp.AspNetCore.Theming;
+﻿namespace Secyud.Abp.AspNetCore.Components.Theming;
 
 public class AbpThemingOptions
 {

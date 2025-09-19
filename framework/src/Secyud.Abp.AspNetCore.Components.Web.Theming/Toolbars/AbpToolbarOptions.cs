@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-
-namespace Secyud.Abp.AspNetCore.Toolbars;
+﻿namespace Secyud.Abp.AspNetCore.Components.Toolbars;
 
 public class AbpToolbarOptions
 {

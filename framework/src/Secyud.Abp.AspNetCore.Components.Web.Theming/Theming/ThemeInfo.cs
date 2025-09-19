@@ -1,15 +1,12 @@
 ﻿using Secyud.Secits.Blazor.Options;
 using Volo.Abp;
 
-namespace Secyud.Abp.AspNetCore.Theming;
+namespace Secyud.Abp.AspNetCore.Components.Theming;
 
 public class ThemeInfo
 {
     public Type ThemeType { get; }
     public string Name { get; }
-    public UiThemeColor Color { get; set; }
-    public UiThemeParam Param { get; set; }
-    public UiThemeStyle Style { get; set; }
 
     public ThemeInfo(Type themeType)
     {
@@ -22,8 +19,5 @@ public class ThemeInfo
 
         ThemeType = themeType;
         Name = ThemeNameAttribute.GetName(themeType);
-        Color = ThemeColorAttribute.GetColor(themeType);
-        Param = ThemeParamAttribute.GetParam(themeType);
-        Style = ThemeStyleAttribute.GetStyle(themeType);
     }
 }

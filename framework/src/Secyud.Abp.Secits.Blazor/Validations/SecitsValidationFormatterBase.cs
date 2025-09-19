@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Secyud.Abp.Secits.Blazor.Validations.Formatters;
+namespace Secyud.Abp.Secits.Blazor.Validations;
 
 public abstract class SecitsValidationFormatterBase<TAttribute> : ISecitsValidationFormatter
     where TAttribute : ValidationAttribute

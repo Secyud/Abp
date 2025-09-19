@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 using Volo.Abp;
 
-namespace Secyud.Abp.AspNetCore.Toolbars;
+namespace Secyud.Abp.AspNetCore.Components.Toolbars;
 
 public class Toolbar
 {

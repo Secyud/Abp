@@ -1,0 +1,30 @@
+﻿{
+  "Culture": "en",
+  "Texts": {
+    "Login": "Login",
+    "Appearance": "Appearance",
+    "ContainerWidth": "Container Width",
+    "ContainerWidth:Boxed": "Boxed Layout",
+    "ContainerWidth:Fixed": "Fixed",
+    "ContainerWidth:Fluid": "Fluid",
+    "GeneralSettings": "General Settings",
+    "Language": "Language",
+    "Settings": "Settings",
+    "Theme:dark": "Dark",
+    "Theme:dim": "Semi-Dark",
+    "Theme:light": "Light",
+    "Theme:system": "System",
+    "Welcome": "Welcome",
+    "FilterMenu": "Filter menu",
+    "Authentication:YouAreLoggedOut": "You are logged out.",
+    "GivenTenantIsNotExist": "Given tenant doesn't exist: {0}",
+    "GivenTenantIsNotAvailable": "Given tenant isn't available: {0}",
+    "Tenant": "Tenant",
+    "Switch": "switch",
+    "Name": "Name",
+    "SwitchTenantHint": "Leave the name field blank to switch to the host side.",
+    "SwitchTenant": "Switch tenant",
+    "NotSelected": "Not selected",
+    "Menu": "Menu"
+  }
+}

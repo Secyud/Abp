@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Options;
 using Volo.Abp.Ui.LayoutHooks;
 
-namespace Secyud.Abp.AspNetCore.Components;
+namespace Secyud.Abp.AspNetCore.Components.Components;
 
 public partial class LayoutHook : ComponentBase
 {

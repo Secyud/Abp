@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Secyud.Abp.AspNetCore.Routing;
+namespace Secyud.Abp.AspNetCore.Components.Routing;
 
 public class AbpRouterOptions
 {

@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Secyud.Abp.AspNetCore.Theming;
+namespace Secyud.Abp.AspNetCore.Components.Theming;
 
 [AttributeUsage(AttributeTargets.Class)]
 public class ThemeNameAttribute(string name) : Attribute

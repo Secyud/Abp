@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+    </PropertyGroup>
+
+    <Import Project="..\..\..\common.props"/>
+
+    <PropertyGroup>
+        <RootNamespace>Secyud.Abp.AspNetCore.Components</RootNamespace>
+        <IsPackable>true</IsPackable>
+        <OutputType>Library</OutputType>
+        <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Volo.Abp.AspNetCore.Components.Server" Version="$(AbpVersion)"/>
+        <PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.Bundling" Version="$(AbpVersion)"/>
+        <ProjectReference Include="..\Secyud.Abp.AspNetCore.Components.Web.Theming\Secyud.Abp.AspNetCore.Components.Web.Theming.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="wwwroot\" />
+    </ItemGroup>
+
+</Project>

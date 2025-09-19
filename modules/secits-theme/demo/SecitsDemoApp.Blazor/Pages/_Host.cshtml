@@ -1,0 +1,29 @@
+﻿@page "/"
+@namespace SecitsDemoApp.Pages
+@using System.Globalization
+@using Secyud.Abp.AspNetCore.Bundling
+@using Secyud.Abp.AspNetCore.Components
+@using Volo.Abp.Localization
+@{
+    Layout = null;
+    var rtl = CultureHelper.IsRtl ? "rtl" : string.Empty;
+}
+
+<!DOCTYPE html>
+<html lang="@CultureInfo.CurrentCulture.Name" dir="@rtl">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>SecitsDemoApp</title>
+    <base href="~/"/>
+
+    <abp-style-bundle name="@BlazorSecitsThemeBundles.Styles.Global"/>
+    <secits-theme-style/>
+</head>
+<body class="abp-application-layout @rtl">
+<component type="typeof(AppWithoutAuth)" render-mode="Server"/>
+
+<abp-script-bundle name="@BlazorSecitsThemeBundles.Scripts.Global"/>
+<secits-theme-script/>
+</body>
+</html>

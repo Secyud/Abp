@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+    </PropertyGroup>
+    
+  <Import Project="..\..\..\common.props" />
+
+  <PropertyGroup>
+      <RootNamespace>Secyud.Abp.AspNetCore.Components</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+      <PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.Bundling.Abstractions" Version="$(AbpVersion)"/>
+  </ItemGroup>
+
+</Project>

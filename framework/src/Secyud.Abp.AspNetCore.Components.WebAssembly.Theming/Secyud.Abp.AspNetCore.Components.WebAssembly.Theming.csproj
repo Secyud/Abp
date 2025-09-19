@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+    </PropertyGroup>
+
+    <Import Project="..\..\..\common.props"/>
+
+    <PropertyGroup>
+        <RootNamespace>Secyud.Abp.AspNetCore.Components</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Volo.Abp.AspNetCore.Components.WebAssembly" Version="$(AbpVersion)"/>
+        <PackageReference Include="Volo.Abp.AspNetCore.Components.WebAssembly.Theming.Bundling" Version="$(AbpVersion)"/>
+        <ProjectReference Include="..\Secyud.Abp.AspNetCore.Components.Web.Theming\Secyud.Abp.AspNetCore.Components.Web.Theming.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="wwwroot\"/>
+    </ItemGroup>
+
+</Project>

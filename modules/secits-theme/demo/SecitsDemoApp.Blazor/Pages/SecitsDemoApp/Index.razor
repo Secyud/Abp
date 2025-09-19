@@ -1,0 +1,8 @@
+@page "/"
+@using global::SecitsDemoApp.Localization
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SecitsDemoAppResource> L
+@{
+}
+<h1>SecitsDemoApp</h1>
+<p>@L["SamplePageMessage"]</p>

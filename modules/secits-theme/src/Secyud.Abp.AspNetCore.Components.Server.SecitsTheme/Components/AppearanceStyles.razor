@@ -1,0 +1,27 @@
+﻿@using Microsoft.Extensions.Options
+@using Secyud.Secits.Blazor.Options
+@using Volo.Abp.Localization
+@inject SecitsStyleProvider SecitsStyleProvider
+@inject IOptions<SecitsThemeOptions> ThemeOptions
+@inject IOptions<SecitsStylesOptions> StylesOptions
+
+@foreach (var path in _styles)
+{
+    <link href="@path.Path" id="@path.Id" type="text/css" rel="stylesheet"/>
+}
+
+
+@code {
+
+    private readonly List<HtmlPathResource> _styles = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        var selectedStyle = await SecitsStyleProvider.GetSelectedStyleAsync();
+        var option = new SecitsThemeParam();
+        ThemeOptions.Value.Styles.GetValueOrDefault(selectedStyle)?.MapTo(option);
+        option.IsRtl = CultureHelper.IsRtl;
+        _styles.AddRange(StylesOptions.Value.Get(option));
+    }
+
+}

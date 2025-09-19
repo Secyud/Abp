@@ -1,10 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+    </PropertyGroup>
 
     <Import Project="..\..\..\common.props"/>
 
     <PropertyGroup>
-        <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
-        <RootNamespace>Secyud.Abp.AspNetCore</RootNamespace>
+        <RootNamespace>Secyud.Abp.AspNetCore.Components</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -13,7 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="wwwroot\" />
+        <Folder Include="wwwroot\"/>
     </ItemGroup>
 
 </Project>

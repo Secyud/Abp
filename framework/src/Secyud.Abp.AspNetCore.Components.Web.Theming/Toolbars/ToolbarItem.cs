@@ -1,7 +1,6 @@
-﻿using JetBrains.Annotations;
-using Volo.Abp;
+﻿using Volo.Abp;
 
-namespace Secyud.Abp.AspNetCore.Toolbars;
+namespace Secyud.Abp.AspNetCore.Components.Toolbars;
 
 public class ToolbarItem(Type componentType, int order = 0)
 {

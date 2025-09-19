@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 
-namespace Secyud.Abp.AspNetCore;
+namespace Secyud.Abp.AspNetCore.Components;
 
 public class AbpDynamicLayoutComponentOptions
 {

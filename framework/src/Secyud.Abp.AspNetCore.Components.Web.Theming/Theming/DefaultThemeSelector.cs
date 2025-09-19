@@ -2,7 +2,7 @@
 using Volo.Abp;
 using Volo.Abp.DependencyInjection;
 
-namespace Secyud.Abp.AspNetCore.Theming;
+namespace Secyud.Abp.AspNetCore.Components.Theming;
 
 public class DefaultThemeSelector : IThemeSelector, ITransientDependency
 {

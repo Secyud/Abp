@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Localization;
 using Volo.Abp.DependencyInjection;
 
-namespace Secyud.Abp.AspNetCore.Toolbars;
+namespace Secyud.Abp.AspNetCore.Components.Toolbars;
 
 public interface IToolbarConfigurationContext : IServiceProviderAccessor
 {

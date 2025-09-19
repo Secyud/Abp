@@ -1,6 +1,6 @@
 ﻿using Volo.Abp;
 
-namespace Secyud.Abp.AspNetCore.Theming;
+namespace Secyud.Abp.AspNetCore.Components.Theming;
 
 public class ThemeDictionary : Dictionary<Type, ThemeInfo>
 {

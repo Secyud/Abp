@@ -3,7 +3,7 @@ using Volo.Abp.AspNetCore.Components.Web.Security;
 using Volo.Abp.Modularity;
 using Volo.Abp.UI.Navigation;
 
-namespace Secyud.Abp.AspNetCore;
+namespace Secyud.Abp.AspNetCore.Components;
 
 [DependsOn(
     typeof(AbpSecitsBlazorModule),

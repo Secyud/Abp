@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+    </PropertyGroup>
+
+    <Import Project="..\..\common.props"/>
+
+    <PropertyGroup>
+        <RootNamespace>SecitsDemoApp</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Serilog.Extensions.Hosting" Version="9.0.0" />
+        <PackageReference Include="Serilog.Sinks.Async" Version="2.1.0" />
+        <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+        <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
+        <PackageReference Include="Volo.Abp.AutoMapper" Version="$(AbpVersion)"/>
+        <PackageReference Include="Volo.Abp.Autofac" Version="$(AbpVersion)"/>
+        <PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="$(AbpVersion)" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\Secyud.Abp.AspNetCore.Components.Server.SecitsTheme\Secyud.Abp.AspNetCore.Components.Server.SecitsTheme.csproj"/>
+        <ProjectReference Include="..\SecitsDemoApp.HttpApi.Client\SecitsDemoApp.HttpApi.Client.csproj"/>
+    </ItemGroup>
+</Project>

@@ -1,4 +1,4 @@
-namespace Secyud.Abp.AspNetCore.Bundling;
+namespace Secyud.Abp.AspNetCore.Components.Bundling;
 
 public interface IComponentBundleManager
 {

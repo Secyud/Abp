@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.DependencyInjection;
 
-namespace Secyud.Abp.AspNetCore.Theming;
+namespace Secyud.Abp.AspNetCore.Components.Theming;
 
 public class DefaultThemeManager : IThemeManager, IScopedDependency, IServiceProviderAccessor
 { 

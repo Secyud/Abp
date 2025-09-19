@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Options;
 using Volo.Abp.DependencyInjection;
 
-namespace Secyud.Abp.AspNetCore.Toolbars;
+namespace Secyud.Abp.AspNetCore.Components.Toolbars;
 
 public class ToolbarManager(
     IOptions<AbpToolbarOptions> options,

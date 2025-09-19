@@ -1,12 +1,24 @@
 <Solution>
-  <Folder Name="/demo/" />
+  <Folder Name="/demo/">
+    <Project Path="demo\SecitsDemoApp.Application.Contracts\SecitsDemoApp.Application.Contracts.csproj" />
+    <Project Path="demo\SecitsDemoApp.Application\SecitsDemoApp.Application.csproj" />
+    <Project Path="demo\SecitsDemoApp.Blazor.WebAssembly\SecitsDemoApp.Blazor.WebAssembly.csproj" />
+    <Project Path="demo\SecitsDemoApp.Blazor\SecitsDemoApp.Blazor.csproj" />
+    <Project Path="demo\SecitsDemoApp.Domain.Shared\SecitsDemoApp.Domain.Shared.csproj" />
+    <Project Path="demo\SecitsDemoApp.Domain\SecitsDemoApp.Domain.csproj" />
+    <Project Path="demo\SecitsDemoApp.HttpApi.Client\SecitsDemoApp.HttpApi.Client.csproj" />
+    <Project Path="demo\SecitsDemoApp.HttpApi\SecitsDemoApp.HttpApi.csproj" />
+  </Folder>
   <Folder Name="/framework/">
-    <Project Path="..\..\framework\src\Secyud.Abp.AspNetCore.Components.Web.Theming\Secyud.Abp.AspNetCore.Components.Web.Theming.csproj" Type="Classic C#" />
+    <Project Path="..\..\framework\src\Secyud.Abp.AspNetCore.Components.Server.Theming\Secyud.Abp.AspNetCore.Components.Server.Theming.csproj" Type="Classic C#" />
+    <Project Path="..\..\framework\src\Secyud.Abp.AspNetCore.Components.Web.Theming\Secyud.Abp.AspNetCore.Components.Web.Theming.csproj" />
+    <Project Path="..\..\framework\src\Secyud.Abp.AspNetCore.Components.WebAssembly.Theming.Bundling\Secyud.Abp.AspNetCore.Components.WebAssembly.Theming.Bundling.csproj" Type="Classic C#" />
+    <Project Path="..\..\framework\src\Secyud.Abp.AspNetCore.Components.WebAssembly.Theming\Secyud.Abp.AspNetCore.Components.WebAssembly.Theming.csproj" Type="Classic C#" />
     <Project Path="..\..\framework\src\Secyud.Abp.Secits.Blazor\Secyud.Abp.Secits.Blazor.csproj" />
   </Folder>
   <Folder Name="/src/">
-    <Project Path="src\Secyud.Abp.AspNetCore.Components.Server.SecitsTheme\Secyud.Abp.AspNetCore.Components.Server.SecitsTheme.csproj" Type="Classic C#" />
-    <Project Path="src\Secyud.Abp.AspNetCore.Components.Web.SecitsTheme\Secyud.Abp.AspNetCore.Components.Web.SecitsTheme.csproj" Type="Classic C#" />
-    <Project Path="src\Secyud.Abp.AspNetCore.Components.WebAssembly.SecitsTheme\Secyud.Abp.AspNetCore.Components.WebAssembly.SecitsTheme.csproj" Type="Classic C#" />
+    <Project Path="src\Secyud.Abp.AspNetCore.Components.Server.SecitsTheme\Secyud.Abp.AspNetCore.Components.Server.SecitsTheme.csproj" />
+    <Project Path="src\Secyud.Abp.AspNetCore.Components.Web.SecitsTheme\Secyud.Abp.AspNetCore.Components.Web.SecitsTheme.csproj" />
+    <Project Path="src\Secyud.Abp.AspNetCore.Components.WebAssembly.SecitsTheme\Secyud.Abp.AspNetCore.Components.WebAssembly.SecitsTheme.csproj" />
   </Folder>
 </Solution>

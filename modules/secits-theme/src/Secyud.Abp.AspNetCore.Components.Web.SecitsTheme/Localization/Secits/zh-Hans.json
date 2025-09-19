@@ -1,0 +1,30 @@
+﻿{
+  "culture": "zh-Hans",
+  "texts": {
+    "Login": "登录",
+    "Appearance": "外貌",
+    "ContainerWidth": "容器宽度",
+    "ContainerWidth:Boxed": "盒装布局",
+    "ContainerWidth:Fixed": "固定布局",
+    "ContainerWidth:Fluid": "流体布局",
+    "GeneralSettings": "通用设置",
+    "Language": "语",
+    "Settings": "设置",
+    "Theme:dark": "黑暗的",
+    "Theme:dim": "半暗",
+    "Theme:light": "光",
+    "Theme:system": "与系统相同",
+    "Welcome": "欢迎",
+    "FilterMenu": "过滤菜单",
+    "Authentication:YouAreLoggedOut": "你已经注销",
+    "GivenTenantIsNotExist": "给定的租户不存在: {0}",
+    "GivenTenantIsNotAvailable": "给定的租户不可用: {0}",
+    "Tenant": "租户",
+    "Switch": "切换",
+    "Name": "名称",
+    "SwitchTenantHint": "将名称字段留空以切换到宿主端.",
+    "SwitchTenant": "切换租户",
+    "NotSelected": "未选中",
+    "Menu": "菜单"
+  }
+}

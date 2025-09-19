@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+    </PropertyGroup>
+    <Import Project="..\..\common.props"/>
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <RootNamespace>SecitsDemoApp</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Volo.Abp.AutoMapper" Version="$(AbpVersion)"/>
+        <PackageReference Include="Volo.Abp.Ddd.Application" Version="$(AbpVersion)"/>
+        <ProjectReference Include="..\SecitsDemoApp.Application.Contracts\SecitsDemoApp.Application.Contracts.csproj"/>
+        <ProjectReference Include="..\SecitsDemoApp.Domain\SecitsDemoApp.Domain.csproj"/>
+    </ItemGroup>
+
+</Project>

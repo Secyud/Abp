@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.Extensions.DependencyInjection;
 using Secyud.Abp.Secits.Blazor.Validations;
-using Secyud.Abp.Secits.Blazor.Validations.Formatters;
 using Secyud.Secits.Blazor;
 using Volo.Abp.Application;
 using Volo.Abp.AspNetCore.Components.Web;

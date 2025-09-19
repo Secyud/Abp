@@ -1,4 +1,4 @@
-﻿namespace Secyud.Abp.AspNetCore.Components;
+﻿namespace Secyud.Abp.AspNetCore.Components.Components;
 
 public static class StandardLayouts
 {

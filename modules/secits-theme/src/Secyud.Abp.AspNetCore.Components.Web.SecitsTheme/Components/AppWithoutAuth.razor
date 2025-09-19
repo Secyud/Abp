@@ -1,0 +1,22 @@
+﻿@using global::Localization.Resources.AbpUi
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.Extensions.Localization
+@using Microsoft.Extensions.Options
+@using Secyud.Abp.AspNetCore.Components.Routing
+@inject IOptions<AbpRouterOptions> RouterOptions
+@inject IStringLocalizer<AbpUiResource> UiLocalizer
+
+<Router AppAssembly="RouterOptions.Value.AppAssembly"
+        AdditionalAssemblies="RouterOptions.Value.AdditionalAssemblies">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)"/>
+    </Found>
+    <NotFound>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <ErrorView
+                Title="@UiLocalizer["404Message"]"
+                HttpStatusCode="404"
+                Message="@UiLocalizer["404MessageDetail"]"/>
+        </LayoutView>
+    </NotFound>
+</Router>
