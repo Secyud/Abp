@@ -1,10 +1,16 @@
 ﻿@using Secyud.Abp.AspNetCore.Components.Components
+@using Secyud.Abp.AspNetCore.Navigation
 @using Secyud.Abp.Secits.Blazor.Components
 @inherits LayoutComponentBase
 
 <div class="secits-body">
-    <div class="secits-header @(_collapsed ? "collapsed" : "")">
-        @GenerateLayoutHeader()
+
+    <div class="@LftMenuClass()">
+        @GenerateLayoutLftMenu()
+    </div>
+
+    <div class="@RhtMenuClass()">
+        @GenerateLayoutRhtMenu()
     </div>
 
     <div class="secits-container">
@@ -14,17 +20,25 @@
         <LayoutHook Name="@Volo.Abp.Ui.LayoutHooks.LayoutHooks.Body.Last"
                     Layout="@StandardLayouts.Application"/>
         <DynamicLayoutComponent/>
-        <UiPageProgress/>
-        <UiMessageAlert/>
-        <UiNotificationAlert/>
     </div>
+    
+    <UiPageProgress/>
+    <UiMessageAlert/>
+    <UiNotificationAlert/>
+
     <div class="secits-footer">
         @GenerateLayoutFooter()
     </div>
+    
 </div>
 
 @code
 {
-    RenderFragment GenerateLayoutHeader() => __builder => { };
+    RenderFragment GenerateLayoutLftMenu() =>
+        __builder =>
+        {
+            <MainMenu/>
+        };
+    RenderFragment GenerateLayoutRhtMenu() => __builder => { };
     RenderFragment GenerateLayoutFooter() => __builder => { };
 }

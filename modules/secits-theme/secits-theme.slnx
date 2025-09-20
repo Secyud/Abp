@@ -21,4 +21,7 @@
     <Project Path="src\Secyud.Abp.AspNetCore.Components.Web.SecitsTheme\Secyud.Abp.AspNetCore.Components.Web.SecitsTheme.csproj" />
     <Project Path="src\Secyud.Abp.AspNetCore.Components.WebAssembly.SecitsTheme\Secyud.Abp.AspNetCore.Components.WebAssembly.SecitsTheme.csproj" />
   </Folder>
+  <Folder Name="/test/">
+    <Project Path="test\Secyud.Abp.AspNetCore.Components.Test\Secyud.Abp.AspNetCore.Components.Test.csproj" Type="Classic C#" />
+  </Folder>
 </Solution>

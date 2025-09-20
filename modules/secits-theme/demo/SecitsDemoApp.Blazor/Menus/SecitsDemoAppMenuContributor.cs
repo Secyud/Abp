@@ -14,8 +14,11 @@ public class SecitsDemoAppMenuContributor : IMenuContributor
 
     private Task ConfigureMainMenuAsync(MenuConfigurationContext context)
     {
-        //Add main menu items.
-        context.Menu.AddItem(new ApplicationMenuItem(SecitsDemoAppMenus.Prefix, displayName: "SecitsDemoApp", "/SecitsDemoApp", icon: "fa fa-globe"));
+        
+        context.Menu.AddItem(new ApplicationMenuItem(SecitsDemoAppMenus.Prefix, displayName: "Test1", "/", icon: "fa fa-globe"));
+        context.Menu.AddItem(new ApplicationMenuItem("Test2", displayName: "Test2", "/", icon: "fa fa-globe")
+            .AddItem(new ApplicationMenuItem("Test3", displayName: "Test3", "/", icon: "fa fa-globe"))
+        );
 
         return Task.CompletedTask;
     }

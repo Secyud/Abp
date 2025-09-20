@@ -1,0 +1,89 @@
+﻿@using Secyud.Secits.Blazor.Element
+@using Volo.Abp.UI.Navigation
+@inherits Volo.Abp.AspNetCore.Components.AbpComponentBase
+
+@if (Menu is not null)
+{
+    @foreach (var menuItem in Menu.Items.Where(x => x.MenuItem.GroupName.IsNullOrWhiteSpace()))
+    {
+        <li class="outer-menu-item">
+            @GenerateMenuItemTree(menuItem)
+        </li>
+    }
+
+    @foreach (var group in Menu.Menu.Groups)
+    {
+        var menuItems = Menu.Items.Where(x => x.MenuItem.GroupName == group.Name).ToList();
+        if (menuItems.Any())
+        {
+            <li class="group-menu-item ">
+                @group.Name
+            </li>
+            @foreach (var menuItem in menuItems)
+            {
+                <li class="outer-menu-item">
+                    @GenerateMenuItemTree(menuItem)
+                </li>
+            }
+        }
+    }
+}
+
+
+@code{
+
+    protected virtual RenderFragment GenerateMenuItemTree(MenuItemViewModel model)
+    {
+        return __builder =>
+        {
+            @GenerateMenuItemOrCustom(model)
+
+            @if (!model.MenuItem.IsLeaf)
+            {
+                <ul id="@model.MenuItem.ElementId"
+                    class="secits-inner-menu @(model.IsOpen ? "" : "collapsed") @model.MenuItem.CssClass">
+                    @foreach (var child in model.Children)
+                    {
+                        <li class="secits-inner-menu-item">
+                            @GenerateMenuItemTree(child)
+                        </li>
+                    }
+                </ul>
+            }
+        };
+    }
+
+    protected virtual RenderFragment GenerateMenuItemOrCustom(MenuItemViewModel model)
+    {
+        var customComponentType = model.MenuItem.GetComponentTypeOrDefault();
+        if (customComponentType is not null)
+        {
+            if (!model.MenuItem.IsLeaf)
+            {
+                return @<DynamicComponent Type="@customComponentType" @onclick="@(() => ToggleMenuAsync(model))"/>;
+            }
+
+            if (typeof(ComponentBase).IsAssignableFrom(customComponentType))
+            {
+                return @<DynamicComponent Type="@customComponentType"/>;
+            }
+        }
+
+        return GenerateMenuItem(model);
+    }
+
+
+    protected virtual RenderFragment GenerateMenuItemInner(ApplicationMenuItem item) =>
+        __builder =>
+        {
+            if (!item.Icon.IsNullOrEmpty())
+            {
+                @<span class="secits-menu-item-icon">
+                    <SIcon IconName="@item.Icon"/>
+                </span>
+            }
+
+            <span class="secits-menu-item-text">@item.DisplayName</span>
+        };
+
+}

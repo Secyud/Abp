@@ -1,20 +1,22 @@
 <Project>
-    <Import Project="..\secyud.props"/>
-    <Import Project=".\version.props"/>
-
+    
     <PropertyGroup>
         <PackageOutputPath>../../../../$(PackageOutputPath)</PackageOutputPath>
         <RootNamespace/>
         <NoWarn>$(NoWarn);CS1591</NoWarn>
         <Version>9.0.0</Version>
+        <TargetFramework>net9.0</TargetFramework>
         <ReferenceType>Package</ReferenceType>
         <ReferenceType>Project</ReferenceType>
     </PropertyGroup>
+    
+    <Import Project="..\secyud.props"/>
+    <Import Project=".\version.props"/>
 
     <Target Name="NoWarnOnRazorViewImportedTypeConflicts" BeforeTargets="RazorCoreCompile">
         <PropertyGroup>
             <NoWarn>$(NoWarn);0436</NoWarn>
         </PropertyGroup>
     </Target>
-    
+
 </Project>

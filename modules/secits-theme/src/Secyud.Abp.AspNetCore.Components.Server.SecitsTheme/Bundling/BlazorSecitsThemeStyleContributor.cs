@@ -1,16 +1,14 @@
-﻿
-using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
+﻿using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
 
-namespace Secyud.Abp.AspNetCore.Bundling
+namespace Secyud.Abp.AspNetCore.Bundling;
+
+public class BlazorSecitsThemeStyleContributor : BundleContributor
 {
-    public class BlazorSecitsThemeStyleContributor : BundleContributor
+    private const string RootPath = "/_content/Secyud.Abp.AspNetCore.Components.Web.SecitsTheme";
+
+    public override Task ConfigureBundleAsync(BundleConfigurationContext context)
     {
-        private const string RootPath = "/_content/Secyud.Abp.AspNetCore.Components.Web.SecitsTheme";
-
-        public override Task ConfigureBundleAsync(BundleConfigurationContext context)
-        {
-
-            return Task.CompletedTask;
-        }
+        context.Files.AddIfNotContains(RootPath + "/secits.theme.css");
+        return Task.CompletedTask;
     }
 }
