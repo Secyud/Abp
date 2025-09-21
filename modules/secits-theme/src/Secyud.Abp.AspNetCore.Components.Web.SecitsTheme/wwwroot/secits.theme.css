@@ -1,0 +1,200 @@
+.abp-application-layout {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+.sc-body {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    background: var(--s-c-bg);
+
+    > .sc-lft-menu, > .sc-rht-menu {
+        background: var(--s-c-card);
+        z-index: 12;
+        position: absolute;
+        display: table;
+        top: 0;
+        height: 100%;
+        transition: 500ms;
+        padding-top: calc(var(--s-s) * 2);
+
+        box-shadow: 0 0 0.2rem rgba(var(--s-c-bg-r-rgb), 0.5);
+
+        &.fixed {
+            position: static;
+        }
+
+        .layout-menu-pin {
+            --opacity: 0;
+            --gap:calc(var(--s-s) / 4);
+            position: fixed;
+            padding: calc(var(--s-s) / 3);
+            top: var(--gap);
+            width: var(--s-s);
+            height: var(--s-s);
+            border-radius: 20%;
+            color: color-mix(in srgb, var(--s-c) 20%, var(--s-c-bg-t));
+            background-color: rgba(var(--s-c-rgb), var(--opacity));
+            transition: 50ms;
+
+            > span {
+                display: flex;
+            }
+
+            &:hover {
+                --opacity: 0.1;
+            }
+        }
+    }
+
+    > .sc-lft-menu {
+        left: -100%;
+        min-width: 128px;
+
+        &:hover, &:has(.layout-menu-pin:hover) {
+            left: 0;
+        }
+
+        .layout-menu-pin {
+            left: var(--gap);
+        }
+    }
+
+    > .sc-rht-menu {
+        right: -100%;
+
+        &:hover, &:has(.layout-menu-pin:hover) {
+            right: 0;
+        }
+
+        .layout-menu-pin {
+            right: var(--gap);
+        }
+    }
+
+    > .sc-container {
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+
+
+        &::-webkit-scrollbar {
+            width: 6px; /* 滚动条宽度 */
+        }
+
+        /* 滚动条轨道 */
+        &::-webkit-scrollbar-track {
+            background: var(--s-c-disabled); /* 背景颜色 */
+            border-radius: 3px; /* 圆角 */
+        }
+
+        /* 滚动条滑块 */
+        &::-webkit-scrollbar-thumb {
+            background: rgba(var(--s-c-rgb), 0.6) ; /* 滑块颜色 */
+            border-radius: 3px; /* 圆角 */
+        }
+
+        /* 滑块悬停效果 */
+        &::-webkit-scrollbar-thumb:hover {
+            background: var(--s-c); /* 悬停时颜色 */
+        }
+    }
+
+}
+
+.sc-router-tabs.s-tab-tags {
+    position: sticky;
+    top: 0;
+    box-shadow: 0 0 0.2rem rgba(var(--s-c-bg-r-rgb), 0.25);
+    background: var(--s-c-bg);
+    margin: 0;
+    padding: 0 calc(var(--s-s) * 2);;
+    overflow-x: auto;
+
+    > .s-tab-tag {
+        --color : color-mix(in srgb, var(--s-c) 20%, var(--s-c-bg-t));
+        background-color: var(--border-color);
+        border-color: transparent;
+        color: var(--color);
+        display: flex;
+        >.tab-text{
+            margin: 0 calc(var(--s-s) / 4);
+        }
+
+        .icon{
+            --opacity: 0.1;
+            color: rgba(var(--s-c-rgb), var(--opacity));
+
+            &:hover {
+                --opacity: 0.5 !important;
+            }
+            &:active{
+                --opacity: 1 !important;
+            }
+        }
+
+        &.selected {
+            --opacity: 0.1 !important;
+        }
+
+        &:hover {
+            --opacity: 0.2 !important;
+        }
+    }
+}
+
+.sc-main-menu {
+    margin: calc(var(--s-s) / 2);
+    color: color-mix(in srgb, var(--s-c) 20%, var(--s-c-bg-t));
+
+    .sc-inner-menu {
+        padding-inline-start: 5px;
+
+        &.collapsed {
+            display: none;
+        }
+    }
+
+    .sc-outer-menu-item, .sc-inner-menu-item, .sc-group-menu-item {
+    }
+
+    .sc-menu-item {
+        text-decoration: none;
+        color: inherit;
+        cursor: pointer;
+        font-size: var(--s-s);
+        width: 95%;
+        margin: calc(var(--s-s) / 4);
+        padding: calc(var(--s-s) / 4);
+        --opacity: 0;
+        background: rgba(var(--s-c-rgb), var(--opacity));
+        display: flex;
+
+        &:hover {
+            --opacity: 0.1;
+        }
+
+        &.selected {
+            --opacity: 0.05;
+        }
+
+        .icon {
+            display: inline-block;
+        }
+
+        > .sc-menu-item-icon {
+        }
+
+        > .sc-menu-item-text {
+            min-width: 128px;
+            margin: 0 5px;
+        }
+
+        > .sc-menu-item-edge {
+        }
+    }
+}

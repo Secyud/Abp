@@ -1,6 +1,7 @@
 ﻿using SecitsDemoApp.Menus;
 using Secyud.Abp.AspNetCore;
 using Secyud.Abp.AspNetCore.Components.Routing;
+using Secyud.Secits.Blazor;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.AutoMapper;
@@ -20,6 +21,7 @@ public class SecitsDemoAppBlazorModule : AbpModule
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         context.Services.AddAutoMapperObjectMapper<SecitsDemoAppBlazorModule>();
+        context.Services.AddSecitsFontAwesome();
 
         Configure<AbpAutoMapperOptions>(options => { options.AddProfile<SecitsDemoAppBlazorAutoMapperProfile>(validate: true); });
 

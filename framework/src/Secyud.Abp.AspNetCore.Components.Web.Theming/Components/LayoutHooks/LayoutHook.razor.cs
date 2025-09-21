@@ -7,15 +7,15 @@ namespace Secyud.Abp.AspNetCore.Components.Components;
 public partial class LayoutHook : ComponentBase
 {
     [Parameter]
-    public string Name { get; set; } = default!;
+    public string Name { get; set; } = null!;
     
     [Parameter]
     public string? Layout { get; set; }
 
     [Inject]
-    protected IOptions<AbpLayoutHookOptions> LayoutHookOptions { get; set; } = default!;
+    protected IOptions<AbpLayoutHookOptions> LayoutHookOptions { get; set; } = null!;
 
-    protected LayoutHookViewModel LayoutHookViewModel { get; private set; } = default!;
+    protected LayoutHookViewModel LayoutHookViewModel { get; private set; } = null!;
 
     protected override Task OnInitializedAsync()
     {
@@ -26,7 +26,7 @@ public partial class LayoutHook : ComponentBase
                 .ToList();
         }
 
-        layoutHooks ??= new List<LayoutHookInfo>();
+        layoutHooks ??= [];
         
         LayoutHookViewModel = new LayoutHookViewModel(layoutHooks.ToArray(), Layout);
         

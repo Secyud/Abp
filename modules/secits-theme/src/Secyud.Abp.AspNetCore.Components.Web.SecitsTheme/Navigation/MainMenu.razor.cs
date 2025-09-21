@@ -7,7 +7,7 @@ using Volo.Abp.AspNetCore.Components.Web.Security;
 
 namespace Secyud.Abp.AspNetCore.Navigation;
 
-public partial class MainMenu : IDisposable
+public partial class MainMenu
 {
     [Inject]
     protected IIconProvider IconProvider { get; set; } = null!;
@@ -26,16 +26,21 @@ public partial class MainMenu : IDisposable
     private void MenuStateChanged(object? sender, EventArgs e)
     {
         if (Menu is null) return;
+        var currentItem = PageRouterManager.CurrentItem;
 
-        var menuItem = FindMenuItemByRouterItem(
-            PageRouterManager.CurrentItem);
+        var menuItem = FindMenuItemByRouterItem(currentItem);
 
         if (menuItem is null)
         {
             Menu.DeactivateAll();
         }
-        else
+        else if (currentItem is not null)
         {
+            if (menuItem.MenuItem.DisplayName != currentItem.DisplayName)
+            {
+                currentItem.DisplayNameGetter = () => menuItem.MenuItem.DisplayName;
+            }
+
             Menu.Activate(menuItem);
         }
 
@@ -97,17 +102,10 @@ public partial class MainMenu : IDisposable
         }
         else if (routerItem.Key != "#")
         {
-            menuItem = Menu.LeafItems.FirstOrDefault(
-                u => u.MenuItem.Name == routerItem.Key);
+            menuItem = Menu.LeafItems.FirstOrDefault(u => u.MenuItem.Name == routerItem.Key);
         }
 
         return menuItem;
-    }
-
-    public void Dispose()
-    {
-        PageRouterManager.StateChanged -= MenuStateChanged;
-        ApplicationConfigurationChangedService.Changed -= ApplicationConfigurationChanged;
     }
 
     protected virtual RenderFragment GenerateMenuItem(MenuItemViewModel model)
@@ -117,10 +115,10 @@ public partial class MainMenu : IDisposable
         return builder =>
         {
             builder.OpenElement(0, "a");
-            var cssClass = "secits-menu-item";
+            var cssClass = "sc-menu-item";
             if (item.IsLeaf)
             {
-                var url = item.Url == null ? "#" : item.Url.TrimStart('/', '~');
+                var url = item.Url is null ? "#" : item.Url.TrimStart('/', '~');
                 builder.AddAttribute(1, "href", url);
                 builder.AddAttribute(2, "target", item.Target);
                 builder.AddAttribute(3, "id", item.ElementId);
@@ -134,16 +132,16 @@ public partial class MainMenu : IDisposable
             {
                 builder.AddAttribute(1, "onclick", () => ToggleMenuAsync(model));
                 builder.AddEventPreventDefaultAttribute(2, "onclick", true);
-                if (model.IsActive || model.IsOpen)
-                    cssClass += " selected";
+                if (model.IsActive || model.IsOpen) cssClass += " selected";
             }
 
             builder.AddAttribute(4, "class", cssClass);
             builder.AddContent(5, GenerateMenuItemInner(item));
-            builder.OpenComponent<SIcon>(6);
-            builder.AddComponentParameter(7, "Class", "secits-menu-item-edge");
-            builder.AddComponentParameter(8, "IconName", IconProvider.GetIcon(model.IsOpen ? IconName.Asc : IconName.Desc));
-            builder.CloseElement();
+            if (!item.IsLeaf)
+            {
+                builder.AddContent(6, GenerateMenuItemDrop(model));
+            }
+
             builder.CloseElement();
         };
     }
@@ -155,5 +153,11 @@ public partial class MainMenu : IDisposable
             Menu.ToggleOpen(model);
             await InvokeAsync(StateHasChanged);
         }
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        PageRouterManager.StateChanged -= MenuStateChanged;
+        ApplicationConfigurationChangedService.Changed -= ApplicationConfigurationChanged;
     }
 }

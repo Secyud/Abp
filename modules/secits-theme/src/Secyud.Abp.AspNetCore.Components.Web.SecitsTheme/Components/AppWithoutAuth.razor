@@ -9,7 +9,9 @@
 <Router AppAssembly="RouterOptions.Value.AppAssembly"
         AdditionalAssemblies="RouterOptions.Value.AdditionalAssemblies">
     <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)"/>
+        <CascadingValue Value="routeData">
+            <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)"/>
+        </CascadingValue>
     </Found>
     <NotFound>
         <LayoutView Layout="@typeof(MainLayout)">

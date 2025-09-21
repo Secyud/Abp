@@ -8,6 +8,14 @@
     <PropertyGroup>
         <RootNamespace>SecitsDemoApp</RootNamespace>
     </PropertyGroup>
+    
+    <ItemGroup Condition="'$(ReferenceType)' == 'Package'">
+        <PackageReference Include="Secyud.Secits.Blazor.Icons.FontAwesome" Version="$(SecitVersion)"/>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(ReferenceType)' == 'Project'">
+        <ProjectReference Include="$(SecitsSrc)/Secyud.Secits.Blazor.Icons.FontAwesome/Secyud.Secits.Blazor.Icons.FontAwesome.csproj"/>
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Serilog.Extensions.Hosting" Version="9.0.0" />

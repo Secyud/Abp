@@ -1,33 +1,35 @@
-﻿@using Secyud.Secits.Blazor.Element
+﻿@using Secyud.Secits.Blazor.Icons
 @using Volo.Abp.UI.Navigation
 @inherits Volo.Abp.AspNetCore.Components.AbpComponentBase
 
-@if (Menu is not null)
-{
-    @foreach (var menuItem in Menu.Items.Where(x => x.MenuItem.GroupName.IsNullOrWhiteSpace()))
+<div class="sc-main-menu">
+    @if (Menu is not null)
     {
-        <li class="outer-menu-item">
-            @GenerateMenuItemTree(menuItem)
-        </li>
-    }
-
-    @foreach (var group in Menu.Menu.Groups)
-    {
-        var menuItems = Menu.Items.Where(x => x.MenuItem.GroupName == group.Name).ToList();
-        if (menuItems.Any())
+        @foreach (var menuItem in Menu.Items.Where(x => x.MenuItem.GroupName.IsNullOrWhiteSpace()))
         {
-            <li class="group-menu-item ">
-                @group.Name
-            </li>
-            @foreach (var menuItem in menuItems)
+            <div class="sc-outer-menu-item">
+                @GenerateMenuItemTree(menuItem)
+            </div>
+        }
+
+        @foreach (var group in Menu.Menu.Groups)
+        {
+            var menuItems = Menu.Items.Where(x => x.MenuItem.GroupName == group.Name).ToList();
+            if (menuItems.Any())
             {
-                <li class="outer-menu-item">
-                    @GenerateMenuItemTree(menuItem)
-                </li>
+                <div class="sc-group-menu-item ">
+                    @group.DisplayName
+                </div>
+                @foreach (var menuItem in menuItems)
+                {
+                    <div class="sc-outer-menu-item">
+                        @GenerateMenuItemTree(menuItem)
+                    </div>
+                }
             }
         }
     }
-}
+</div>
 
 
 @code{
@@ -40,15 +42,15 @@
 
             @if (!model.MenuItem.IsLeaf)
             {
-                <ul id="@model.MenuItem.ElementId"
-                    class="secits-inner-menu @(model.IsOpen ? "" : "collapsed") @model.MenuItem.CssClass">
+                <div id="@model.MenuItem.ElementId"
+                     class="sc-inner-menu @(model.IsOpen ? "" : "collapsed") @model.MenuItem.CssClass">
                     @foreach (var child in model.Children)
                     {
-                        <li class="secits-inner-menu-item">
+                        <div class="sc-inner-menu-item">
                             @GenerateMenuItemTree(child)
-                        </li>
+                        </div>
                     }
-                </ul>
+                </div>
             }
         };
     }
@@ -78,12 +80,30 @@
         {
             if (!item.Icon.IsNullOrEmpty())
             {
-                @<span class="secits-menu-item-icon">
+                <div class="sc-menu-item-icon">
                     <SIcon IconName="@item.Icon"/>
-                </span>
+                </div>
             }
 
-            <span class="secits-menu-item-text">@item.DisplayName</span>
+            <div class="sc-menu-item-text">@item.DisplayName</div>
         };
+
+    protected virtual RenderFragment GenerateMenuItemDrop(MenuItemViewModel model)
+    {
+        var iconName = IconProvider.GetIcon(model.IsOpen ? IconName.DownAngle : IconName.UpAngle);
+
+        if (model.IsOpen)
+        {
+            return
+                @<o class="sc-menu-item-edge">
+                    <SIcon IconName="@iconName"/>
+                </o>;
+        }
+
+        return
+            @<c class="sc-menu-item-edge">
+                <SIcon IconName="@iconName"/>
+            </c>;
+    }
 
 }

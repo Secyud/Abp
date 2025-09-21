@@ -25,11 +25,11 @@ public partial class UiMessageAlert : IDisposable
     protected virtual object? MessageIcon =>
         Options?.MessageIcon ?? MessageType switch
         {
-            UiMessageType.Info => IconName.Info,
-            UiMessageType.Success => IconName.Success,
-            UiMessageType.Warning => IconName.Warning,
-            UiMessageType.Error => IconName.Error,
-            UiMessageType.Confirmation => IconName.Confirmation,
+            UiMessageType.Info => IconName.Exclamation,
+            UiMessageType.Success => IconName.Check,
+            UiMessageType.Warning => IconName.Exclamation,
+            UiMessageType.Error => IconName.Cross,
+            UiMessageType.Confirmation => IconName.Question,
             _ => null,
         };
 

@@ -1,35 +1,55 @@
-﻿@using Secyud.Abp.AspNetCore.Components.Components
-@using Secyud.Abp.AspNetCore.Navigation
+﻿@using Secyud.Abp.AspNetCore.Navigation
 @using Secyud.Abp.Secits.Blazor.Components
 @inherits LayoutComponentBase
 
-<div class="secits-body">
+<div class="sc-body">
 
-    <div class="@LftMenuClass()">
+    <LayoutMenu Class="sc-lft-menu">
         @GenerateLayoutLftMenu()
+    </LayoutMenu>
+
+    <div class="sc-container">
+        <ErrorBoundary>
+            <ChildContent>
+                @if (SectsThemeOptions.Value.UseApplicationTabs)
+                {
+                    <TabRouterView/>
+                }
+                else
+                {
+                    <LayoutHook Name="@Volo.Abp.Ui.LayoutHooks.LayoutHooks.Body.First"
+                                Layout="@StandardLayouts.Application"/>
+                    @Body
+                    <LayoutHook Name="@Volo.Abp.Ui.LayoutHooks.LayoutHooks.Body.Last"
+                                Layout="@StandardLayouts.Application"/>
+                    <DynamicLayoutComponent/>
+                }
+            </ChildContent>
+            <ErrorContent>
+                <div class="sc-error-content">
+                    <a class="help-link" href="@context.HelpLink"> @context.HelpLink</a>
+                    <div class="error-message">
+                        @context.Message
+                    </div>
+                    <div class="stack-trace">
+                        @context.StackTrace
+                    </div>
+                </div>
+            </ErrorContent>
+        </ErrorBoundary>
+
+        <div class="sc-footer">
+            @GenerateLayoutFooter()
+        </div>
     </div>
 
-    <div class="@RhtMenuClass()">
+    <LayoutMenu Class="sc-rht-menu">
         @GenerateLayoutRhtMenu()
-    </div>
+    </LayoutMenu>
 
-    <div class="secits-container">
-        <LayoutHook Name="@Volo.Abp.Ui.LayoutHooks.LayoutHooks.Body.First"
-                    Layout="@StandardLayouts.Application"/>
-        @Body
-        <LayoutHook Name="@Volo.Abp.Ui.LayoutHooks.LayoutHooks.Body.Last"
-                    Layout="@StandardLayouts.Application"/>
-        <DynamicLayoutComponent/>
-    </div>
-    
     <UiPageProgress/>
     <UiMessageAlert/>
     <UiNotificationAlert/>
-
-    <div class="secits-footer">
-        @GenerateLayoutFooter()
-    </div>
-    
 </div>
 
 @code
@@ -39,6 +59,7 @@
         {
             <MainMenu/>
         };
+
     RenderFragment GenerateLayoutRhtMenu() => __builder => { };
     RenderFragment GenerateLayoutFooter() => __builder => { };
 }

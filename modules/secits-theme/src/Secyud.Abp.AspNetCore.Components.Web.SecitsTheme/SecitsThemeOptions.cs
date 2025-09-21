@@ -9,6 +9,8 @@ public class SecitsThemeOptions
     /// </summary>
     public string DefaultStyle { get; set; } = SecitsStyleNames.System;
 
+    public bool UseApplicationTabs { get; set; } = true;
+
     public SecitsThemeStyle GetDefaultStyle()
     {
         if (string.IsNullOrEmpty(DefaultStyle) || !Styles.TryGetValue(DefaultStyle, out var style))
