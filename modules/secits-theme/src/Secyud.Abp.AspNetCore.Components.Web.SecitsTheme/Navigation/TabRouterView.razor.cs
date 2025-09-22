@@ -45,7 +45,9 @@ public partial class TabRouterView
     protected void OnLocationChanged(object? sender, LocationChangedEventArgs args)
     {
         if (RouteData is not null)
+        {
             PageRouterManager.ActivatePageRouteItem(RouteData, NavigationManager.Uri);
+        }
     }
 
     protected async void ViewStateChanged(object? sender, EventArgs args)
@@ -67,7 +69,7 @@ public partial class TabRouterView
     {
         PageRouterManager.RemovePageRouteItem(item);
     }
-    
+
     protected Func<string> CreateDisplayNameGetter(PageRouterItem item)
     {
         var resourceType = item.ResourceType ?? typeof(AbpUiResource);
@@ -77,6 +79,11 @@ public partial class TabRouterView
             var l = lazy.Value;
             return item.Name is null ? l["NewPage"] : l[item.Name, item.Parameters.Select(u => l[u])];
         };
+    }
+
+    protected void NavigateTo(Uri uri)
+    {
+        NavigationManager.NavigateTo(uri.ToString());
     }
 
     protected override void Dispose(bool disposing)

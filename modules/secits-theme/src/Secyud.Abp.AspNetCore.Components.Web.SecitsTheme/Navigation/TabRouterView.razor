@@ -23,11 +23,11 @@
 
         return __builder =>
         {
-            <Tab Key="@item.Id">
+            <Tab Key="@item.Id" PreventDefaultClick Click="() => NavigateTo(item.Uri)">
                 <Tag>
                     <span class="tab-text">@item.DisplayName</span>
-                    <SIcon IconName="@IconProvider.GetIcon(IconName.Cross)" 
-                           Click="() => CloseTabAsync(item)"></SIcon>
+                    <SIcon IconName="@IconProvider.GetIcon(IconName.Cross)" Class="anim"
+                           Click="() => CloseTabAsync(item)"/>
                 </Tag>
                 <Content>
                     <PageRouterView Item="item"></PageRouterView>
