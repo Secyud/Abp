@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Secyud.Abp.AspNetCore.Styles;
 using Secyud.Secits.Blazor.Options;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers;
 using Volo.Abp.Localization;
@@ -24,7 +25,7 @@ public class SecitsThemeStylesTagHelper : AbpTagHelper
 
         var leptonXStyleProvider = ViewContext.HttpContext.RequestServices.GetRequiredService<SecitsStyleProvider>();
         var urlHelper = ViewContext.GetUrlHelper();
-        var selectedStyle = await leptonXStyleProvider.GetSelectedStyleAsync();
+        var selectedStyle = await leptonXStyleProvider.GetCurrentStyleAsync();
         var options = ViewContext.HttpContext.RequestServices.GetRequiredService<IOptions<SecitsThemeOptions>>().Value;
 
         var option = new SecitsThemeParam();

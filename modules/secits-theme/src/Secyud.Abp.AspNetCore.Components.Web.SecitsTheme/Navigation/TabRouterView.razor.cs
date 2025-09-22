@@ -28,7 +28,8 @@ public partial class TabRouterView
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        PageRouterManager.StateChanged += ViewStateChanged;
+        PageRouterManager.RouterItemActivated += OnRouterItemActivated;
+        PageRouterManager.RouterItemRemoved += OnRouterItemRemoved;
         NavigationManager.LocationChanged += OnLocationChanged;
     }
 
@@ -50,7 +51,7 @@ public partial class TabRouterView
         }
     }
 
-    protected async void ViewStateChanged(object? sender, EventArgs args)
+    protected async void OnRouterItemActivated(object? sender, EventArgs args)
     {
         try
         {
@@ -63,6 +64,11 @@ public partial class TabRouterView
         {
             await HandleErrorAsync(e);
         }
+    }
+
+    protected void OnRouterItemRemoved(object? sender, EventArgs args)
+    {
+        NavigationManager.NavigateTo(PageRouterManager.CurrentItem?.Uri.ToString() ?? "/");
     }
 
     protected void CloseTabAsync(PageRouterItem item)
@@ -88,7 +94,8 @@ public partial class TabRouterView
 
     protected override void Dispose(bool disposing)
     {
-        PageRouterManager.StateChanged -= ViewStateChanged;
+        PageRouterManager.RouterItemActivated -= OnRouterItemActivated;
+        PageRouterManager.RouterItemRemoved -= OnRouterItemRemoved;
         NavigationManager.LocationChanged -= OnLocationChanged;
     }
 }

@@ -2,6 +2,7 @@
   <Folder Name="/demo/">
     <Project Path="demo\SecitsDemoApp.Application.Contracts\SecitsDemoApp.Application.Contracts.csproj" />
     <Project Path="demo\SecitsDemoApp.Application\SecitsDemoApp.Application.csproj" />
+    <Project Path="demo\SecitsDemoApp.Blazor.Server\SecitsDemoApp.Blazor.Server.csproj" Type="Classic C#" />
     <Project Path="demo\SecitsDemoApp.Blazor.WebAssembly\SecitsDemoApp.Blazor.WebAssembly.csproj" />
     <Project Path="demo\SecitsDemoApp.Blazor\SecitsDemoApp.Blazor.csproj" />
     <Project Path="demo\SecitsDemoApp.Domain.Shared\SecitsDemoApp.Domain.Shared.csproj" />

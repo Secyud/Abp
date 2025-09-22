@@ -1,15 +1,14 @@
-﻿namespace Secyud.Abp.AspNetCore.Bundling
-{
-    public class BlazorSecitsThemeBundles
-    {
-        public static class Styles
-        {
-            public static string Global = "Blazor.Secits.Global";
-        }
+﻿namespace Secyud.Abp.AspNetCore.Bundling;
 
-        public static class Scripts
-        {
-            public static string Global = "Blazor.Secits.Global";
-        }
+public class BlazorSecitsThemeBundles
+{
+    public static class Styles
+    {
+        public static string Global = "Blazor.Secits.Global";
+    }
+
+    public static class Scripts
+    {
+        public static string Global = "Blazor.Secits.Global";
     }
 }

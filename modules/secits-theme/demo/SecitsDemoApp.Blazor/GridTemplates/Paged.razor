@@ -1,0 +1,29 @@
+﻿@attribute [Route(AppMenus.Grid.PagedUri)]
+@inherits ThemedPageBase
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+<SCard Theme="Theme" Size="Size">
+    <Body>
+    <SGrid TValue="ListDemoItem" Class="outline" DisableFooter>
+        <StaticDataSource Items="_items"/>
+        <EnableIteratorPager/>
+        <EnableColumnResize/>
+        <GridColumn Caption="@nameof(ListDemoItem.Name)" Width="200"
+                    Field="@(item => item.Name)" Position="ColumnPosition.Front"/>
+        <GridColumn Caption="@nameof(ListDemoItem.PhoneNumber)" Width="200"
+                    Field="@(item => item.PhoneNumber)"/>
+        <GridColumn Caption="@nameof(ListDemoItem.Age)" Width="50"
+                    Field="@(item => item.Age)"/>
+        <GridColumn Caption="@nameof(ListDemoItem.BirthDate)" Width="512"
+                    Field="@(item => item.BirthDate)" Position="ColumnPosition.Behind"
+                    Format="yyyy MM dd hh mm ss"/>
+    </SGrid>
+    </Body>
+</SCard>
+
+@code{
+    private readonly List<ListDemoItem> _items = ListDemoItem.Generate(200);
+}

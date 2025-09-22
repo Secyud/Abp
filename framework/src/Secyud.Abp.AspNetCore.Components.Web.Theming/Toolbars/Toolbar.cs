@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-using Volo.Abp;
+﻿using Volo.Abp;
 
 namespace Secyud.Abp.AspNetCore.Components.Toolbars;
 
@@ -9,7 +8,7 @@ public class Toolbar
 
     public List<ToolbarItem> Items { get; }
 
-    public Toolbar([NotNull] string name)
+    public Toolbar(string name)
     {
         Name = Check.NotNull(name, nameof(name));
         Items = new List<ToolbarItem>();

@@ -1,0 +1,22 @@
+﻿<div class="sc-main-toolbar">
+
+    @if (ToolbarItems.Count > 0)
+    {
+        <div class="toolbar">
+            @foreach (var item in ToolbarItems)
+            {
+                <DynamicComponent Type="@item.ComponentType"/>
+            }
+        </div>
+    }
+    @if (FixedToolbarItems.Count > 0)
+    {
+        <div class="fixed-toolbar">
+            @foreach (var item in FixedToolbarItems)
+            {
+                <DynamicComponent Type="@item.ComponentType"/>
+            }
+        </div>
+    }
+
+</div>

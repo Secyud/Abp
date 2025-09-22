@@ -1,7 +1,8 @@
 ﻿@using Secyud.Abp.AspNetCore.Navigation
+@using Secyud.Abp.AspNetCore.Styles
+@using Secyud.Abp.AspNetCore.Toolbars
 @using Secyud.Abp.Secits.Blazor.Components
 @inherits LayoutComponentBase
-
 <div class="sc-body">
 
     <LayoutMenu Class="sc-lft-menu">
@@ -46,11 +47,11 @@
     <LayoutMenu Class="sc-rht-menu">
         @GenerateLayoutRhtMenu()
     </LayoutMenu>
-
-    <UiPageProgress/>
-    <UiMessageAlert/>
-    <UiNotificationAlert/>
 </div>
+
+<UiPageProgress/>
+<UiMessageAlert/>
+<UiNotificationAlert/>
 
 @code
 {
@@ -60,6 +61,11 @@
             <MainMenu/>
         };
 
-    RenderFragment GenerateLayoutRhtMenu() => __builder => { };
+    RenderFragment GenerateLayoutRhtMenu() =>
+        __builder =>
+        {
+            <MainToolbar/>
+        };
+
     RenderFragment GenerateLayoutFooter() => __builder => { };
 }

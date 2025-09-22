@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Secyud.Secits.Blazor.Element;
 using Secyud.Secits.Blazor.Icons;
 using Secyud.Secits.Blazor.PageRouters;
 using Volo.Abp.AspNetCore.Components.Web.Security;
@@ -22,6 +21,9 @@ public partial class MainMenu
     protected ApplicationConfigurationChangedService ApplicationConfigurationChangedService { get; set; } = null!;
 
     protected MenuViewModel? Menu { get; set; }
+
+    protected string? UpIcon { get; set; }
+    protected string? DownIcon { get; set; }
 
     private void MenuStateChanged(object? sender, EventArgs e)
     {
@@ -49,10 +51,13 @@ public partial class MainMenu
 
     protected override async Task OnInitializedAsync()
     {
+        UpIcon = IconProvider.GetIcon(IconName.UpAngle);
+        DownIcon = IconProvider.GetIcon(IconName.DownAngle);
+
         Menu = await MainMenuProvider.GetMenuAsync();
         ApplicationConfigurationChangedService.Changed +=
             ApplicationConfigurationChanged;
-        PageRouterManager.StateChanged += MenuStateChanged;
+        PageRouterManager.RouterItemActivated += MenuStateChanged;
     }
 
     private async void ApplicationConfigurationChanged()
@@ -97,7 +102,7 @@ public partial class MainMenu
                 var menuUri = uriStr.StartsWith("http")
                     ? new Uri(uriStr)
                     : new Uri(baseUri, uriStr);
-                return menuUri.PathAndQuery == uri.PathAndQuery;
+                return 0 == Uri.Compare(menuUri, uri, UriComponents.PathAndQuery, UriFormat.UriEscaped, StringComparison.InvariantCultureIgnoreCase);
             }
         }
         else if (routerItem.Key != "#")
@@ -157,7 +162,7 @@ public partial class MainMenu
 
     protected override void Dispose(bool disposing)
     {
-        PageRouterManager.StateChanged -= MenuStateChanged;
+        PageRouterManager.RouterItemActivated -= MenuStateChanged;
         ApplicationConfigurationChangedService.Changed -= ApplicationConfigurationChanged;
     }
 }

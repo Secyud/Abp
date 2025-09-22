@@ -1,5 +1,6 @@
+
+
 .abp-application-layout {
-    display: grid;
     margin: 0;
     padding: 0;
     height: 100vh;
@@ -8,7 +9,7 @@
 .sc-body {
     position: relative;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     display: flex;
     background: var(--s-c-bg);
 
@@ -66,6 +67,7 @@
 
     > .sc-rht-menu {
         right: -100%;
+        width: 2.3rem;
 
         &:hover, &:has(.layout-menu-pin:hover) {
             right: 0;
@@ -155,9 +157,6 @@
         }
     }
 
-    .sc-outer-menu-item, .sc-inner-menu-item, .sc-group-menu-item {
-    }
-
     .sc-menu-item {
         text-decoration: none;
         color: inherit;
@@ -193,4 +192,34 @@
         > .sc-menu-item-edge {
         }
     }
+}
+
+.sc-main-toolbar {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    > .fixed-toolbar {
+        margin-bottom: 3rem;
+        margin-top: auto;
+    }
+}
+
+.sc-general-setting {
+    > .setting-icon {
+        --component-color-rgb: var(--s-c-rgb);
+        width: var(--s-s);
+        margin: auto;
+    }
+
+    > .sc-context-menu {
+        background-color: var(--s-c-card);
+        border-radius: var(--s-s-br);
+        right: 3rem;
+        bottom: 1rem;
+    }
+}
+
+.sc-context-menu {
+    position: absolute;
 }

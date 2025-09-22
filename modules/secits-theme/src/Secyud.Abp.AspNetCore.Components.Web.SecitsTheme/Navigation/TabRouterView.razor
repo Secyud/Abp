@@ -23,9 +23,9 @@
 
         return __builder =>
         {
-            <Tab Key="@item.Id" PreventDefaultClick Click="() => NavigateTo(item.Uri)">
+            <Tab Key="@item.Id" PreventDefaultClick>
                 <Tag>
-                    <span class="tab-text">@item.DisplayName</span>
+                    <span class="tab-text" @onclick="() => NavigateTo(item.Uri)">@item.DisplayName</span>
                     <SIcon IconName="@IconProvider.GetIcon(IconName.Cross)" Class="anim"
                            Click="() => CloseTabAsync(item)"/>
                 </Tag>

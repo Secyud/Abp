@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Secyud.Abp.Secits.Blazor.Validations;
+﻿namespace Secyud.Abp.Secits.Blazor.Validations;
 
 public interface ISecitsValidationFormatterProvider
 {

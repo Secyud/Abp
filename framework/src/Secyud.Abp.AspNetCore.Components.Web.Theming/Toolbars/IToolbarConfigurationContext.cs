@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Localization;
 using Volo.Abp.DependencyInjection;
 
@@ -17,9 +16,7 @@ public interface IToolbarConfigurationContext : IServiceProviderAccessor
 
     IStringLocalizer? GetDefaultLocalizer();
 
-    [NotNull]
     public IStringLocalizer GetLocalizer<T>();
 
-    [NotNull]
     public IStringLocalizer GetLocalizer(Type resourceType);
 }

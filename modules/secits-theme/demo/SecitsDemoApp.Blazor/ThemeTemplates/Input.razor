@@ -1,0 +1,28 @@
+﻿@attribute [Route(AppMenus.Theme.InputUri)]
+@inherits ThemedPageBase
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+<SCard Theme="Theme" Size="Size">
+    <Header>
+        输入框
+    </Header>
+    <Body>
+    <SFormLayout>
+        <FormLayoutItem Title="default">
+            <TextBox Value="@("default")" Class=""/>
+        </FormLayoutItem>
+        <FormLayoutItem Title="outline">
+            <TextBox Value="@("outline")" Class=" outline"/>
+        </FormLayoutItem>
+        <FormLayoutItem Title="plain">
+            <TextBox Value="@("plain")" Class=" plain"/>
+        </FormLayoutItem>
+        <FormLayoutItem Title="shadow">
+            <TextBox Value="@("shadow")" Class=" shadow"/>
+        </FormLayoutItem>
+    </SFormLayout>
+    </Body>
+</SCard>

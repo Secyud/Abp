@@ -1,27 +1,59 @@
 ﻿@using Microsoft.Extensions.Options
+@using Secyud.Abp.AspNetCore.Styles
 @using Secyud.Secits.Blazor.Options
 @using Volo.Abp.Localization
-@inject SecitsStyleProvider SecitsStyleProvider
+@inject ISecitsStyleProvider SecitsStyleProvider
 @inject IOptions<SecitsThemeOptions> ThemeOptions
 @inject IOptions<SecitsStylesOptions> StylesOptions
+@inject IOptions<SecitsScriptsOptions> ScriptsOptions
+@inherits Volo.Abp.AspNetCore.Components.AbpComponentBase
+@implements IDisposable
 
 @foreach (var path in _styles)
 {
     <link href="@path.Path" id="@path.Id" type="text/css" rel="stylesheet"/>
 }
 
+@foreach (var path in _scripts)
+{
+    <script src="@path.Path" id="@path.Id"></script>
+}
+
 
 @code {
 
+    private readonly List<HtmlPathResource> _scripts = [];
     private readonly List<HtmlPathResource> _styles = [];
 
     protected override async Task OnInitializedAsync()
     {
-        var selectedStyle = await SecitsStyleProvider.GetSelectedStyleAsync();
-        var option = new SecitsThemeParam();
-        ThemeOptions.Value.Styles.GetValueOrDefault(selectedStyle)?.MapTo(option);
-        option.IsRtl = CultureHelper.IsRtl;
-        _styles.AddRange(StylesOptions.Value.Get(option));
+        await base.OnInitializedAsync();
+        RefreshAsync(this, EventArgs.Empty);
+        SecitsStyleProvider.StyleChanged += RefreshAsync;
+    }
+
+    protected async void RefreshAsync(object? sender, EventArgs args)
+    {
+        try
+        {
+            var selectedStyle = await SecitsStyleProvider.GetCurrentStyleAsync();
+            var option = new SecitsThemeParam();
+            ThemeOptions.Value.Styles.GetValueOrDefault(selectedStyle)?.MapTo(option);
+            option.IsRtl = CultureHelper.IsRtl;
+            _scripts.Clear();
+            _scripts.AddRange(StylesOptions.Value.Get(option));
+            _styles.Clear();
+            _styles.AddRange(ScriptsOptions.Value.Get(option));
+        }
+        catch (Exception e)
+        {
+            await HandleErrorAsync(e);
+        }
+    }
+
+    public void Dispose()
+    {
+        SecitsStyleProvider.StyleChanged -= RefreshAsync;
     }
 
 }

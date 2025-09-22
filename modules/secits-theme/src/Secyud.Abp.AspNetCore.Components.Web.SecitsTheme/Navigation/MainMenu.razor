@@ -1,8 +1,7 @@
-﻿@using Secyud.Secits.Blazor.Icons
-@using Volo.Abp.UI.Navigation
+﻿@using Volo.Abp.UI.Navigation
 @inherits Volo.Abp.AspNetCore.Components.AbpComponentBase
 
-<div class="sc-main-menu">
+<div class="sc-main-menu" id="main-menu">
     @if (Menu is not null)
     {
         @foreach (var menuItem in Menu.Items.Where(x => x.MenuItem.GroupName.IsNullOrWhiteSpace()))
@@ -80,9 +79,7 @@
         {
             if (!item.Icon.IsNullOrEmpty())
             {
-                <div class="sc-menu-item-icon">
-                    <SIcon IconName="@item.Icon"/>
-                </div>
+                <SIcon Class="sc-menu-item-icon" IconName="@item.Icon"/>
             }
 
             <div class="sc-menu-item-text">@item.DisplayName</div>
@@ -90,20 +87,8 @@
 
     protected virtual RenderFragment GenerateMenuItemDrop(MenuItemViewModel model)
     {
-        var iconName = IconProvider.GetIcon(model.IsOpen ? IconName.DownAngle : IconName.UpAngle);
-
-        if (model.IsOpen)
-        {
-            return
-                @<o class="sc-menu-item-edge">
-                    <SIcon IconName="@iconName"/>
-                </o>;
-        }
-
-        return
-            @<c class="sc-menu-item-edge">
-                <SIcon IconName="@iconName"/>
-            </c>;
+        var iconName = model.IsOpen ? DownIcon : UpIcon;
+        return @<SIcon @key="iconName" Class="sc-menu-item-edge" IconName="@iconName"/>;
     }
 
 }

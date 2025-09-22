@@ -1,9 +1,8 @@
-﻿using SecitsDemoApp.Menus;
+﻿using Microsoft.Extensions.DependencyInjection;
+using SecitsDemoApp.Menus;
 using Secyud.Abp.AspNetCore;
 using Secyud.Abp.AspNetCore.Components.Routing;
 using Secyud.Secits.Blazor;
-using Volo.Abp;
-using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.Modularity;
 using Volo.Abp.UI.Navigation;
@@ -13,7 +12,6 @@ namespace SecitsDemoApp;
 [DependsOn(
     typeof(SecitsDemoAppApplicationContractsModule),
     typeof(AbpAspNetCoreComponentsServerSecitsThemeModule),
-    typeof(AbpAspNetCoreSerilogModule),
     typeof(AbpAutoMapperModule)
 )]
 public class SecitsDemoAppBlazorModule : AbpModule
@@ -23,41 +21,22 @@ public class SecitsDemoAppBlazorModule : AbpModule
         context.Services.AddAutoMapperObjectMapper<SecitsDemoAppBlazorModule>();
         context.Services.AddSecitsFontAwesome();
 
-        Configure<AbpAutoMapperOptions>(options => { options.AddProfile<SecitsDemoAppBlazorAutoMapperProfile>(validate: true); });
-
-        Configure<AbpNavigationOptions>(options => { options.MenuContributors.Add(new SecitsDemoAppMenuContributor()); });
-
-        Configure<AbpRouterOptions>(options =>
+        Configure<AbpAutoMapperOptions>(options
+            =>
         {
-            options.AppAssembly = typeof(SecitsDemoAppBlazorModule).Assembly;
+            options.AddProfile<SecitsDemoAppBlazorAutoMapperProfile>();
         });
-        
-        context.Services.AddRazorComponents()
-            .AddInteractiveServerComponents();
-    }
 
-    public override void OnApplicationInitialization(ApplicationInitializationContext context)
-    {
-        var env = context.GetEnvironment();
-        var app = context.GetApplicationBuilder();
-
-        if (env.IsDevelopment())
+        Configure<AbpNavigationOptions>(options
+            =>
         {
-            app.UseDeveloperExceptionPage();
-        }
+            options.MenuContributors.Add(new SecitsDemoAppMenuContributor());
+        });
 
-        app.UseAbpRequestLocalization();
-
-        if (!env.IsDevelopment())
+        Configure<AbpRouterOptions>(options
+            =>
         {
-            app.UseHsts();
-        }
-
-        app.UseHttpsRedirection();
-        // app.UseCorrelationId();
-        app.UseStaticFiles();
-        app.UseRouting();
-        app.UseAbpSerilogEnrichers();
-        app.UseConfiguredEndpoints();
+            options.AdditionalAssemblies.Add(typeof(SecitsDemoAppBlazorModule).Assembly);
+        });
     }
 }

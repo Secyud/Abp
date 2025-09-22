@@ -1,4 +1,5 @@
-﻿using Volo.Abp.UI.Navigation;
+﻿using SecitsDemoApp.Localization;
+using Volo.Abp.UI.Navigation;
 
 namespace SecitsDemoApp.Menus;
 
@@ -14,13 +15,20 @@ public class SecitsDemoAppMenuContributor : IMenuContributor
 
     private Task ConfigureMainMenuAsync(MenuConfigurationContext context)
     {
-        context.Menu.AddGroup(new ApplicationMenuGroup("Group", "Group"));
-        
-        context.Menu.AddItem(new ApplicationMenuItem(SecitsDemoAppMenus.Prefix, displayName: "Test1", "/", icon: "fa fa-globe"));
-        context.Menu.AddItem(new ApplicationMenuItem("Test4", displayName: "Test1", "/", icon: "fa fa-globe", groupName: "Group"));
-        context.Menu.AddItem(new ApplicationMenuItem("Test2", displayName: "Test2", "/", icon: "fa fa-globe")
-            .AddItem(new ApplicationMenuItem("Test3", displayName: "Test3", "/test-page1", icon: "fa fa-globe"))
-        );
+        var l = context.GetLocalizer(typeof(SecitsDemoAppResource));
+
+        context.Menu
+            // grid
+            .AddItem(new ApplicationMenuItem(AppMenus.Grid.Name, l[AppMenus.Grid.Name])
+                .AddItem(new ApplicationMenuItem(AppMenus.Grid.Paged, l[AppMenus.Grid.Paged], AppMenus.Grid.PagedUri))
+                .AddItem(new ApplicationMenuItem(AppMenus.Grid.Visualized, l[AppMenus.Grid.Visualized], AppMenus.Grid.VisualizedUri))
+            )
+            // input
+            .AddItem(new ApplicationMenuItem(AppMenus.Theme.Name, l[AppMenus.Theme.Name])
+                .AddItem(new ApplicationMenuItem(AppMenus.Theme.Button, l[AppMenus.Theme.Button], AppMenus.Theme.ButtonUri))
+                .AddItem(new ApplicationMenuItem(AppMenus.Theme.Input, l[AppMenus.Theme.Input], AppMenus.Theme.InputUri))
+            )
+            ;
 
         return Task.CompletedTask;
     }

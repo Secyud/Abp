@@ -1,0 +1,26 @@
+﻿@attribute [Route(AppMenus.Theme.ButtonUri)]
+@inherits ThemedPageBase
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+<SCard Theme="Theme" Size="Size">
+    <Header>
+        按钮
+    </Header>
+    <Body>
+    <SButton Class="inline-block">
+        <AddTemplate>Button</AddTemplate>
+    </SButton>
+    <SButton Class="inline-block outline">
+        <AddTemplate>Button</AddTemplate>
+    </SButton>
+    <SButton Class="inline-block plain">
+        <AddTemplate>Button</AddTemplate>
+    </SButton>
+    <SButton Class="inline-block shadow">
+        <AddTemplate>Button</AddTemplate>
+    </SButton>
+    </Body>
+</SCard>

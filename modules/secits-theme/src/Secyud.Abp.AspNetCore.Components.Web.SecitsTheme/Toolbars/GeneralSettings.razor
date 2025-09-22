@@ -1,0 +1,129 @@
+﻿@using System.Globalization
+@using Secyud.Abp.AspNetCore.Styles
+@using Secyud.Secits.Blazor.Icons
+@using Volo.Abp.Localization
+
+<div class="sc-general-setting">
+
+	@if (ThemeOptions.Value.Styles.Count > 1)
+	{
+		<div class="setting-icon" id="style">
+			<SIcon Class="anim" IconName="@IconProvider.GetIcon(IconName.Laptop)"
+			       Click="StyleMenuIconClick"/>
+		</div>
+	}
+
+	@if (Languages.Count > 1)
+	{
+		<div class="setting-icon" id="language">
+			<span class="icon anim" @onclick="LanguageMenuIconClick">
+				@CurrentLanguageTwoLetters
+			</span>
+		</div>
+	}
+
+	@if (ContextMenuVisible)
+	{
+		@GenerateContextMenu()
+	}
+
+</div>
+
+@code
+{
+	protected RenderFragment GenerateContextMenu()
+	{
+		return
+			@<div class="sc-context-menu">
+				<div class="sc-main-menu" id="settings-menu">
+					@if (ThemeOptions.Value.Styles.Count > 1)
+					{
+						@GenerateStyleMenu()
+					}
+
+					@if (Languages.Count > 1)
+					{
+						@GenerateLanguageMenu()
+					}
+				</div>
+			</div>;
+	}
+
+	protected RenderFragment GenerateStyleMenu()
+	{
+		return __builder =>
+		{
+			<div class="sc-outer-menu">
+				<div class="sc-menu-item" @onclick="StyleMenuClick">
+					<SIcon Class="sc-menu-item-icon" IconName="@StyleMenuIcon"/>
+					<span class="sc-menu-item-text">@L["Appearance"]</span>
+					@{
+						var icon = StyleMenuVisible ? DownIcon : UpIcon;
+						<SIcon @key="icon" Class="sc-menu-item-icon" IconName="@icon"/>
+					}
+				</div>
+			</div>
+
+			<div class="sc-inner-menu @(StyleMenuVisible ? "" : "collapsed")">
+				@foreach (var style in ThemeOptions.Value.Styles)
+				{
+					@GenerateStyleSelection(style)
+				}
+			</div>
+		};
+	}
+
+	protected RenderFragment GenerateLanguageMenu()
+	{
+		return __builder =>
+		{
+			<div class="sc-outer-menu">
+				<div class="sc-menu-item" @onclick="LanguageMenuClick">
+					<SIcon Class="sc-menu-item-icon" IconName="@LanguageMenuIcon"/>
+					<span class="sc-menu-item-text">@L["Language"]</span>
+					@{
+						var icon = LanguageMenuVisible ? DownIcon : UpIcon;
+						<SIcon @key="icon" Class="sc-menu-item-icon" IconName="@icon"/>
+					}
+				</div>
+			</div>
+
+			<div class="sc-inner-menu @(LanguageMenuVisible ? "" : "collapsed")">
+				@foreach (var language in Languages)
+				{
+					@GenerateLanguageSelection(language)
+				}
+			</div>
+		};
+	}
+
+
+	protected RenderFragment GenerateStyleSelection(KeyValuePair<string, SecitsThemeStyle> style)
+	{
+		var selected = CurrentStyle == style.Key;
+
+		return
+			@<div class="sc-menu-item @(selected ? "selected" : "")"
+			      @onclick="@(() => ChangeThemeAsync(style.Key))">
+				<SIcon Class="sc-menu-item-icon" IconName="@style.Value.Icon"/>
+				<span class="sc-menu-item-text ">
+					@style.Value.DisplayName.Localize(LocalizerFactory).Value
+				</span>
+			</div>;
+	}
+
+	protected RenderFragment GenerateLanguageSelection(LanguageInfo language)
+	{
+		var selected = CurrentLanguage == language;
+		var culture = new CultureInfo(language.CultureName);
+		var languageName = $"{language.DisplayName} / {culture.TwoLetterISOLanguageName.ToUpper()}";
+
+		return
+			@<div class="sc-menu-item @(selected ? "selected" : "")"
+			      @onclick="@(() => ChangeLanguageAsync(language))">
+				<span class="sc-menu-item-text ">
+					@languageName
+				</span>
+			</div>;
+	}
+}

@@ -1,5 +1,6 @@
 <Project>
-    
+    <Import Project="..\secyud.props"/>
+
     <PropertyGroup>
         <PackageOutputPath>../../../../$(PackageOutputPath)</PackageOutputPath>
         <RootNamespace/>
@@ -9,8 +10,7 @@
         <ReferenceType>Package</ReferenceType>
         <ReferenceType>Project</ReferenceType>
     </PropertyGroup>
-    
-    <Import Project="..\secyud.props"/>
+
     <Import Project=".\version.props"/>
 
     <Target Name="NoWarnOnRazorViewImportedTypeConflicts" BeforeTargets="RazorCoreCompile">
@@ -18,5 +18,16 @@
             <NoWarn>$(NoWarn);0436</NoWarn>
         </PropertyGroup>
     </Target>
+
+    <ItemGroup>
+        <PackageReference Include="ConfigureAwait.Fody" Version="3.3.1" PrivateAssets="All"/>
+        <PackageReference Include="System.IO.FileSystem.Primitives" Version="4.3.0"/>
+        <PackageReference Include="System.Runtime.Handles" Version="4.3.0"/>
+        <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0"/>
+        <PackageReference Include="Fody" Version="6.5.3">
+            <PrivateAssets>All</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
 
 </Project>

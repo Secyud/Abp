@@ -1,9 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Volo.Abp;
+﻿using Volo.Abp;
 using Volo.Abp.Autofac;
 using Volo.Abp.Guids;
 using Volo.Abp.Modularity;
-using Volo.Abp.Threading;
 
 namespace Secyud.Abp.AspNetCore;
 

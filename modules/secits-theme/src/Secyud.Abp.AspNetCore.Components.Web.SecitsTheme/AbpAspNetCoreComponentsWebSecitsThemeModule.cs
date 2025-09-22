@@ -1,8 +1,9 @@
 ﻿using Secyud.Abp.AspNetCore.Components;
-using Secyud.Abp.AspNetCore.Components.Routing;
 using Secyud.Abp.AspNetCore.Components.Theming;
 using Secyud.Abp.AspNetCore.Components.Toolbars;
 using Secyud.Abp.AspNetCore.Localization;
+using Secyud.Abp.AspNetCore.Styles;
+using Secyud.Abp.AspNetCore.Toolbars;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 using Volo.Abp.VirtualFileSystem;
@@ -20,6 +21,16 @@ public class AbpAspNetCoreComponentsWebSecitsThemeModule : AbpModule
         ConfigureLocalization();
         ConfigureSecitsStyles();
         ConfigureSecitsTheme();
+        ConfigureToolbarOptions();
+    }
+
+    private void ConfigureToolbarOptions()
+    {
+        Configure<AbpToolbarOptions>(options
+            =>
+        {
+            options.Contributors.Add(new SecitsThemeWebToolbarContributor());
+        });
     }
 
     private void ConfigureLocalization()

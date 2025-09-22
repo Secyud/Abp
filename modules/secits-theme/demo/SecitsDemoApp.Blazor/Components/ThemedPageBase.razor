@@ -1,0 +1,21 @@
+﻿@inherits SecitsDemoAppComponentBase
+
+<SCard Theme="Theme" Size="Size">
+    <Body>
+    <SFormLayout>
+        <FormLayoutItem Title="尺寸">
+            <EnumSelector @bind-Value="Size"/>
+        </FormLayoutItem>
+        <FormLayoutItem Title="颜色主题">
+            <EnumSelector @bind-Value="Theme"/>
+        </FormLayoutItem>
+    </SFormLayout>
+    </Body>
+</SCard>
+
+@code
+{
+    protected Size Size { get; set; }
+
+    protected Theme Theme { get; set; }
+}
