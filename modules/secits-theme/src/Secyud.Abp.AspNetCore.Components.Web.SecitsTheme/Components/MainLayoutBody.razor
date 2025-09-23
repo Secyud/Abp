@@ -1,0 +1,15 @@
+﻿<LayoutHook Name="@Volo.Abp.Ui.LayoutHooks.LayoutHooks.Body.First"
+            Layout="@StandardLayouts.Application"/>
+@ChildContent
+<LayoutHook Name="@Volo.Abp.Ui.LayoutHooks.LayoutHooks.Body.Last"
+            Layout="@StandardLayouts.Application"/>
+<DynamicLayoutComponent/>
+
+<MainLayoutFooter/>
+
+@code{
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+}

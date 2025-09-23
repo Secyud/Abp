@@ -18,6 +18,8 @@ public class SecitsDemoAppMenuContributor : IMenuContributor
         var l = context.GetLocalizer(typeof(SecitsDemoAppResource));
 
         context.Menu
+            // index
+            .AddItem(new ApplicationMenuItem(AppMenus.Index, l[AppMenus.Index], AppMenus.IndexUri))
             // grid
             .AddItem(new ApplicationMenuItem(AppMenus.Grid.Name, l[AppMenus.Grid.Name])
                 .AddItem(new ApplicationMenuItem(AppMenus.Grid.Paged, l[AppMenus.Grid.Paged], AppMenus.Grid.PagedUri))

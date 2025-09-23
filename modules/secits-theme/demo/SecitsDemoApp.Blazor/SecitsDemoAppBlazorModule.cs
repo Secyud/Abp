@@ -2,8 +2,10 @@
 using SecitsDemoApp.Menus;
 using Secyud.Abp.AspNetCore;
 using Secyud.Abp.AspNetCore.Components.Routing;
+using Secyud.Abp.AspNetCore.Styles;
 using Secyud.Secits.Blazor;
 using Volo.Abp.AutoMapper;
+using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 using Volo.Abp.UI.Navigation;
 
@@ -21,6 +23,10 @@ public class SecitsDemoAppBlazorModule : AbpModule
         context.Services.AddAutoMapperObjectMapper<SecitsDemoAppBlazorModule>();
         context.Services.AddSecitsFontAwesome();
 
+        // Configure<SecitsThemeOptions>(options =>
+        // {
+        //     options.UseApplicationTabs = false;
+        // });
         Configure<AbpAutoMapperOptions>(options
             =>
         {
@@ -37,6 +43,11 @@ public class SecitsDemoAppBlazorModule : AbpModule
             =>
         {
             options.AdditionalAssemblies.Add(typeof(SecitsDemoAppBlazorModule).Assembly);
+        });
+        Configure<AbpLocalizationOptions>(options =>
+        {
+            options.Languages.Add(new LanguageInfo("en", "en", "English"));
+            options.Languages.Add(new LanguageInfo("zh-Hans", "zh-Hans", "简体中文"));
         });
     }
 }

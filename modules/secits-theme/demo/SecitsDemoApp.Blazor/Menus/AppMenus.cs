@@ -2,6 +2,9 @@
 
 public static class AppMenus
 {
+    public const string Index = "Index";
+    public const string IndexUri = "/";
+
     public static class Grid
     {
         public const string Name = "Grid";
@@ -16,7 +19,7 @@ public static class AppMenus
     {
         public const string Name = "Theme";
         public const string Uri = "/theme";
-        
+
         public const string Button = Name + ".Button";
         public const string ButtonUri = Uri + "/button";
         public const string Input = Name + ".Input";

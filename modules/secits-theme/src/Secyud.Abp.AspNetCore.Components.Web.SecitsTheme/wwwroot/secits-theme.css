@@ -1,5 +1,4 @@
 
-
 .abp-application-layout {
     margin: 0;
     padding: 0;
@@ -10,20 +9,49 @@
     position: relative;
     width: 100%;
     height: 100%;
+    overflow: hidden;
     display: flex;
     background: var(--s-c-bg);
 
-    > .sc-lft-menu, > .sc-rht-menu {
+    > .sc-pin-menu {
+        --menu-width: 2rem;
+        flex-shrink: 0;
         background: var(--s-c-card);
         z-index: 12;
         position: absolute;
-        display: table;
         top: 0;
         height: 100%;
-        transition: 500ms;
+        width: var(--menu-width);
+        transition: 250ms;
         padding-top: calc(var(--s-s) * 2);
-
         box-shadow: 0 0 0.2rem rgba(var(--s-c-bg-r-rgb), 0.5);
+
+        &.left {
+            --menu-width: 15rem;
+            left: calc(0rem - var(--menu-width));
+
+
+            &:hover, &:has(.layout-menu-pin:hover) {
+                left: 0;
+            }
+
+            .layout-menu-pin {
+                left: var(--gap);
+            }
+        }
+
+        &.right {
+            --menu-width: 2.2rem;
+            right: calc(0rem - var(--menu-width));
+
+            &:hover, &:has(.layout-menu-pin:hover) {
+                right: 0;
+            }
+
+            .layout-menu-pin {
+                right: var(--gap);
+            }
+        }
 
         &.fixed {
             position: static;
@@ -52,31 +80,6 @@
         }
     }
 
-    > .sc-lft-menu {
-        left: -100%;
-        min-width: 128px;
-
-        &:hover, &:has(.layout-menu-pin:hover) {
-            left: 0;
-        }
-
-        .layout-menu-pin {
-            left: var(--gap);
-        }
-    }
-
-    > .sc-rht-menu {
-        right: -100%;
-        width: 2.3rem;
-
-        &:hover, &:has(.layout-menu-pin:hover) {
-            right: 0;
-        }
-
-        .layout-menu-pin {
-            right: var(--gap);
-        }
-    }
 
     > .sc-container {
         width: 100%;
@@ -121,6 +124,7 @@
     overflow-x: auto;
 
     > .s-tab-tag {
+        text-decoration: none;
         --color: color-mix(in srgb, var(--s-c) 20%, var(--s-c-bg-t));
         background-color: var(--border-color);
         border-color: transparent;
@@ -139,57 +143,38 @@
             --opacity: 0.2 !important;
         }
 
-        .icon {
+        > .s-icon.anim {
             --component-color-rgb: var(--s-c-card-rgb);
+
+            --component-opacity: 0;
+
+        }
+
+        &:hover {
+            > .s-icon.anim {
+                --component-opacity: 0.3;
+
+                &:hover {
+                    --component-opacity: 1;
+                }
+
+                &:active {
+                    --component-opacity: 0.6;
+                }
+            }
         }
     }
 }
 
-.sc-main-menu {
+.sc-menu {
     margin: calc(var(--s-s) / 2);
     color: color-mix(in srgb, var(--s-c) 20%, var(--s-c-bg-t));
 
-    .sc-inner-menu {
+    .s-menu.inner {
         padding-inline-start: 5px;
 
-        &.collapsed {
-            display: none;
-        }
-    }
-
-    .sc-menu-item {
-        text-decoration: none;
-        color: inherit;
-        cursor: pointer;
-        font-size: var(--s-s);
-        width: 95%;
-        margin: calc(var(--s-s) / 4);
-        padding: calc(var(--s-s) / 4);
-        --opacity: 0;
-        background: rgba(var(--s-c-rgb), var(--opacity));
-        display: flex;
-
-        &:hover {
-            --opacity: 0.1;
-        }
-
-        &.selected {
-            --opacity: 0.05;
-        }
-
-        .icon {
-            display: inline-block;
-        }
-
-        > .sc-menu-item-icon {
-        }
-
-        > .sc-menu-item-text {
-            min-width: 128px;
-            margin: 0 5px;
-        }
-
-        > .sc-menu-item-edge {
+        > .menu-item {
+            font-size: calc(var(--s-s) * 0.8);
         }
     }
 }
@@ -208,18 +193,23 @@
 .sc-general-setting {
     > .setting-icon {
         --component-color-rgb: var(--s-c-rgb);
-        width: var(--s-s);
-        margin: auto;
+        width: 100%;
+        text-align: center;
+        margin: 1rem 0;
+
+        .s-icon {
+            width: 100%;
+        }
     }
 
-    > .sc-context-menu {
+    > .s-context-menu {
+        box-shadow: 0 0 0.2rem rgba(var(--s-c-bg-r-rgb), 0.25);
         background-color: var(--s-c-card);
         border-radius: var(--s-s-br);
+        width: 10rem;
+        max-height: 768px;
         right: 3rem;
         bottom: 1rem;
+        overflow-y: auto;
     }
-}
-
-.sc-context-menu {
-    position: absolute;
 }

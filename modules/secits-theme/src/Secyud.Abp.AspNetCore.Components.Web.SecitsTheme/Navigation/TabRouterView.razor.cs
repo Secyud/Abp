@@ -10,8 +10,7 @@ namespace Secyud.Abp.AspNetCore.Navigation;
 
 public partial class TabRouterView
 {
-    protected TabContainer? TabContainer { get; set; }
-
+    protected STabContainer? TabContainer { get; set; }
 
     [Inject]
     protected PageRouterManager PageRouterManager { get; set; } = null!;
@@ -25,11 +24,15 @@ public partial class TabRouterView
     [CascadingParameter]
     public RouteData? RouteData { get; set; }
 
+    [Parameter]
+    public string? Class { get; set; }
+
+    [Parameter]
+    public string? Style { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        PageRouterManager.RouterItemActivated += OnRouterItemActivated;
-        PageRouterManager.RouterItemRemoved += OnRouterItemRemoved;
         NavigationManager.LocationChanged += OnLocationChanged;
     }
 
@@ -48,32 +51,23 @@ public partial class TabRouterView
         if (RouteData is not null)
         {
             PageRouterManager.ActivatePageRouteItem(RouteData, NavigationManager.Uri);
+            OnActivatedRouteItem().ConfigureAwait(false);
         }
     }
 
-    protected async void OnRouterItemActivated(object? sender, EventArgs args)
+    protected async Task OnActivatedRouteItem()
     {
-        try
+        if (TabContainer is not null)
         {
+            await TabContainer.SelectTabAsync(PageRouterManager.CurrentItem?.Id);
             await InvokeAsync(StateHasChanged);
-            if (TabContainer is not null)
-                await TabContainer.SelectTabAsync(
-                    PageRouterManager.CurrentItem?.Id);
         }
-        catch (Exception e)
-        {
-            await HandleErrorAsync(e);
-        }
-    }
-
-    protected void OnRouterItemRemoved(object? sender, EventArgs args)
-    {
-        NavigationManager.NavigateTo(PageRouterManager.CurrentItem?.Uri.ToString() ?? "/");
     }
 
     protected void CloseTabAsync(PageRouterItem item)
     {
         PageRouterManager.RemovePageRouteItem(item);
+        NavigationManager.NavigateTo(PageRouterManager.CurrentItem?.Uri.ToString() ?? "/");
     }
 
     protected Func<string> CreateDisplayNameGetter(PageRouterItem item)
@@ -89,13 +83,18 @@ public partial class TabRouterView
 
     protected void NavigateTo(Uri uri)
     {
-        NavigationManager.NavigateTo(uri.ToString());
+        NavigationManager.NavigateTo(uri.AbsolutePath);
     }
 
     protected override void Dispose(bool disposing)
     {
-        PageRouterManager.RouterItemActivated -= OnRouterItemActivated;
-        PageRouterManager.RouterItemRemoved -= OnRouterItemRemoved;
         NavigationManager.LocationChanged -= OnLocationChanged;
+    }
+
+    protected void OnTabOptioned(Tab<PageRouterItem> tab)
+    {
+        tab.Key = tab.Item.Id;
+        tab.PreventDefaultClick = true;
+        tab.Index = tab.Item.Sequence;
     }
 }

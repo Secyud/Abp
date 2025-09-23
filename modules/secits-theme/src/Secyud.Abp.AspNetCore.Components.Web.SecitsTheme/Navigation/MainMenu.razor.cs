@@ -120,7 +120,7 @@ public partial class MainMenu
         return builder =>
         {
             builder.OpenElement(0, "a");
-            var cssClass = "sc-menu-item";
+            var cssClass = "menu-item";
             if (item.IsLeaf)
             {
                 var url = item.Url is null ? "#" : item.Url.TrimStart('/', '~');

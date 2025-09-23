@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Secyud.Abp.AspNetCore.Styles;
+using Secyud.Secits.Blazor;
 using Secyud.Secits.Blazor.Options;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers;
 using Volo.Abp.Localization;
@@ -41,9 +42,9 @@ public class SecitsThemeStylesTagHelper : AbpTagHelper
         }
     }
 
-    private static string GetLinkHtml(IUrlHelper urlHelper, HtmlPathResource resource)
+    private static string GetLinkHtml(IUrlHelper urlHelper, SecitsStyleFile resource)
     {
         var url = urlHelper.Content($"~/{resource.Path}");
-        return $"""<link href="{url}" type="text/css" rel="stylesheet" id="{resource.Id}"/>{Environment.NewLine}""";
+        return $"""<link href="{url}" type="text/css" rel="stylesheet" theme="secits" id="{resource.Id}"/>{Environment.NewLine}""";
     }
 }

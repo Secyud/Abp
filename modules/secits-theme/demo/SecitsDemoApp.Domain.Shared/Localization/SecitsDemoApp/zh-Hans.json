@@ -1,7 +1,12 @@
 {
   "culture": "zh-Hans",
   "texts": {
-    "MyAccount": "我的账户",
-    "SamplePageMessage": "SecitsDemoApp 模块的示例页面"
+    "Index": "主页",
+    "Grid": "表格",
+    "Grid.Paged": "分页表格",
+    "Grid.Visualized": "虚拟表格",
+    "Theme": "主题",
+    "Theme.Button": "按钮",
+    "Theme.Input": "输入框"
   }
 }

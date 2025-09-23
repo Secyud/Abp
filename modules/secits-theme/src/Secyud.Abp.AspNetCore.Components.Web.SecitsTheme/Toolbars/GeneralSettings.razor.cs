@@ -4,7 +4,9 @@ using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using Secyud.Abp.AspNetCore.Localization;
 using Secyud.Abp.AspNetCore.Styles;
+using Secyud.Secits.Blazor;
 using Secyud.Secits.Blazor.Icons;
+using Secyud.Secits.Blazor.Services;
 using Volo.Abp.Localization;
 
 namespace Secyud.Abp.AspNetCore.Toolbars;
@@ -30,6 +32,9 @@ public partial class GeneralSettings
     protected ILanguageProvider LanguageProvider { get; set; } = null!;
 
     [Inject]
+    protected ISecitsService SecitsService { get; set; } = null!;
+
+    [Inject]
     protected IStringLocalizerFactory LocalizerFactory { get; set; } = null!;
 
     protected IReadOnlyList<LanguageInfo> Languages { get; set; } = new List<LanguageInfo>();
@@ -37,8 +42,8 @@ public partial class GeneralSettings
     protected string? CurrentLanguageTwoLetters { get; set; }
     protected string? CurrentStyle { get; set; }
     protected bool ContextMenuVisible { get; set; }
-    protected bool LanguageMenuVisible { get; set; }
-    protected bool StyleMenuVisible { get; set; }
+    protected bool LanguageMenuVisible { get; set; } = true;
+    protected bool StyleMenuVisible { get; set; } = true;
     protected string? LanguageMenuIcon { get; set; }
     protected string? StyleMenuIcon { get; set; }
     protected string? UpIcon { get; set; }
@@ -70,36 +75,52 @@ public partial class GeneralSettings
     protected virtual async Task ChangeThemeAsync(string style)
     {
         CurrentStyle = style;
-        await StyleProvider.SetCurrentStyleAsync(style);
+
+        var options = ThemeOptions.Value;
+        var option = new SecitsThemeParam();
+        options.Styles.GetValueOrDefault(style)?.MapTo(option);
+        await SecitsService.SetCurrentStyle(style, option);
     }
 
-    private void StyleMenuIconClick()
+    private Task StyleMenuIconClick()
     {
-        if (ContextMenuVisible) ContextMenuVisible = false;
+        if (ContextMenuVisible && StyleMenuVisible)
+        {
+            ContextMenuVisible = false;
+        }
         else
         {
             ContextMenuVisible = true;
             StyleMenuVisible = true;
         }
+
+        return Task.CompletedTask;
     }
 
-    private void LanguageMenuIconClick()
+    private Task LanguageMenuIconClick()
     {
-        if (ContextMenuVisible) ContextMenuVisible = false;
+        if (ContextMenuVisible && LanguageMenuVisible)
+        {
+            ContextMenuVisible = false;
+        }
         else
         {
             ContextMenuVisible = true;
-            LanguageMenuVisible = true;
+            StyleMenuVisible = true;
         }
+
+        return Task.CompletedTask;
     }
 
-    private void StyleMenuClick()
+    private async Task StyleMenuClick()
     {
         StyleMenuVisible = !StyleMenuVisible;
+        await Task.CompletedTask;
     }
 
-    private void LanguageMenuClick()
+    private async Task LanguageMenuClick()
     {
         LanguageMenuVisible = !LanguageMenuVisible;
+        await Task.CompletedTask;
     }
 }

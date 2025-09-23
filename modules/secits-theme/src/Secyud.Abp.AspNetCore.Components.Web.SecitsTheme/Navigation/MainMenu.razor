@@ -1,12 +1,12 @@
 ﻿@using Volo.Abp.UI.Navigation
 @inherits Volo.Abp.AspNetCore.Components.AbpComponentBase
 
-<div class="sc-main-menu" id="main-menu">
+<div class="sc-menu" id="main-menu">
     @if (Menu is not null)
     {
         @foreach (var menuItem in Menu.Items.Where(x => x.MenuItem.GroupName.IsNullOrWhiteSpace()))
         {
-            <div class="sc-outer-menu-item">
+            <div class="s-menu outer">
                 @GenerateMenuItemTree(menuItem)
             </div>
         }
@@ -16,12 +16,12 @@
             var menuItems = Menu.Items.Where(x => x.MenuItem.GroupName == group.Name).ToList();
             if (menuItems.Any())
             {
-                <div class="sc-group-menu-item ">
+                <div class="sc-group-menu-item">
                     @group.DisplayName
                 </div>
                 @foreach (var menuItem in menuItems)
                 {
-                    <div class="sc-outer-menu-item">
+                    <div class="s-menu outer">
                         @GenerateMenuItemTree(menuItem)
                     </div>
                 }
@@ -42,12 +42,10 @@
             @if (!model.MenuItem.IsLeaf)
             {
                 <div id="@model.MenuItem.ElementId"
-                     class="sc-inner-menu @(model.IsOpen ? "" : "collapsed") @model.MenuItem.CssClass">
+                     class="s-menu inner @(model.IsOpen ? "" : "collapsed") @model.MenuItem.CssClass">
                     @foreach (var child in model.Children)
                     {
-                        <div class="sc-inner-menu-item">
-                            @GenerateMenuItemTree(child)
-                        </div>
+                        @GenerateMenuItemTree(child)
                     }
                 </div>
             }
@@ -79,16 +77,16 @@
         {
             if (!item.Icon.IsNullOrEmpty())
             {
-                <SIcon Class="sc-menu-item-icon" IconName="@item.Icon"/>
+                <SIcon IconName="@item.Icon"/>
             }
 
-            <div class="sc-menu-item-text">@item.DisplayName</div>
+            <div class="menu-item-text">@item.DisplayName</div>
         };
 
     protected virtual RenderFragment GenerateMenuItemDrop(MenuItemViewModel model)
     {
         var iconName = model.IsOpen ? DownIcon : UpIcon;
-        return @<SIcon @key="iconName" Class="sc-menu-item-edge" IconName="@iconName"/>;
+        return @<SIcon @key="iconName" IconName="@iconName"/>;
     }
 
 }

@@ -3,7 +3,7 @@
 @using Secyud.Secits.Blazor.Icons
 @using Volo.Abp.Localization
 
-<div class="sc-general-setting">
+<div class="sc-general-setting" @onclick:stopPropagation>
 
 	@if (ThemeOptions.Value.Styles.Count > 1)
 	{
@@ -16,16 +16,13 @@
 	@if (Languages.Count > 1)
 	{
 		<div class="setting-icon" id="language">
-			<span class="icon anim" @onclick="LanguageMenuIconClick">
+			<span class="s-icon anim" @onclick="LanguageMenuIconClick">
 				@CurrentLanguageTwoLetters
 			</span>
 		</div>
 	}
 
-	@if (ContextMenuVisible)
-	{
-		@GenerateContextMenu()
-	}
+	@GenerateContextMenu()
 
 </div>
 
@@ -34,37 +31,35 @@
 	protected RenderFragment GenerateContextMenu()
 	{
 		return
-			@<div class="sc-context-menu">
-				<div class="sc-main-menu" id="settings-menu">
-					@if (ThemeOptions.Value.Styles.Count > 1)
-					{
-						@GenerateStyleMenu()
-					}
+			@<SContextMenu @bind-Visible="ContextMenuVisible" Class="sc-menu" HideMode>
+				@if (ThemeOptions.Value.Styles.Count > 1)
+				{
+					@GenerateStyleMenu()
+				}
 
-					@if (Languages.Count > 1)
-					{
-						@GenerateLanguageMenu()
-					}
-				</div>
-			</div>;
+				@if (Languages.Count > 1)
+				{
+					@GenerateLanguageMenu()
+				}
+			</SContextMenu>;
 	}
 
 	protected RenderFragment GenerateStyleMenu()
 	{
 		return __builder =>
 		{
-			<div class="sc-outer-menu">
-				<div class="sc-menu-item" @onclick="StyleMenuClick">
-					<SIcon Class="sc-menu-item-icon" IconName="@StyleMenuIcon"/>
-					<span class="sc-menu-item-text">@L["Appearance"]</span>
+			<div class="s-menu outer">
+				<div class="menu-item" @onclick="StyleMenuClick">
+					<SIcon IconName="@StyleMenuIcon"/>
+					<span class="menu-item-text">@L["Appearance"]</span>
 					@{
 						var icon = StyleMenuVisible ? DownIcon : UpIcon;
-						<SIcon @key="icon" Class="sc-menu-item-icon" IconName="@icon"/>
+						<SIcon @key="icon" IconName="@icon"/>
 					}
 				</div>
 			</div>
 
-			<div class="sc-inner-menu @(StyleMenuVisible ? "" : "collapsed")">
+			<div class="s-menu inner @(StyleMenuVisible ? "" : "collapsed")">
 				@foreach (var style in ThemeOptions.Value.Styles)
 				{
 					@GenerateStyleSelection(style)
@@ -77,18 +72,18 @@
 	{
 		return __builder =>
 		{
-			<div class="sc-outer-menu">
-				<div class="sc-menu-item" @onclick="LanguageMenuClick">
-					<SIcon Class="sc-menu-item-icon" IconName="@LanguageMenuIcon"/>
-					<span class="sc-menu-item-text">@L["Language"]</span>
+			<div class="s-menu">
+				<div class="menu-item" @onclick="LanguageMenuClick">
+					<SIcon IconName="@LanguageMenuIcon"/>
+					<span class="menu-item-text">@L["Language"]</span>
 					@{
 						var icon = LanguageMenuVisible ? DownIcon : UpIcon;
-						<SIcon @key="icon" Class="sc-menu-item-icon" IconName="@icon"/>
+						<SIcon @key="icon" IconName="@icon"/>
 					}
 				</div>
 			</div>
 
-			<div class="sc-inner-menu @(LanguageMenuVisible ? "" : "collapsed")">
+			<div class="s-menu inner @(LanguageMenuVisible ? "" : "collapsed")">
 				@foreach (var language in Languages)
 				{
 					@GenerateLanguageSelection(language)
@@ -103,10 +98,10 @@
 		var selected = CurrentStyle == style.Key;
 
 		return
-			@<div class="sc-menu-item @(selected ? "selected" : "")"
+			@<div class="menu-item @(selected ? "selected" : "")"
 			      @onclick="@(() => ChangeThemeAsync(style.Key))">
-				<SIcon Class="sc-menu-item-icon" IconName="@style.Value.Icon"/>
-				<span class="sc-menu-item-text ">
+				<SIcon IconName="@style.Value.Icon"/>
+				<span class="menu-item-text ">
 					@style.Value.DisplayName.Localize(LocalizerFactory).Value
 				</span>
 			</div>;
@@ -119,9 +114,9 @@
 		var languageName = $"{language.DisplayName} / {culture.TwoLetterISOLanguageName.ToUpper()}";
 
 		return
-			@<div class="sc-menu-item @(selected ? "selected" : "")"
+			@<div class="menu-item @(selected ? "selected" : "")"
 			      @onclick="@(() => ChangeLanguageAsync(language))">
-				<span class="sc-menu-item-text ">
+				<span class="menu-item-text ">
 					@languageName
 				</span>
 			</div>;

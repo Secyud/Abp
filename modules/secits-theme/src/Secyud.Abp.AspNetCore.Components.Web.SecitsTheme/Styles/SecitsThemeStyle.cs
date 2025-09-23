@@ -1,4 +1,4 @@
-﻿using Secyud.Secits.Blazor.Options;
+﻿using Secyud.Secits.Blazor;
 using Volo.Abp.Localization;
 
 namespace Secyud.Abp.AspNetCore.Styles;

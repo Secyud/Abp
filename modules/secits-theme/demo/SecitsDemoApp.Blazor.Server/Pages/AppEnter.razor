@@ -1,0 +1,38 @@
+﻿@using System.Globalization
+@using Microsoft.Extensions.Hosting
+@using Volo.Abp.Localization
+@using Microsoft.AspNetCore.Components.Web
+@using Secyud.Abp.AspNetCore.Bundling
+@using Secyud.Abp.AspNetCore.Components
+@using Secyud.Abp.AspNetCore.Components.Bundling
+@using static Microsoft.AspNetCore.Components.Web.RenderMode
+@{
+    var rtl = CultureHelper.IsRtl ? "rtl" : string.Empty;
+}
+
+<!DOCTYPE html>
+<html lang="@CultureInfo.CurrentCulture.Name" dir="@rtl">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>ControlCenter</title>
+    <base href="/"/>
+
+    @* <link rel="icon" href="/favicon.ico" type="image/x-icon"> *@
+
+    <AbpStyles BundleName="@BlazorSecitsThemeBundles.Styles.Global"/>
+
+    <HeadOutlet @rendermode="InteractiveServer"/>
+
+    <AppearanceStyles/>
+
+</head>
+<body class="abp-application-layout @rtl">
+
+<AppWithoutAuth @rendermode="InteractiveServer"/>
+
+<AbpScripts BundleName="@BlazorSecitsThemeBundles.Scripts.Global"/>
+<script src="_framework/blazor.web.js"></script>
+
+</body>
+</html>
