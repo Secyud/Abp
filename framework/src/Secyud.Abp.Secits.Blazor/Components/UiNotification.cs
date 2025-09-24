@@ -6,14 +6,15 @@ using Timer = System.Timers.Timer;
 
 public class UiNotification
 {
-    public UiNotification(string message, UiNotificationOptions options)
+    public UiNotification(string message, UiNotificationOptions options, int index)
     {
         Message = message;
         Options = options;
+        Index = index;
     }
 
+    public int Index { get;  }
     public string? Title { get; set; }
-
     public UiNotificationType Type { get; set; }
     public Theme Theme { get; set; }
     public string Message { get; set; }

@@ -28,7 +28,7 @@ public class MenuViewModel(ApplicationMenu menu)
         }
         else
         {
-            CloseAll();
+            //CloseAll();
             menuItem.Open();
         }
     }

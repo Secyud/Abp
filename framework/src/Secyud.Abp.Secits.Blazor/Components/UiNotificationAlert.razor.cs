@@ -13,6 +13,8 @@ namespace Secyud.Abp.Secits.Blazor.Components;
 
 public partial class UiNotificationAlert : ComponentBase, IDisposable
 {
+    private int _index = 0;
+
     [Inject]
     private ILogger<UiNotificationAlert> Logger { get; set; } = null!;
 
@@ -62,7 +64,7 @@ public partial class UiNotificationAlert : ComponentBase, IDisposable
     {
         try
         {
-            var notification = new UiNotification(args.Message, args.Options)
+            var notification = new UiNotification(args.Message, args.Options, _index++ % 65536)
             {
                 Title = args.Title,
                 Type = args.NotificationType,
@@ -73,17 +75,8 @@ public partial class UiNotificationAlert : ComponentBase, IDisposable
             };
 
             Notifications.Add(notification);
-
-
-            var timer = new Timer(5000);
-            timer.Elapsed += OnElapsed;
-            notification.Timer = timer;
-            timer.Start();
-
-            void OnElapsed(object? source, ElapsedEventArgs e)
-            {
-                Task.Run(async () => { await CancelNotificationAsync(notification); }).ConfigureAwait(false);
-            }
+            
+            await InvokeAsync(StateHasChanged);
         }
         catch (Exception e)
         {
@@ -108,6 +101,15 @@ public partial class UiNotificationAlert : ComponentBase, IDisposable
         await CloseNotificationAsync(notify);
         await Ensured.InvokeAsync(notify);
     }
+
+    protected RenderFragment GenerateNotifications() =>
+        builder =>
+        {
+            foreach (var notify in Notifications)
+            {
+                builder.AddContent(notify.Index, GenerateNotificationCard(notify));
+            }
+        };
 
     public virtual void Dispose()
     {

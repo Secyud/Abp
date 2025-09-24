@@ -1,0 +1,30 @@
+﻿@attribute [Route(AppMenus.Function.PageProgressUri)]
+@using System.Timers
+@using Volo.Abp.AspNetCore.Components.Progression
+@using Timer = System.Timers.Timer;
+@inject IUiPageProgressService UiPageProgressService;
+
+@inherits SecitsDemoAppComponentBase
+
+
+@code
+{
+    int _progress = 0;
+
+    Timer? _timer;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        _timer = new Timer(TimeSpan.FromSeconds(3));
+        _timer.Elapsed += Callback;
+        _timer.Start();
+    }
+
+    private void Callback(object? state, ElapsedEventArgs args)
+    {
+        _progress += 25;
+        _progress %= 125;
+        UiPageProgressService.Go(_progress);
+    }
+}

@@ -6,12 +6,13 @@
 @using Secyud.Abp.AspNetCore.Styles
 @inject IOptions<AbpRouterOptions> RouterOptions
 @inject IStringLocalizer<AbpUiResource> UiLocalizer
+@inject IOptions<SecitsThemeOptions> SectsThemeOptions
 
 <Router AppAssembly="RouterOptions.Value.AppAssembly"
         AdditionalAssemblies="RouterOptions.Value.AdditionalAssemblies">
     <Found Context="routeData">
         <CascadingValue Value="routeData">
-            <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)"/>
+            <RouteView RouteData="@routeData" DefaultLayout="@SectsThemeOptions.Value.Layout"/>
         </CascadingValue>
     </Found>
     <NotFound>

@@ -1,4 +1,6 @@
-﻿namespace Secyud.Abp.AspNetCore.Styles;
+﻿using Secyud.Abp.AspNetCore.Components;
+
+namespace Secyud.Abp.AspNetCore.Styles;
 
 public class SecitsThemeOptions
 {
@@ -9,7 +11,7 @@ public class SecitsThemeOptions
     /// </summary>
     public string DefaultStyle { get; set; } = SecitsStyleNames.System;
 
-    public bool UseApplicationTabs { get; set; } = true;
+    public Type Layout { get; set; } = typeof(SecitsPageRouteTabsLayout);
 
     public SecitsThemeStyle GetDefaultStyle()
     {

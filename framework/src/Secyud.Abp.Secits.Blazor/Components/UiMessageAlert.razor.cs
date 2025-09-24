@@ -9,10 +9,21 @@ namespace Secyud.Abp.Secits.Blazor.Components;
 
 public partial class UiMessageAlert : IDisposable
 {
+    protected string? InfoIcon { get; set; }
+    protected string? SuccessIcon { get; set; }
+    protected string? WarningIcon { get; set; }
+    protected string? ErrorIcon { get; set; }
+    protected string? ConfirmationIcon { get; set; }
     protected SPopup PopupRef { get; set; } = null!;
 
     [Inject]
     private ILogger<UiMessageAlert> Logger { get; set; } = null!;
+
+    [Inject]
+    private IIconProvider IconProvider { get; set; } = null!;
+
+    [Inject]
+    protected SecitsUiMessageService? UiMessageService { get; set; }
 
     protected virtual bool IsConfirmation => MessageType == UiMessageType.Confirmation;
 
@@ -20,15 +31,14 @@ public partial class UiMessageAlert : IDisposable
 
     protected virtual bool ShowMessageIcon => Options?.ShowMessageIcon ?? true;
 
-
     protected virtual object? MessageIcon =>
         Options?.MessageIcon ?? MessageType switch
         {
-            UiMessageType.Info => IconName.Exclamation,
-            UiMessageType.Success => IconName.Check,
-            UiMessageType.Warning => IconName.Exclamation,
-            UiMessageType.Error => IconName.Cross,
-            UiMessageType.Confirmation => IconName.Question,
+            UiMessageType.Info => InfoIcon,
+            UiMessageType.Success => SuccessIcon,
+            UiMessageType.Warning => WarningIcon,
+            UiMessageType.Error => ErrorIcon,
+            UiMessageType.Confirmation => ConfirmationIcon,
             _ => null,
         };
 
@@ -86,9 +96,6 @@ public partial class UiMessageAlert : IDisposable
     [Parameter]
     public EventCallback Canceled { get; set; }
 
-    [Inject]
-    protected SecitsUiMessageService? UiMessageService { get; set; }
-
     protected override void OnInitialized()
     {
         base.OnInitialized();
@@ -97,6 +104,12 @@ public partial class UiMessageAlert : IDisposable
         {
             UiMessageService.MessageReceived += OnMessageReceived;
         }
+
+        InfoIcon = IconProvider.GetIcon(IconName.Exclamation);
+        SuccessIcon = IconProvider.GetIcon(IconName.Check);
+        WarningIcon = IconProvider.GetIcon(IconName.Exclamation);
+        ErrorIcon = IconProvider.GetIcon(IconName.Cross);
+        ConfirmationIcon = IconProvider.GetIcon(IconName.Question);
     }
 
     private async void OnMessageReceived(object? sender, UiMessageEventArgs args)

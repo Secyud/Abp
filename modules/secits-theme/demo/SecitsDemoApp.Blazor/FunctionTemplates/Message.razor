@@ -1,0 +1,30 @@
+﻿@attribute [Route(AppMenus.Function.MessageUri)]
+
+@inherits SecitsDemoAppComponentBase
+<SCard>
+    <Header>
+        @L["Message"]
+    </Header>
+    <Body>
+    <SButton Class="inline-block"
+             Click="@(() => Message.Info(L["InfoContent"], L["Info"]))">
+        <AddTemplate>@L["Info"]</AddTemplate>
+    </SButton>
+    <SButton Class="inline-block"
+             Click="@(() => Message.Success(L["SuccessContent"], L["Success"]))">
+        <AddTemplate>@L["Success"]</AddTemplate>
+    </SButton>
+    <SButton Class="inline-block"
+             Click="@(() => Message.Warn(L["WarnContent"], L["Warn"]))">
+        <AddTemplate>@L["Warn"]</AddTemplate>
+    </SButton>
+    <SButton Class="inline-block"
+             Click="@(() => Message.Error(L["ErrorContent"], L["Error"]))">
+        <AddTemplate>@L["Error"]</AddTemplate>
+    </SButton>
+    <SButton Class="inline-block"
+             Click="@(() => Message.Confirm(L["ConfirmContent"], L["Confirm"]))">
+        <AddTemplate>@L["Confirm"]</AddTemplate>
+    </SButton>
+    </Body>
+</SCard>

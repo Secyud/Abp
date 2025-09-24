@@ -1,0 +1,26 @@
+﻿@attribute [Route(AppMenus.Function.NotifyUri)]
+
+@inherits SecitsDemoAppComponentBase
+<SCard>
+    <Header>
+        @L["Notify"]
+    </Header>
+    <Body>
+    <SButton Class="inline-block" 
+             Click="@(() => Notify.Info(L["InfoContent"], L["Info"]))">
+        <AddTemplate>@L["Info"]</AddTemplate>
+    </SButton>
+    <SButton Class="inline-block" 
+             Click="@(() => Notify.Success(L["SuccessContent"], L["Success"]))">
+        <AddTemplate>@L["Success"]</AddTemplate>
+    </SButton>
+    <SButton Class="inline-block" 
+             Click="@(() => Notify.Warn(L["WarnContent"], L["Warn"]))">
+        <AddTemplate>@L["Warn"]</AddTemplate>
+    </SButton>
+    <SButton Class="inline-block" 
+             Click="@(() => Notify.Error(L["ErrorContent"], L["Error"]))">
+        <AddTemplate>@L["Error"]</AddTemplate>
+    </SButton>
+    </Body>
+</SCard>

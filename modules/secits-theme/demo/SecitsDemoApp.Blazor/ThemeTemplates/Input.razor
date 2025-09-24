@@ -7,22 +7,34 @@
 
 <SCard Theme="Theme" Size="Size">
     <Header>
-        输入框
+        @L["InputField"]
     </Header>
     <Body>
     <SFormLayout>
-        <FormLayoutItem Title="default">
-            <TextBox Value="@("default")" Class=""/>
-        </FormLayoutItem>
-        <FormLayoutItem Title="outline">
-            <TextBox Value="@("outline")" Class=" outline"/>
-        </FormLayoutItem>
-        <FormLayoutItem Title="plain">
-            <TextBox Value="@("plain")" Class=" plain"/>
-        </FormLayoutItem>
-        <FormLayoutItem Title="shadow">
-            <TextBox Value="@("shadow")" Class=" shadow"/>
-        </FormLayoutItem>
+        @{
+            string d = @L["Default"];
+            <FormLayoutItem Title="@d">
+                <TextBox Value="@d" Class=""/>
+            </FormLayoutItem>
+        }
+        @{
+            string o = @L["Outline"];
+            <FormLayoutItem Title="@o">
+                <TextBox Value="@o" Class="outline"/>
+            </FormLayoutItem>
+        }
+        @{
+            string p = @L["Plain"];
+            <FormLayoutItem Title="@p">
+                <TextBox Value="@p" Class="plain"/>
+            </FormLayoutItem>
+        }
+        @{
+            string s = @L["Shadow"];
+            <FormLayoutItem Title="@s">
+                <TextBox Value="@s" Class="shadow"/>
+            </FormLayoutItem>
+        }
     </SFormLayout>
     </Body>
 </SCard>

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Secyud.Secits.Blazor.Icons;
-using Secyud.Secits.Blazor.PageRouters;
+using Secyud.Secits.Blazor.PageRoutes;
 using Volo.Abp.AspNetCore.Components.Web.Security;
 
 namespace Secyud.Abp.AspNetCore.Navigation;
@@ -15,7 +15,7 @@ public partial class MainMenu
     protected MainMenuProvider MainMenuProvider { get; set; } = null!;
 
     [Inject]
-    protected PageRouterManager PageRouterManager { get; set; } = null!;
+    protected PageRouteManager PageRouteManager { get; set; } = null!;
 
     [Inject]
     protected ApplicationConfigurationChangedService ApplicationConfigurationChangedService { get; set; } = null!;
@@ -28,7 +28,7 @@ public partial class MainMenu
     private void MenuStateChanged(object? sender, EventArgs e)
     {
         if (Menu is null) return;
-        var currentItem = PageRouterManager.CurrentItem;
+        var currentItem = PageRouteManager.CurrentItem;
 
         var menuItem = FindMenuItemByRouterItem(currentItem);
 
@@ -42,7 +42,7 @@ public partial class MainMenu
             {
                 currentItem.DisplayNameGetter = () => menuItem.MenuItem.DisplayName;
             }
-
+            //Menu.CloseAll();
             Menu.Activate(menuItem);
         }
 
@@ -57,7 +57,7 @@ public partial class MainMenu
         Menu = await MainMenuProvider.GetMenuAsync();
         ApplicationConfigurationChangedService.Changed +=
             ApplicationConfigurationChanged;
-        PageRouterManager.RouterItemActivated += MenuStateChanged;
+        PageRouteManager.RouterItemActivated += MenuStateChanged;
     }
 
     private async void ApplicationConfigurationChanged()
@@ -73,7 +73,7 @@ public partial class MainMenu
         }
     }
 
-    protected virtual MenuItemViewModel? FindMenuItemByRouterItem(PageRouterItem? routerItem)
+    protected virtual MenuItemViewModel? FindMenuItemByRouterItem(PageRouteItem? routerItem)
     {
         if (routerItem is null || Menu is null) return null;
 
@@ -121,6 +121,7 @@ public partial class MainMenu
         {
             builder.OpenElement(0, "a");
             var cssClass = "menu-item";
+            if (model.IsActive) cssClass += " selected";
             if (item.IsLeaf)
             {
                 var url = item.Url is null ? "#" : item.Url.TrimStart('/', '~');
@@ -130,14 +131,11 @@ public partial class MainMenu
 
                 if (!item.CssClass.IsNullOrEmpty())
                     cssClass += " " + item.CssClass;
-                if (model.IsActive)
-                    cssClass += " selected";
             }
             else
             {
                 builder.AddAttribute(1, "onclick", () => ToggleMenuAsync(model));
                 builder.AddEventPreventDefaultAttribute(2, "onclick", true);
-                if (model.IsActive || model.IsOpen) cssClass += " selected";
             }
 
             builder.AddAttribute(4, "class", cssClass);
@@ -162,7 +160,7 @@ public partial class MainMenu
 
     protected override void Dispose(bool disposing)
     {
-        PageRouterManager.RouterItemActivated -= MenuStateChanged;
+        PageRouteManager.RouterItemActivated -= MenuStateChanged;
         ApplicationConfigurationChangedService.Changed -= ApplicationConfigurationChanged;
     }
 }

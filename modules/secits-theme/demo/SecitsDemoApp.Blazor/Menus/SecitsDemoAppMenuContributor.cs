@@ -30,6 +30,12 @@ public class SecitsDemoAppMenuContributor : IMenuContributor
                 .AddItem(new ApplicationMenuItem(AppMenus.Theme.Button, l[AppMenus.Theme.Button], AppMenus.Theme.ButtonUri))
                 .AddItem(new ApplicationMenuItem(AppMenus.Theme.Input, l[AppMenus.Theme.Input], AppMenus.Theme.InputUri))
             )
+            // function
+            .AddItem(new ApplicationMenuItem(AppMenus.Function.Name, l[AppMenus.Function.Name])
+                .AddItem(new ApplicationMenuItem(AppMenus.Function.Notify, l[AppMenus.Function.Notify], AppMenus.Function.NotifyUri))
+                .AddItem(new ApplicationMenuItem(AppMenus.Function.Message, l[AppMenus.Function.Message], AppMenus.Function.MessageUri))
+                .AddItem(new ApplicationMenuItem(AppMenus.Function.PageProgress, l[AppMenus.Function.PageProgress], AppMenus.Function.PageProgressUri))
+            )
             ;
 
         return Task.CompletedTask;

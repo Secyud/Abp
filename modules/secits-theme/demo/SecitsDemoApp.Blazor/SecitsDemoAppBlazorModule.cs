@@ -23,6 +23,7 @@ public class SecitsDemoAppBlazorModule : AbpModule
         context.Services.AddAutoMapperObjectMapper<SecitsDemoAppBlazorModule>();
         context.Services.AddSecitsFontAwesome();
 
+        context.Services.AddAlwaysAllowAuthorization();
         // Configure<SecitsThemeOptions>(options =>
         // {
         //     options.UseApplicationTabs = false;
