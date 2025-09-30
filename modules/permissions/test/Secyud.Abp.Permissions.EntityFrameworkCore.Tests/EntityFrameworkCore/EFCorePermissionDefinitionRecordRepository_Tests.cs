@@ -1,0 +1,6 @@
+﻿namespace Secyud.Abp.Permissions.EntityFrameworkCore;
+
+public class EFCorePermissionDefinitionRecordRepository_Tests : PermissionDefinitionRecordRepository_Tests<AbpPermissionsEntityFrameworkCoreTestModule>
+{
+
+}

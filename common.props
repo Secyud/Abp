@@ -18,16 +18,22 @@
             <NoWarn>$(NoWarn);0436</NoWarn>
         </PropertyGroup>
     </Target>
-
+    
     <ItemGroup>
-        <PackageReference Include="ConfigureAwait.Fody" Version="3.3.1" PrivateAssets="All"/>
-        <PackageReference Include="System.IO.FileSystem.Primitives" Version="4.3.0"/>
-        <PackageReference Include="System.Runtime.Handles" Version="4.3.0"/>
-        <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0"/>
-        <PackageReference Include="Fody" Version="6.5.3">
+        <Content Remove="$(UserProfile)\.nuget\packages\*\*\contentFiles\any\*\*.abppkg*" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)' == 'Release'">
+        <PackageReference Include="ConfigureAwait.Fody" PrivateAssets="All" />
+        <PackageReference Include="Fody">
             <PrivateAssets>All</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup Condition="$(AssemblyName.EndsWith('HttpApi.Client'))">
+        <EmbeddedResource Include="**\*generate-proxy.json" />
+        <Content Remove="**\*generate-proxy.json" />
     </ItemGroup>
 
 </Project>

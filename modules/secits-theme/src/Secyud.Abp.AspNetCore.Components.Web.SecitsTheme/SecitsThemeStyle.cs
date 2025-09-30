@@ -1,7 +1,7 @@
 ﻿using Secyud.Secits.Blazor;
 using Volo.Abp.Localization;
 
-namespace Secyud.Abp.AspNetCore.Styles;
+namespace Secyud.Abp.AspNetCore;
 
 public class SecitsThemeStyle(LocalizableString displayName, string? icon = null) : SecitsThemeParam
 {

@@ -1,0 +1,62 @@
+{
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {}
+    }
+  },
+  "packages": {
+    "Secyud.Abp.Permissions.Domain": {
+      "path": "src/Secyud.Abp.Permissions.Domain/Secyud.Abp.Permissions.Domain.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Permissions.Application.Contracts": {
+      "path": "src/Secyud.Abp.Permissions.Application.Contracts/Secyud.Abp.Permissions.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Permissions.Application": {
+      "path": "src/Secyud.Abp.Permissions.Application/Secyud.Abp.Permissions.Application.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Permissions.EntityFrameworkCore": {
+      "path": "src/Secyud.Abp.Permissions.EntityFrameworkCore/Secyud.Abp.Permissions.EntityFrameworkCore.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Permissions.HttpApi": {
+      "path": "src/Secyud.Abp.Permissions.HttpApi/Secyud.Abp.Permissions.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Permissions.HttpApi.Client": {
+      "path": "src/Secyud.Abp.Permissions.HttpApi.Client/Secyud.Abp.Permissions.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Permissions.Blazor": {
+      "path": "src/Secyud.Abp.Permissions.Blazor/Secyud.Abp.Permissions.Blazor.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Permissions.TestBase": {
+      "path": "test/Secyud.Abp.Permissions.TestBase/Secyud.Abp.Permissions.TestBase.abppkg",
+      "folder": "test"
+    },
+    "Secyud.Abp.Permissions.EntityFrameworkCore.Tests": {
+      "path": "test/Secyud.Abp.Permissions.EntityFrameworkCore.Tests/Secyud.Abp.Permissions.EntityFrameworkCore.Tests.abppkg",
+      "folder": "test"
+    },
+    "Secyud.Abp.Permissions.Domain.Tests": {
+      "path": "test/Secyud.Abp.Permissions.Domain.Tests/Secyud.Abp.Permissions.Domain.Tests.abppkg",
+      "folder": "test"
+    },
+    "Secyud.Abp.Permissions.Application.Tests": {
+      "path": "test/Secyud.Abp.Permissions.Application.Tests/Secyud.Abp.Permissions.Application.Tests.abppkg",
+      "folder": "test"
+    },
+    "Secyud.Abp.Permissions.Domain.Shared": {
+      "path": "src/Secyud.Abp.Permissions.Domain.Shared/Secyud.Abp.Permissions.Domain.Shared.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Permissions.Installer": {
+       "path": "src/Secyud.Abp.Permissions.Installer/Secyud.Abp.Permissions.Installer.abppkg",
+       "folder": "src"
+    }
+  }
+}

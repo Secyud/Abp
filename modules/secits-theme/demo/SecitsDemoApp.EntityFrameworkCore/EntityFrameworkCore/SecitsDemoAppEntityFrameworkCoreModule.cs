@@ -1,10 +1,12 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Secyud.Abp.Permissions.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.Modularity;
 
 namespace SecitsDemoApp.EntityFrameworkCore;
 
 [DependsOn(
+    typeof(AbpPermissionsEntityFrameworkCoreModule),
     typeof(SecitsDemoAppDomainModule),
     typeof(AbpEntityFrameworkCoreModule)
 )]

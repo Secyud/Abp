@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Secyud.Abp.Permissions;
+using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.Http.Client;
 using Volo.Abp.Modularity;
 using Volo.Abp.VirtualFileSystem;
@@ -6,6 +7,7 @@ using Volo.Abp.VirtualFileSystem;
 namespace SecitsDemoApp;
 
 [DependsOn(
+    typeof(AbpPermissionsHttpApiClientModule),
     typeof(SecitsDemoAppApplicationContractsModule),
     typeof(AbpHttpClientModule))]
 public class SecitsDemoAppHttpApiClientModule : AbpModule

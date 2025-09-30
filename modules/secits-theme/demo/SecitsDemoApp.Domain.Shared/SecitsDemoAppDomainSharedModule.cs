@@ -1,4 +1,5 @@
-﻿using Volo.Abp.Modularity;
+using Secyud.Abp.Permissions;
+using Volo.Abp.Modularity;
 using Volo.Abp.Localization;
 using SecitsDemoApp.Localization;
 using Volo.Abp.Domain;
@@ -10,6 +11,7 @@ using Volo.Abp.VirtualFileSystem;
 namespace SecitsDemoApp;
 
 [DependsOn(
+    typeof(AbpPermissionsDomainSharedModule),
     typeof(AbpValidationModule),
     typeof(AbpDddDomainSharedModule)
 )]

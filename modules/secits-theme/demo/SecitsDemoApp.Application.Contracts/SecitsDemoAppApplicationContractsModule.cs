@@ -1,10 +1,12 @@
-﻿using Volo.Abp.Application;
+using Secyud.Abp.Permissions;
+using Volo.Abp.Application;
 using Volo.Abp.Modularity;
 using Volo.Abp.Authorization;
 
 namespace SecitsDemoApp;
 
 [DependsOn(
+    typeof(AbpPermissionsApplicationContractsModule),
     typeof(SecitsDemoAppDomainSharedModule),
     typeof(AbpDddApplicationContractsModule),
     typeof(AbpAuthorizationModule)

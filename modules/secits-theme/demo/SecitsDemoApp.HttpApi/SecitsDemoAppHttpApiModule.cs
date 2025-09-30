@@ -1,4 +1,5 @@
-﻿using Localization.Resources.AbpUi;
+using Secyud.Abp.Permissions;
+using Localization.Resources.AbpUi;
 using SecitsDemoApp.Localization;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Localization;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace SecitsDemoApp;
 
 [DependsOn(
+    typeof(AbpPermissionsHttpApiModule),
     typeof(SecitsDemoAppApplicationContractsModule),
     typeof(AbpAspNetCoreMvcModule))]
 public class SecitsDemoAppHttpApiModule : AbpModule

@@ -1,0 +1,9 @@
+{
+  "id": "3a55a1a8-9198-4173-8d6f-9fc96ae04d63",
+  "template": "empty",
+  "modules": {
+    "Secyud.Abp.Permissions": {
+      "path": "Secyud.Abp.Permissions.abpmdl"
+    }
+  }
+}

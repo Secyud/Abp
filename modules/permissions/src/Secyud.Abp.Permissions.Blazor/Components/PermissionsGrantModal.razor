@@ -1,0 +1,47 @@
+﻿
+@namespace Secyud.Abp.Permissions.Components
+@inherits Volo.Abp.AspNetCore.Components.AbpComponentBase
+
+<SModal @ref="Modal">
+    <SCard>
+        <Header>
+            @L["Permissions"] - @EntityDisplayName
+            <SIcon IconName="@_crossIcon" Click="CloseModalAsync"></SIcon>
+        </Header>
+
+        <Body>
+        <STabContainer Class="abp-permission-grant-tab">
+            <TabProvider Items="ShowGroups">
+                <TagTemplate>
+                    <div>@context.DisplayName</div>
+                </TagTemplate>
+                <ContentTemplate>
+                    <SList TValue="PermissionGrantInfoModel">
+                        <StaticDataSource Items="context.Permissions"/>
+                        <EnableIteratorTreePager Children="CheckPermissionChildrenAsync"/>
+                        <ListColumn>
+                            <SCheck Checked="@context.IsChecked"
+                                    Click="()=>OnPermissionInfoModelCheckClickAsync(context)"/>
+                            
+                            @context.DisplayName
+                        </ListColumn>
+                    </SList>
+                </ContentTemplate>
+            </TabProvider>
+
+            <STabTagsView/>
+            <STabContentsView RenderMode="TabRenderMode.LazyLoad"/>
+        </STabContainer>
+
+        </Body>
+
+        <Footer>
+            <SButton Class="outline" Click="@CloseModalAsync">
+                <AddTemplate>@L["Cancel"]</AddTemplate>
+            </SButton>
+            <SButton Click="@SaveAsync">
+                <AddTemplate>@L["Save"]</AddTemplate>
+            </SButton>
+        </Footer>
+    </SCard>
+</SModal>

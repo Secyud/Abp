@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="$(AbpVersion)"/>
+    <ProjectReference Include="..\Secyud.Abp.Permissions.Application.Contracts\Secyud.Abp.Permissions.Application.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,6 +1,7 @@
 ﻿using Secyud.Abp.AspNetCore.Components;
+using Secyud.Abp.AspNetCore.Styles;
 
-namespace Secyud.Abp.AspNetCore.Styles;
+namespace Secyud.Abp.AspNetCore;
 
 public class SecitsThemeOptions
 {

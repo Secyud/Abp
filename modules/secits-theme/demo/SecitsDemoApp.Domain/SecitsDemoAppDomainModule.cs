@@ -1,9 +1,11 @@
-﻿using Volo.Abp.Domain;
+using Secyud.Abp.Permissions;
+using Volo.Abp.Domain;
 using Volo.Abp.Modularity;
 
 namespace SecitsDemoApp;
 
 [DependsOn(
+    typeof(AbpPermissionsDomainModule),
     typeof(AbpDddDomainModule),
     typeof(SecitsDemoAppDomainSharedModule)
 )]

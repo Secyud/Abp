@@ -1,20 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+  </PropertyGroup>
   <Import Project="..\..\common.props" />
-
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <RootNamespace>SecitsDemoApp</RootNamespace>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Volo.Abp.Ddd.Application.Contracts" Version="$(AbpVersion)" />
     <PackageReference Include="Volo.Abp.Authorization" Version="$(AbpVersion)" />
     <ProjectReference Include="..\SecitsDemoApp.Domain.Shared\SecitsDemoApp.Domain.Shared.csproj" />
+    <ProjectReference Include="../../../permissions/src/Secyud.Abp.Permissions.Application.Contracts/Secyud.Abp.Permissions.Application.Contracts.csproj" />
   </ItemGroup>
-
 </Project>

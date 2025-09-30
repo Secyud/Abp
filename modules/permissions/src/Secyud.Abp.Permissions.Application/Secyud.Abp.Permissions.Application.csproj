@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.AutoMapper" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.Ddd.Application" Version="$(AbpVersion)" />
+    <ProjectReference Include="..\Secyud.Abp.Permissions.Application.Contracts\Secyud.Abp.Permissions.Application.Contracts.csproj" />
+    <ProjectReference Include="..\Secyud.Abp.Permissions.Domain\Secyud.Abp.Permissions.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

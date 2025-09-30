@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Secyud.Abp.Permissions</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="$(DotnetVersion)" />
+    <PackageReference Include="Volo.Abp.Features" Version="$(AbpVersion)"/>
+    <PackageReference Include="Volo.Abp.GlobalFeatures" Version="$(AbpVersion)"/>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="$(TestVersion)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Secyud.Abp.Permissions.Domain\Secyud.Abp.Permissions.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Secyud.Abp.Permissions.EntityFrameworkCore\Secyud.Abp.Permissions.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\Secyud.Abp.Permissions.TestBase\Secyud.Abp.Permissions.TestBase.csproj" />
+  </ItemGroup>
+
+
+</Project>

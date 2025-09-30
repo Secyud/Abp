@@ -9,10 +9,9 @@ public class MenuItemViewModel(ApplicationMenuItem menuItem, MenuViewModel menu)
 
     public ApplicationMenuItem MenuItem { get; } = menuItem;
     public IReadOnlyList<MenuItemViewModel> Children => _children;
+    
     public MenuViewModel Menu { get; } = menu;
-
-    public int Order { get; set; }
-        
+    
     public bool IsActive { get; set; }
 
     public bool IsOpen { get; set; }

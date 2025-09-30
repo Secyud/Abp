@@ -1,19 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
-    </PropertyGroup>
-
-    <Import Project="..\..\common.props" />
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+  </PropertyGroup>
+  <Import Project="..\..\common.props" />
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <RootNamespace>SecitsDemoApp</RootNamespace>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
-
-
-    <ItemGroup>
-    <PackageReference Include="Volo.Abp.Ddd.Domain" Version="9.1.1"/>
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Ddd.Domain" Version="$(AbpVersion)" />
     <ProjectReference Include="..\SecitsDemoApp.Domain.Shared\SecitsDemoApp.Domain.Shared.csproj" />
+    <ProjectReference Include="../../../permissions/src/Secyud.Abp.Permissions.Domain/Secyud.Abp.Permissions.Domain.csproj" />
   </ItemGroup>
-
 </Project>
