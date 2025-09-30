@@ -1,0 +1,62 @@
+{
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {}
+    }
+  },
+  "packages": {
+    "Secyud.Abp.Settings.Domain": {
+      "path": "src/Secyud.Abp.Settings.Domain/Secyud.Abp.Settings.Domain.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Settings.Application.Contracts": {
+      "path": "src/Secyud.Abp.Settings.Application.Contracts/Secyud.Abp.Settings.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Settings.Application": {
+      "path": "src/Secyud.Abp.Settings.Application/Secyud.Abp.Settings.Application.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Settings.EntityFrameworkCore": {
+      "path": "src/Secyud.Abp.Settings.EntityFrameworkCore/Secyud.Abp.Settings.EntityFrameworkCore.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Settings.HttpApi": {
+      "path": "src/Secyud.Abp.Settings.HttpApi/Secyud.Abp.Settings.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Settings.HttpApi.Client": {
+      "path": "src/Secyud.Abp.Settings.HttpApi.Client/Secyud.Abp.Settings.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Settings.Blazor": {
+      "path": "src/Secyud.Abp.Settings.Blazor/Secyud.Abp.Settings.Blazor.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Settings.TestBase": {
+      "path": "test/Secyud.Abp.Settings.TestBase/Secyud.Abp.Settings.TestBase.abppkg",
+      "folder": "test"
+    },
+    "Secyud.Abp.Settings.EntityFrameworkCore.Tests": {
+      "path": "test/Secyud.Abp.Settings.EntityFrameworkCore.Tests/Secyud.Abp.Settings.EntityFrameworkCore.Tests.abppkg",
+      "folder": "test"
+    },
+    "Secyud.Abp.Settings.Domain.Tests": {
+      "path": "test/Secyud.Abp.Settings.Domain.Tests/Secyud.Abp.Settings.Domain.Tests.abppkg",
+      "folder": "test"
+    },
+    "Secyud.Abp.Settings.Application.Tests": {
+      "path": "test/Secyud.Abp.Settings.Application.Tests/Secyud.Abp.Settings.Application.Tests.abppkg",
+      "folder": "test"
+    },
+    "Secyud.Abp.Settings.Domain.Shared": {
+      "path": "src/Secyud.Abp.Settings.Domain.Shared/Secyud.Abp.Settings.Domain.Shared.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Settings.Installer": {
+       "path": "src/Secyud.Abp.Settings.Installer/Secyud.Abp.Settings.Installer.abppkg",
+       "folder": "src"
+    }
+  }
+}

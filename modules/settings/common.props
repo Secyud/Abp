@@ -1,0 +1,10 @@
+<Project>
+
+    <Import Project="..\..\common.props"/>
+
+    <PropertyGroup>
+        <PackageOutputPath>../../$(PackageOutputPath)</PackageOutputPath>
+        <RootNamespace>Secyud.Abp.Settings</RootNamespace>
+    </PropertyGroup>
+
+</Project>

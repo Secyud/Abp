@@ -1,0 +1,20 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Secyud.Abp.Settings.Application.Contracts/Secyud.Abp.Settings.Application.Contracts.csproj" />
+    <Project Path="src/Secyud.Abp.Settings.Application/Secyud.Abp.Settings.Application.csproj" />
+    <Project Path="src/Secyud.Abp.Settings.Blazor/Secyud.Abp.Settings.Blazor.csproj" />
+    <Project Path="src/Secyud.Abp.Settings.Domain.Shared/Secyud.Abp.Settings.Domain.Shared.csproj" />
+    <Project Path="src/Secyud.Abp.Settings.Domain/Secyud.Abp.Settings.Domain.csproj" />
+    <Project Path="src/Secyud.Abp.Settings.EntityFrameworkCore/Secyud.Abp.Settings.EntityFrameworkCore.csproj" />
+    <Project Path="src/Secyud.Abp.Settings.HttpApi.Client/Secyud.Abp.Settings.HttpApi.Client.csproj" />
+    <Project Path="src/Secyud.Abp.Settings.HttpApi/Secyud.Abp.Settings.HttpApi.csproj" />
+    <Project Path="src/Secyud.Abp.Settings.Installer/Secyud.Abp.Settings.Installer.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/Secyud.Abp.Settings.Application.Tests/Secyud.Abp.Settings.Application.Tests.csproj" />
+    <Project Path="test/Secyud.Abp.Settings.Domain.Tests/Secyud.Abp.Settings.Domain.Tests.csproj" />
+    <Project Path="test/Secyud.Abp.Settings.EntityFrameworkCore.Tests/Secyud.Abp.Settings.EntityFrameworkCore.Tests.csproj" />
+    <Project Path="test/Secyud.Abp.Settings.TestBase/Secyud.Abp.Settings.TestBase.csproj" />
+    <Project Path="test\Secyud.Abp.Settings.Tests\Secyud.Abp.Settings.Tests.csproj" Type="Classic C#" />
+  </Folder>
+</Solution>

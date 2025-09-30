@@ -2,7 +2,7 @@
 @namespace Secyud.Abp.Permissions.Components
 @inherits Volo.Abp.AspNetCore.Components.AbpComponentBase
 
-<SModal @ref="Modal">
+<SPopup @ref="Modal">
     <SCard>
         <Header>
             @L["Permissions"] - @EntityDisplayName
@@ -18,12 +18,12 @@
                 <ContentTemplate>
                     <SList TValue="PermissionGrantInfoModel">
                         <StaticDataSource Items="context.Permissions"/>
-                        <EnableIteratorTreePager Children="CheckPermissionChildrenAsync"/>
-                        <ListColumn>
-                            <SCheck Checked="@context.IsChecked"
-                                    Click="()=>OnPermissionInfoModelCheckClickAsync(context)"/>
-                            
-                            @context.DisplayName
+                        <EnableIteratorTreePager TValue="PermissionGrantInfoModel"
+                                                 Children="CheckPermissionChildrenAsync"/>
+                        <ListColumn Context="listItem">
+                            <SCheck Checked="@listItem.IsChecked"
+                                    Click="()=>OnPermissionInfoModelCheckClickAsync(listItem)"/>
+                            @listItem.DisplayName
                         </ListColumn>
                     </SList>
                 </ContentTemplate>
@@ -44,4 +44,4 @@
             </SButton>
         </Footer>
     </SCard>
-</SModal>
+</SPopup>

@@ -1,17 +1,4 @@
 <Solution>
-  <Folder Name="/demo/">
-    <Project Path="demo\SecitsDemoApp.Application.Contracts\SecitsDemoApp.Application.Contracts.csproj" />
-    <Project Path="demo\SecitsDemoApp.Application\SecitsDemoApp.Application.csproj" />
-    <Project Path="demo\SecitsDemoApp.Blazor.Server\SecitsDemoApp.Blazor.Server.csproj" Type="Classic C#" />
-    <Project Path="demo\SecitsDemoApp.Blazor.WebAssembly\SecitsDemoApp.Blazor.WebAssembly.csproj" />
-    <Project Path="demo\SecitsDemoApp.Blazor\SecitsDemoApp.Blazor.csproj" />
-    <Project Path="demo\SecitsDemoApp.Domain.Shared\SecitsDemoApp.Domain.Shared.csproj" />
-    <Project Path="demo\SecitsDemoApp.Domain\SecitsDemoApp.Domain.csproj" />
-    <Project Path="demo\SecitsDemoApp.EntityFrameworkCore\SecitsDemoApp.EntityFrameworkCore.csproj" Type="Classic C#" />
-    <Project Path="demo\SecitsDemoApp.HttpApi.Client\SecitsDemoApp.HttpApi.Client.csproj" />
-    <Project Path="demo\SecitsDemoApp.HttpApi.Host\SecitsDemoApp.HttpApi.Host.csproj" Type="Classic C#" />
-    <Project Path="demo\SecitsDemoApp.HttpApi\SecitsDemoApp.HttpApi.csproj" />
-  </Folder>
   <Folder Name="/framework/">
     <Project Path="..\..\framework\src\Secyud.Abp.AspNetCore.Components.Server.Theming\Secyud.Abp.AspNetCore.Components.Server.Theming.csproj" Type="Classic C#" />
     <Project Path="..\..\framework\src\Secyud.Abp.AspNetCore.Components.Web.Theming\Secyud.Abp.AspNetCore.Components.Web.Theming.csproj" />

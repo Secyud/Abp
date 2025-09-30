@@ -9,8 +9,7 @@ namespace Secyud.Abp.Permissions;
 public class PermissionGrantCacheItemInvalidator(
     IDistributedCache<PermissionGrantCacheItem, PermissionGrantCacheKey> cache,
     ICurrentTenant currentTenant)
-    : ILocalEventHandler<EntityChangedEventData<PermissionGrant>>,
-        ITransientDependency
+    : ILocalEventHandler<EntityChangedEventData<PermissionGrant>>, ITransientDependency
 {
     protected ICurrentTenant CurrentTenant { get; } = currentTenant;
 
@@ -18,7 +17,7 @@ public class PermissionGrantCacheItemInvalidator(
 
     public virtual async Task HandleEventAsync(EntityChangedEventData<PermissionGrant> eventData)
     {
-        var cacheKey = new  PermissionGrantCacheKey(
+        var cacheKey = new PermissionGrantCacheKey(
             eventData.Entity.Name,
             eventData.Entity.ProviderName,
             eventData.Entity.ProviderKey

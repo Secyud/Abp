@@ -1,0 +1,20 @@
+﻿@namespace Secyud.Abp.Settings.Components.TimeZoneSettingGroup
+@using Volo.Abp
+@inherits Volo.Abp.AspNetCore.Components.AbpComponentBase
+
+@if (TimezoneSettings is not null)
+{
+    <SFormLayout>
+        <FormLayoutItem ColSpanMd="12" Title="@($"{L["DisplayName:Timezone"]} *")">
+            <ComboBox TValue="NameValue" TField="string" ValueField="u => u.Value"
+                      Field="TimezoneSettings.Timezone" FieldChanged="OnSelectedValueChangedAsync">
+                <EnableValueTextField TextField="u => u.Name"/>
+            </ComboBox>
+            <div class="form-text">@L["TimezoneHelpText"].Value</div>
+        </FormLayoutItem>
+    </SFormLayout>
+
+    <SButton Click="UpdateSettingsAsync" Class="inline-block end">
+        <AddTemplate>@L["Submit"]</AddTemplate>
+    </SButton>
+}

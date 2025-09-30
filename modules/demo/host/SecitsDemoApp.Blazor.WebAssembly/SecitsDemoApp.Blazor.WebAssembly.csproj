@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+    </PropertyGroup>
+    
+    <Import Project="..\..\common.props"/>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\secits-theme\src\Secyud.Abp.AspNetCore.Components.WebAssembly.SecitsTheme\Secyud.Abp.AspNetCore.Components.WebAssembly.SecitsTheme.csproj"/>
+        <ProjectReference Include="..\..\src\SecitsDemoApp.HttpApi.Client\SecitsDemoApp.HttpApi.Client.csproj"/>
+    </ItemGroup>
+
+</Project>

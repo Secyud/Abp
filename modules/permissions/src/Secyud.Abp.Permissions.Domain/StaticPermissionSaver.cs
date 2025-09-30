@@ -13,6 +13,7 @@ public class StaticPermissionSaver(
     IStaticPermissionDefinitionStore staticStore,
     IPermissionGroupDefinitionRecordRepository permissionGroupRepository,
     IPermissionDefinitionRecordRepository permissionRepository,
+    IPermissionGrantRepository grantRepository,
     IPermissionDefinitionSerializer permissionSerializer,
     IOptions<AbpDistributedCacheOptions> cacheOptions,
     IApplicationInfoAccessor applicationInfoAccessor,
@@ -197,6 +198,8 @@ public class StaticPermissionSaver(
         if (deleteRecords.Count != 0)
         {
             await PermissionRepository.DeleteManyAsync(deleteRecords);
+            var deletedPermissionNames = deleteRecords.Select(u => u.Name).ToList();
+            await grantRepository.DeleteDirectAsync(u => deletedPermissionNames.Contains(u.Name));
         }
 
         if (createRecords.Count != 0 || updateRecords.Count != 0 || deleteRecords.Count != 0)

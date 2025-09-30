@@ -87,11 +87,6 @@ public class AbpPermissionsDomainModule : AbpModule
                     }
 
                     await SaveStaticPermissionsToDatabaseAsync(options, scope, cancellationTokenProvider);
-
-                    if (cancellationTokenProvider.Token.IsCancellationRequested)
-                    {
-                        return;
-                    }
                 }
             }
             // ReSharper disable once EmptyGeneralCatchClause (No need to log since it is logged above)

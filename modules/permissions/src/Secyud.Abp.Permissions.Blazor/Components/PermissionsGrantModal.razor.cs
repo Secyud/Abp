@@ -26,7 +26,7 @@ public partial class PermissionsGrantModal
 
     private string? _crossIcon;
 
-    protected SModal? Modal { get; set; }
+    protected SPopup? Modal { get; set; }
 
     protected List<PermissionGroupInfoModel>? Groups { get; set; }
 
@@ -50,7 +50,7 @@ public partial class PermissionsGrantModal
     protected virtual async Task CheckGroupPermissionsAsync(PermissionGroupInfoModel model)
     {
         if (model.Permissions is not null) return;
-        
+
         try
         {
             var permissions = await PermissionAppService

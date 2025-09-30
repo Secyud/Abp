@@ -8,11 +8,13 @@ public class PermissionManager_Tests : PermissionTestBase
 {
     private readonly IPermissionManager _permissionManager;
     private readonly IPermissionGrantRepository _permissionGrantRepository;
+    private readonly IPermissionDefinitionRecordRepository _permissionDefinitionRecordRepository;
 
     public PermissionManager_Tests()
     {
         _permissionManager = GetRequiredService<IPermissionManager>();
         _permissionGrantRepository = GetRequiredService<IPermissionGrantRepository>();
+        _permissionDefinitionRecordRepository = GetRequiredService<IPermissionDefinitionRecordRepository>();
     }
 
     [Fact]

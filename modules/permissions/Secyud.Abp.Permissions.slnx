@@ -1,17 +1,4 @@
 <Solution>
-  <Folder Name="/demo/">
-    <Project Path="..\secits-theme\demo\SecitsDemoApp.Application.Contracts\SecitsDemoApp.Application.Contracts.csproj" />
-    <Project Path="..\secits-theme\demo\SecitsDemoApp.Application\SecitsDemoApp.Application.csproj" />
-    <Project Path="..\secits-theme\demo\SecitsDemoApp.Blazor.Server\SecitsDemoApp.Blazor.Server.csproj" />
-    <Project Path="..\secits-theme\demo\SecitsDemoApp.Blazor.WebAssembly\SecitsDemoApp.Blazor.WebAssembly.csproj" />
-    <Project Path="..\secits-theme\demo\SecitsDemoApp.Blazor\SecitsDemoApp.Blazor.csproj" />
-    <Project Path="..\secits-theme\demo\SecitsDemoApp.Domain.Shared\SecitsDemoApp.Domain.Shared.csproj" />
-    <Project Path="..\secits-theme\demo\SecitsDemoApp.Domain\SecitsDemoApp.Domain.csproj" />
-    <Project Path="..\secits-theme\demo\SecitsDemoApp.EntityFrameworkCore\SecitsDemoApp.EntityFrameworkCore.csproj" Type="Classic C#" />
-    <Project Path="..\secits-theme\demo\SecitsDemoApp.HttpApi.Client\SecitsDemoApp.HttpApi.Client.csproj" />
-    <Project Path="..\secits-theme\demo\SecitsDemoApp.HttpApi.Host\SecitsDemoApp.HttpApi.Host.csproj" Type="Classic C#" />
-    <Project Path="..\secits-theme\demo\SecitsDemoApp.HttpApi\SecitsDemoApp.HttpApi.csproj" />
-  </Folder>
   <Folder Name="/src/">
     <Project Path="src/Secyud.Abp.Permissions.Application.Contracts/Secyud.Abp.Permissions.Application.Contracts.csproj" />
     <Project Path="src/Secyud.Abp.Permissions.Application/Secyud.Abp.Permissions.Application.csproj" />

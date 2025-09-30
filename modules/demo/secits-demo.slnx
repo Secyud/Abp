@@ -1,0 +1,19 @@
+<Solution>
+    <Folder Name="/host/">
+        <Project Path="host\SecitsDemoApp.Blazor.WebAssembly\SecitsDemoApp.Blazor.WebAssembly.csproj"/>
+        <Project Path="host\SecitsDemoApp.Blazor.Server\SecitsDemoApp.Blazor.Server.csproj"/>
+        <Project Path="host\SecitsDemoApp.HttpApi.Host\SecitsDemoApp.HttpApi.Host.csproj"/>
+    </Folder>
+    <Folder Name="/src/">
+
+        <Project Path="src\SecitsDemoApp.Application.Contracts\SecitsDemoApp.Application.Contracts.csproj"/>
+        <Project Path="src\SecitsDemoApp.Application\SecitsDemoApp.Application.csproj"/>
+        <Project Path="src\SecitsDemoApp.Blazor\SecitsDemoApp.Blazor.csproj"/>
+        <Project Path="src\SecitsDemoApp.Domain.Shared\SecitsDemoApp.Domain.Shared.csproj"/>
+        <Project Path="src\SecitsDemoApp.Domain\SecitsDemoApp.Domain.csproj"/>
+        <Project Path="src\SecitsDemoApp.EntityFrameworkCore\SecitsDemoApp.EntityFrameworkCore.csproj"/>
+        <Project Path="src\SecitsDemoApp.HttpApi.Client\SecitsDemoApp.HttpApi.Client.csproj"/>
+        <Project Path="src\SecitsDemoApp.HttpApi\SecitsDemoApp.HttpApi.csproj"/>
+    </Folder>
+
+</Solution>

@@ -1,0 +1,22 @@
+﻿
+
+<SCard>
+    <Header>@L["Settings"]</Header>
+</SCard>
+
+<SCard>
+    <Body>
+    <STabContainer Class="settings-menu">
+        <TabProvider Items="SettingComponentCreationContext.Groups">
+            <TagTemplate>
+                @context.DisplayName
+            </TagTemplate>
+            <ContentTemplate>
+                <DynamicComponent Type="context.ComponentType"></DynamicComponent>
+            </ContentTemplate>
+        </TabProvider>
+        <STabTagsView Class="vertical w-300"/>
+        <STabContentsView RenderMode="TabRenderMode.LazyLoad"/>
+    </STabContainer>
+    </Body>
+</SCard>

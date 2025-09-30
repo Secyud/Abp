@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+    </PropertyGroup>
+    <Import Project="..\..\common.props"/>
+
+    <PropertyGroup>
+        <RootNamespace>SecitsDemoApp</RootNamespace>
+        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Volo.Abp.Autofac" Version="$(AbpVersion)"/>
+        <PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="$(AbpVersion)"/>
+        <PackageReference Include="Volo.Abp.Caching.StackExchangeRedis" Version="$(AbpVersion)"/>
+        <PackageReference Include="Volo.Abp.DistributedLocking" Version="$(AbpVersion)"/>
+        <PackageReference Include="Volo.Abp.Swashbuckle" Version="$(AbpVersion)"/>
+        <PackageReference Include="Volo.Abp.EventBus.RabbitMQ" Version="$(AbpVersion)"/>
+
+        <PackageReference Include="AspNetCore.HealthChecks.UI" Version="9.0.0"/>
+        <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="9.0.0"/>
+        <PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="9.0.0"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.0"/>
+        <PackageReference Include="Serilog.AspNetCore" Version="9.0.0"/>
+        <PackageReference Include="Serilog.Sinks.Async" Version="2.1.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="9.0.0"/>
+        <PackageReference Include="DistributedLock.Redis" Version="1.0.3"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\SecitsDemoApp.Application\SecitsDemoApp.Application.csproj"/>
+        <ProjectReference Include="..\..\src\SecitsDemoApp.EntityFrameworkCore\SecitsDemoApp.EntityFrameworkCore.csproj"/>
+        <ProjectReference Include="..\..\src\SecitsDemoApp.HttpApi\SecitsDemoApp.HttpApi.csproj"/>
+    </ItemGroup>
+
+</Project>

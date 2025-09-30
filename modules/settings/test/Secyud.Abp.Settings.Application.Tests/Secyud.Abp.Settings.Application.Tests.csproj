@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Secyud.Abp.Settings.Application\Secyud.Abp.Settings.Application.csproj" />
+    <ProjectReference Include="..\Secyud.Abp.Settings.Domain.Tests\Secyud.Abp.Settings.Domain.Tests.csproj" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+  </ItemGroup>
+
+</Project>
