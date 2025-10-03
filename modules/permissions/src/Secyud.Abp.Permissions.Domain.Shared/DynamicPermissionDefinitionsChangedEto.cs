@@ -3,7 +3,7 @@ using Volo.Abp.EventBus;
 namespace Secyud.Abp.Permissions;
 
 [Serializable]
-[EventName("abp.permission-management.dynamic-permission-definitions-changed")]
+[EventName("abp.permissions.dynamic-permission-definitions-changed")]
 public class DynamicPermissionDefinitionsChangedEto
 {
     public List<string> CreatedPermissions { get; set; } = [];

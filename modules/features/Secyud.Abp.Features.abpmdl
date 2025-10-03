@@ -1,0 +1,62 @@
+{
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {}
+    }
+  },
+  "packages": {
+    "Secyud.Abp.Features.Domain": {
+      "path": "src/Secyud.Abp.Features.Domain/Secyud.Abp.Features.Domain.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Features.Application.Contracts": {
+      "path": "src/Secyud.Abp.Features.Application.Contracts/Secyud.Abp.Features.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Features.Application": {
+      "path": "src/Secyud.Abp.Features.Application/Secyud.Abp.Features.Application.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Features.EntityFrameworkCore": {
+      "path": "src/Secyud.Abp.Features.EntityFrameworkCore/Secyud.Abp.Features.EntityFrameworkCore.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Features.HttpApi": {
+      "path": "src/Secyud.Abp.Features.HttpApi/Secyud.Abp.Features.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Features.HttpApi.Client": {
+      "path": "src/Secyud.Abp.Features.HttpApi.Client/Secyud.Abp.Features.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Features.Blazor": {
+      "path": "src/Secyud.Abp.Features.Blazor/Secyud.Abp.Features.Blazor.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Features.TestBase": {
+      "path": "test/Secyud.Abp.Features.TestBase/Secyud.Abp.Features.TestBase.abppkg",
+      "folder": "test"
+    },
+    "Secyud.Abp.Features.EntityFrameworkCore.Tests": {
+      "path": "test/Secyud.Abp.Features.EntityFrameworkCore.Tests/Secyud.Abp.Features.EntityFrameworkCore.Tests.abppkg",
+      "folder": "test"
+    },
+    "Secyud.Abp.Features.Domain.Tests": {
+      "path": "test/Secyud.Abp.Features.Domain.Tests/Secyud.Abp.Features.Domain.Tests.abppkg",
+      "folder": "test"
+    },
+    "Secyud.Abp.Features.Application.Tests": {
+      "path": "test/Secyud.Abp.Features.Application.Tests/Secyud.Abp.Features.Application.Tests.abppkg",
+      "folder": "test"
+    },
+    "Secyud.Abp.Features.Domain.Shared": {
+      "path": "src/Secyud.Abp.Features.Domain.Shared/Secyud.Abp.Features.Domain.Shared.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Features.Installer": {
+       "path": "src/Secyud.Abp.Features.Installer/Secyud.Abp.Features.Installer.abppkg",
+       "folder": "src"
+    }
+  }
+}

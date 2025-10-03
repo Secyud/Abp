@@ -1,3 +1,5 @@
+using Secyud.Abp.Tenants;
+using Secyud.Abp.Features;
 using Secyud.Abp.Settings;
 using Secyud.Abp.Permissions;
 using Volo.Abp.Modularity;
@@ -12,6 +14,8 @@ using Volo.Abp.VirtualFileSystem;
 namespace SecitsDemoApp;
 
 [DependsOn(
+    typeof(AbpTenantsDomainSharedModule),
+    typeof(AbpFeaturesDomainSharedModule),
     typeof(AbpSettingsDomainSharedModule),
     typeof(AbpPermissionsDomainSharedModule),
     typeof(AbpValidationModule),

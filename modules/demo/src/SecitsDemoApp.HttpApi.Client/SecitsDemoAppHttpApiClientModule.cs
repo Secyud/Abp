@@ -1,3 +1,5 @@
+using Secyud.Abp.Tenants;
+using Secyud.Abp.Features;
 using Secyud.Abp.Settings;
 using Secyud.Abp.Permissions;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,6 +10,8 @@ using Volo.Abp.VirtualFileSystem;
 namespace SecitsDemoApp;
 
 [DependsOn(
+    typeof(AbpTenantsHttpApiClientModule),
+    typeof(AbpFeaturesHttpApiClientModule),
     typeof(AbpSettingsHttpApiClientModule),
     typeof(AbpPermissionsHttpApiClientModule),
     typeof(SecitsDemoAppApplicationContractsModule),

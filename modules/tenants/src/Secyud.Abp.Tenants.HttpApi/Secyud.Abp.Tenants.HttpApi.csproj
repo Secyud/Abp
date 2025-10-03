@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Secyud.Abp.Tenants</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="$(AbpVersion)"/>
+    <ProjectReference Include="..\Secyud.Abp.Tenants.Application.Contracts\Secyud.Abp.Tenants.Application.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\features\src\Secyud.Abp.Features.HttpApi\Secyud.Abp.Features.HttpApi.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -10,5 +10,7 @@
     <ProjectReference Include="..\SecitsDemoApp.Domain\SecitsDemoApp.Domain.csproj" />
     <ProjectReference Include="../../../permissions/src/Secyud.Abp.Permissions.EntityFrameworkCore/Secyud.Abp.Permissions.EntityFrameworkCore.csproj" />
     <ProjectReference Include="../../../settings/src/Secyud.Abp.Settings.EntityFrameworkCore/Secyud.Abp.Settings.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="../../../features/src/Secyud.Abp.Features.EntityFrameworkCore/Secyud.Abp.Features.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="../../../tenants/src/Secyud.Abp.Tenants.EntityFrameworkCore/Secyud.Abp.Tenants.EntityFrameworkCore.csproj" />
   </ItemGroup>
 </Project>

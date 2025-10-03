@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <Import Project="..\..\common.props"/>
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.AutoMapper" Version="$(AbpVersion)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Secyud.Abp.Tenants.Application.Contracts\Secyud.Abp.Tenants.Application.Contracts.csproj"/>
+    <ProjectReference Include="..\..\..\settings\src\Secyud.Abp.Settings.Blazor\Secyud.Abp.Settings.Blazor.csproj" />
+    <ProjectReference Include="..\..\..\..\modules\features\src\Secyud.Abp.Features.Blazor\Secyud.Abp.Features.Blazor.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\Tenants\Index.razor" />
+  </ItemGroup>
+</Project>

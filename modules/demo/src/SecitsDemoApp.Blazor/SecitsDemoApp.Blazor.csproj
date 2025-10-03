@@ -21,6 +21,8 @@
         <ProjectReference Include="..\..\..\secits-theme\src\Secyud.Abp.AspNetCore.Components.Web.SecitsTheme\Secyud.Abp.AspNetCore.Components.Web.SecitsTheme.csproj"/>
         <ProjectReference Include="../../../permissions/src/Secyud.Abp.Permissions.Blazor/Secyud.Abp.Permissions.Blazor.csproj" />
         <ProjectReference Include="../../../settings/src/Secyud.Abp.Settings.Blazor/Secyud.Abp.Settings.Blazor.csproj" />
+        <ProjectReference Include="../../../features/src/Secyud.Abp.Features.Blazor/Secyud.Abp.Features.Blazor.csproj" />
+        <ProjectReference Include="../../../tenants/src/Secyud.Abp.Tenants.Blazor/Secyud.Abp.Tenants.Blazor.csproj" />
     </ItemGroup>
 
 </Project>

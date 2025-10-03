@@ -20,7 +20,7 @@ public class EmailingPageContributor : ISettingComponentContributor
         var l = context.ServiceProvider.GetRequiredService<IStringLocalizer<AbpSettingsResource>>();
         context.Groups.Add(
             new SettingComponentGroup(
-                "Volo.Abp.Settings",
+                "Secyud.Abp.Settings",
                 l["Menu:Emailing"],
                 typeof(EmailSettingGroupViewComponent)
             )

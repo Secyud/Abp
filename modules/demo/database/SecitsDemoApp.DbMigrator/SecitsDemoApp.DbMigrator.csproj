@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="..\..\common.props"/>
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <OutputType>Exe</OutputType>
+        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+        <DatabaseProviderType>PostgreSql</DatabaseProviderType>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Serilog.Extensions.Logging" Version="9.0.0"/>
+        <PackageReference Include="Serilog.Sinks.Async" Version="2.1.0"/>
+        <PackageReference Include="Serilog.Sinks.File" Version="6.0.0"/>
+        <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Volo.Abp.Autofac" Version="$(AbpVersion)"/>
+        <PackageReference Include="Volo.Abp.Caching.StackExchangeRedis" Version="$(AbpVersion)"/>
+        <ProjectReference Include="..\SecitsDemoApp.DbMigrator.$(DatabaseProviderType)\SecitsDemoApp.DbMigrator.$(DatabaseProviderType).csproj"/>
+        <ProjectReference Include="..\SecitsDemoApp.DbMigrator.Shared\SecitsDemoApp.DbMigrator.Shared.csproj" />
+    </ItemGroup>
+
+</Project>

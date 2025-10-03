@@ -3,31 +3,32 @@ using Microsoft.Extensions.Options;
 using Volo.Abp;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Settings;
+using Volo.Abp.Uow;
 
 namespace Secyud.Abp.Settings;
 
 public class SettingManager(
     IOptions<SettingsOptions> options,
-    IServiceProvider serviceProvider,
     ISettingDefinitionManager settingDefinitionManager,
     ISettingEncryptionService settingEncryptionService,
-    ISettingsStore settingsStore)
+    ISettingsStore settingsStore,
+    IUnitOfWorkManager uowManager)
     : ISettingManager, ISingletonDependency
 {
-    private List<ISettingsProvider>? _providers;
-    protected IServiceProvider ServiceProvider { get; } = serviceProvider;
     protected ISettingDefinitionManager SettingDefinitionManager { get; } = settingDefinitionManager;
     protected ISettingEncryptionService SettingEncryptionService { get; } = settingEncryptionService;
     protected ISettingsStore SettingsStore { get; } = settingsStore;
-    protected List<ISettingsProvider> Providers => _providers ??= GetSettingsProvider();
+    public IUnitOfWorkManager UowManager { get; } = uowManager;
+    protected List<ISettingsProvider> Providers => GetSettingsProvider();
     protected SettingsOptions Options { get; } = options.Value;
 
     private List<ISettingsProvider> GetSettingsProvider()
     {
-        return Options
+        var uow = UowManager.Current!;
+        return uow.GetOrAddItem("SettingsProviders", _ => Options
             .Providers
-            .Select(c => (ISettingsProvider)ServiceProvider.GetRequiredService(c))
-            .ToList();
+            .Select(c => (ISettingsProvider)uow.ServiceProvider.GetRequiredService(c))
+            .ToList());
     }
 
     public virtual Task<string?> GetOrNullAsync(string name, string? providerName, string? providerKey, bool fallback = true)

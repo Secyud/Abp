@@ -1,0 +1,278 @@
+{
+  "modules": {
+    "Settings": {
+      "rootPath": "Settings",
+      "remoteServiceName": "Settings",
+      "controllers": {
+        "Secyud.Abp.Settings.EmailSettingsController": {
+          "controllerName": "EmailSettings",
+          "controllerGroupName": "EmailSettings",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "Secyud.Abp.Settings.EmailSettingsController",
+          "interfaces": [
+            {
+              "type": "Secyud.Abp.Settings.IEmailSettingsAppService",
+              "name": "IEmailSettingsAppService",
+              "methods": [
+                {
+                  "name": "GetAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Secyud.Abp.Settings.EmailSettingsDto",
+                    "typeSimple": "Secyud.Abp.Settings.EmailSettingsDto"
+                  }
+                },
+                {
+                  "name": "UpdateAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "Secyud.Abp.Settings.UpdateEmailSettingsDto, Secyud.Abp.Settings.Application.Contracts",
+                      "type": "Secyud.Abp.Settings.UpdateEmailSettingsDto",
+                      "typeSimple": "Secyud.Abp.Settings.UpdateEmailSettingsDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                },
+                {
+                  "name": "SendTestEmailAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "Secyud.Abp.Settings.SendTestEmailInput, Secyud.Abp.Settings.Application.Contracts",
+                      "type": "Secyud.Abp.Settings.SendTestEmailInput",
+                      "typeSimple": "Secyud.Abp.Settings.SendTestEmailInput",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "GetAsync": {
+              "uniqueName": "GetAsync",
+              "name": "GetAsync",
+              "httpMethod": "GET",
+              "url": "api/settings/emailing",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Secyud.Abp.Settings.EmailSettingsDto",
+                "typeSimple": "Secyud.Abp.Settings.EmailSettingsDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Secyud.Abp.Settings.IEmailSettingsAppService"
+            },
+            "UpdateAsyncByInput": {
+              "uniqueName": "UpdateAsyncByInput",
+              "name": "UpdateAsync",
+              "httpMethod": "POST",
+              "url": "api/settings/emailing",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "Secyud.Abp.Settings.UpdateEmailSettingsDto, Secyud.Abp.Settings.Application.Contracts",
+                  "type": "Secyud.Abp.Settings.UpdateEmailSettingsDto",
+                  "typeSimple": "Secyud.Abp.Settings.UpdateEmailSettingsDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "Secyud.Abp.Settings.UpdateEmailSettingsDto",
+                  "typeSimple": "Secyud.Abp.Settings.UpdateEmailSettingsDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Secyud.Abp.Settings.IEmailSettingsAppService"
+            },
+            "SendTestEmailAsyncByInput": {
+              "uniqueName": "SendTestEmailAsyncByInput",
+              "name": "SendTestEmailAsync",
+              "httpMethod": "POST",
+              "url": "api/settings/emailing/send-test-email",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "Secyud.Abp.Settings.SendTestEmailInput, Secyud.Abp.Settings.Application.Contracts",
+                  "type": "Secyud.Abp.Settings.SendTestEmailInput",
+                  "typeSimple": "Secyud.Abp.Settings.SendTestEmailInput",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "Secyud.Abp.Settings.SendTestEmailInput",
+                  "typeSimple": "Secyud.Abp.Settings.SendTestEmailInput",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Secyud.Abp.Settings.IEmailSettingsAppService"
+            }
+          }
+        },
+        "Secyud.Abp.Settings.TimeZoneSettingsController": {
+          "controllerName": "TimeZoneSettings",
+          "controllerGroupName": "TimeZoneSettings",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "Secyud.Abp.Settings.TimeZoneSettingsController",
+          "interfaces": [
+            {
+              "type": "Secyud.Abp.Settings.ITimeZoneSettingsAppService",
+              "name": "ITimeZoneSettingsAppService",
+              "methods": [
+                {
+                  "name": "GetAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "System.String",
+                    "typeSimple": "string"
+                  }
+                },
+                {
+                  "name": "GetTimezonesAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<Volo.Abp.NameValue>",
+                    "typeSimple": "[Volo.Abp.NameValue]"
+                  }
+                },
+                {
+                  "name": "UpdateAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "timezone",
+                      "typeAsString": "System.String, System.Private.CoreLib",
+                      "type": "System.String",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "GetAsync": {
+              "uniqueName": "GetAsync",
+              "name": "GetAsync",
+              "httpMethod": "GET",
+              "url": "api/settings/timezone",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.String",
+                "typeSimple": "string"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Secyud.Abp.Settings.ITimeZoneSettingsAppService"
+            },
+            "GetTimezonesAsync": {
+              "uniqueName": "GetTimezonesAsync",
+              "name": "GetTimezonesAsync",
+              "httpMethod": "GET",
+              "url": "api/settings/timezone/timezones",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<Volo.Abp.NameValue>",
+                "typeSimple": "[Volo.Abp.NameValue]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Secyud.Abp.Settings.ITimeZoneSettingsAppService"
+            },
+            "UpdateAsyncByTimezone": {
+              "uniqueName": "UpdateAsyncByTimezone",
+              "name": "UpdateAsync",
+              "httpMethod": "POST",
+              "url": "api/settings/timezone",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "timezone",
+                  "typeAsString": "System.String, System.Private.CoreLib",
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "timezone",
+                  "name": "timezone",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Secyud.Abp.Settings.ITimeZoneSettingsAppService"
+            }
+          }
+        }
+      }
+    }
+  },
+  "types": {}
+}

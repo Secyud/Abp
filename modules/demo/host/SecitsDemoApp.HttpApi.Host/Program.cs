@@ -9,7 +9,7 @@ Log.Logger = new LoggerConfiguration()
 
 try
 {
-    Log.Information("Starting AbpSolution2.HttpApi.Host.");
+    Log.Information("Starting SecitsDemoApp.HttpApi.Host.");
     var builder = WebApplication.CreateBuilder(args);
     builder.Host
         .AddAppSettingsSecretsJson()

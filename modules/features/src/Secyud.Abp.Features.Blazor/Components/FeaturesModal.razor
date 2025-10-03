@@ -1,0 +1,115 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+@using Volo.Abp.Validation.StringValues
+@using Microsoft.Extensions.Localization
+@inherits AbpFeaturesComponentBase
+
+<SPopup @ref="Popup">
+    <SCard>
+        <Header>
+            @L["Features"]@ProviderKeyDisplayName
+            <CloseButton Click="CloseModal"/>
+        </Header>
+        @if (!Groups.Any())
+        {
+            <Body>
+            <span class="m-3">@L["NoFeatureFoundMessage"]</span>
+            </Body>
+        }
+        else
+        {
+            <Body>
+            <STabContainer Class="vertical">
+                <TabProvider Items="Groups" Options="SetTab">
+                    <TagTemplate Context="group">
+                        <span>@group.DisplayName</span>
+                    </TagTemplate>
+                    <ContentTemplate Context="group">
+                        <h4>@group.DisplayName</h4>
+                        <SFormLayout>
+                            @foreach (var feature in group.Features)
+                            {
+                                <div class="mt-2">
+                                    @{
+                                        var disabled = IsDisabled(feature);
+
+                                        switch (feature.ValueType)
+                                        {
+                                            case FreeTextStringValueType:
+                                                <FormLayoutItem Style="@GetFeatureStyles(feature)"
+                                                                Title="@GetShownName(feature)">
+                                                    <TextBox TValue="string" Value="feature.Value"
+                                                             ValueChanged="@(async (v) => await OnFeatureValueChangedAsync(v, feature))"
+                                                             Disabled="@disabled">
+
+                                                    </TextBox>
+                                                    @if (feature.Description != null)
+                                                    {
+                                                        <div class="form-text">@feature.Description</div>
+                                                    }
+                                                </FormLayoutItem>
+                                                break;
+                                            case SelectionStringValueType selections:
+                                            {
+                                                var items = selections.ItemSource.Items.ToList();
+                                                var selectedValue = SelectionStringValues[feature.Name];
+
+                                                <FormLayoutItem Style="@GetFeatureStyles(feature)"
+                                                                Title="@GetShownName(feature)">
+                                                    <ComboBox TValue="ISelectionStringValueItem" TField="string"
+                                                              Field="selectedValue"
+                                                              FieldChanged="@(s => SelectionStringValues[feature.Name] = s)"
+                                                              Items="items"
+                                                              ValueField="u => u.Value"
+                                                              Disabled="@disabled">
+                                                        <EnableValueTextField
+                                                            TextField="item => GetDisplayText(item.DisplayText)"/>
+                                                    </ComboBox>
+                                                    @if (feature.Description != null)
+                                                    {
+                                                        <div class="form-text">@feature.Description</div>
+                                                    }
+                                                </FormLayoutItem>
+                                                break;
+                                            }
+                                            case ToggleStringValueType:
+                                            {
+                                                <FormLayoutItem Style="@GetFeatureStyles(feature)"
+                                                                Title="@GetShownName(feature)">
+                                                    <SInput TValue="bool" Disabled="@disabled">
+                                                        <EnableValueInput TValue="bool"
+                                                                          Value="@ToggleValues[feature.Name]"
+                                                                          ValueChanged="@(async (v) => await OnSelectedValueChangedAsync(v, feature))"/>
+                                                        <InputCheckTemplate/>
+                                                    </SInput>
+                                                    @if (feature.Description != null)
+                                                    {
+                                                        <div class="form-text">@feature.Description</div>
+                                                    }
+                                                </FormLayoutItem>
+                                                break;
+                                            }
+                                        }
+                                    }
+                                </div>
+                            }
+                        </SFormLayout>
+                    </ContentTemplate>
+                </TabProvider>
+            </STabContainer>
+            </Body>
+            <Footer>
+
+                <SButton Click="CloseModal">
+                    <AddTemplate>@L["Cancel"]</AddTemplate>
+                </SButton>
+                <SButton Class="outline"
+                         Click="@(async () => await DeleteAsync(ProviderName, ProviderKey))">
+                    <AddTemplate>@L["ResetToDefault"]</AddTemplate>
+                </SButton>
+                <SButton Click="SaveAsync">
+                    <AddTemplate>@L["Save"]</AddTemplate>
+                </SButton>
+            </Footer>
+        }
+    </SCard>
+</SPopup>

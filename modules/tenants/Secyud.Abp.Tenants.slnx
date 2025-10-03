@@ -1,0 +1,19 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Secyud.Abp.Tenants.Application.Contracts/Secyud.Abp.Tenants.Application.Contracts.csproj" />
+    <Project Path="src/Secyud.Abp.Tenants.Application/Secyud.Abp.Tenants.Application.csproj" />
+    <Project Path="src/Secyud.Abp.Tenants.Blazor/Secyud.Abp.Tenants.Blazor.csproj" />
+    <Project Path="src/Secyud.Abp.Tenants.Domain.Shared/Secyud.Abp.Tenants.Domain.Shared.csproj" />
+    <Project Path="src/Secyud.Abp.Tenants.Domain/Secyud.Abp.Tenants.Domain.csproj" />
+    <Project Path="src/Secyud.Abp.Tenants.EntityFrameworkCore/Secyud.Abp.Tenants.EntityFrameworkCore.csproj" />
+    <Project Path="src/Secyud.Abp.Tenants.HttpApi.Client/Secyud.Abp.Tenants.HttpApi.Client.csproj" />
+    <Project Path="src/Secyud.Abp.Tenants.HttpApi/Secyud.Abp.Tenants.HttpApi.csproj" />
+    <Project Path="src/Secyud.Abp.Tenants.Installer/Secyud.Abp.Tenants.Installer.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/Secyud.Abp.Tenants.Application.Tests/Secyud.Abp.Tenants.Application.Tests.csproj" />
+    <Project Path="test/Secyud.Abp.Tenants.Domain.Tests/Secyud.Abp.Tenants.Domain.Tests.csproj" />
+    <Project Path="test/Secyud.Abp.Tenants.EntityFrameworkCore.Tests/Secyud.Abp.Tenants.EntityFrameworkCore.Tests.csproj" />
+    <Project Path="test/Secyud.Abp.Tenants.TestBase/Secyud.Abp.Tenants.TestBase.csproj" />
+  </Folder>
+</Solution>

@@ -13,5 +13,7 @@
     <ProjectReference Include="..\SecitsDemoApp.Domain.Shared\SecitsDemoApp.Domain.Shared.csproj" />
     <ProjectReference Include="../../../permissions/src/Secyud.Abp.Permissions.Domain/Secyud.Abp.Permissions.Domain.csproj" />
     <ProjectReference Include="../../../settings/src/Secyud.Abp.Settings.Domain/Secyud.Abp.Settings.Domain.csproj" />
+    <ProjectReference Include="../../../features/src/Secyud.Abp.Features.Domain/Secyud.Abp.Features.Domain.csproj" />
+    <ProjectReference Include="../../../tenants/src/Secyud.Abp.Tenants.Domain/Secyud.Abp.Tenants.Domain.csproj" />
   </ItemGroup>
 </Project>

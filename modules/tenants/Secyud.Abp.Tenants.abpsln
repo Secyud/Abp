@@ -1,0 +1,9 @@
+{
+  "id": "0af89553-7866-4ee6-8c78-74d81b349f0b",
+  "template": "empty",
+  "modules": {
+    "Secyud.Abp.Tenants": {
+      "path": "Secyud.Abp.Tenants.abpmdl"
+    }
+  }
+}

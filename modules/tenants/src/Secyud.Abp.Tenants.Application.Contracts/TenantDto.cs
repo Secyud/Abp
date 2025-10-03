@@ -1,0 +1,11 @@
+﻿using Volo.Abp.Application.Dtos;
+using Volo.Abp.Domain.Entities;
+
+namespace Secyud.Abp.Tenants;
+
+public class TenantDto : ExtensibleEntityDto<Guid>, IHasConcurrencyStamp
+{
+    public string Name { get; set; } = "";
+
+    public string ConcurrencyStamp { get; set; } = "";
+}

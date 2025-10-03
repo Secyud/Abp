@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Secyud.Abp.Tenants</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="9.0.0" />
+    <ProjectReference Include="..\..\src\Secyud.Abp.Tenants.EntityFrameworkCore\Secyud.Abp.Tenants.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\Secyud.Abp.Tenants.TestBase\Secyud.Abp.Tenants.TestBase.csproj" />
+    <PackageReference Include="Volo.Abp.EntityFrameworkCore.Sqlite" Version="$(AbpVersion)"/>
+  </ItemGroup>
+
+</Project>

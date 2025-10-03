@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Secyud.Abp.Tenants</RootNamespace>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Ddd.Domain" Version="$(AbpVersion)"/>
+    <PackageReference Include="Volo.Abp.AutoMapper" Version="$(AbpVersion)"/>
+    <PackageReference Include="Volo.Abp.Data" Version="$(AbpVersion)"/>
+    <PackageReference Include="Volo.Abp.MultiTenancy" Version="$(AbpVersion)"/>
+    <PackageReference Include="Volo.Abp.Caching" Version="$(AbpVersion)"/>
+    <ProjectReference Include="..\Secyud.Abp.Tenants.Domain.Shared\Secyud.Abp.Tenants.Domain.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

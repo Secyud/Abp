@@ -1,7 +1,7 @@
-﻿using SecitsDemoApp;
+﻿using Secyud.Abp.AspNetCore;
 using Volo.Abp.Modularity;
 
-namespace Secyud.Abp.AspNetCore;
+namespace SecitsDemoApp;
 
 [DependsOn(
     typeof(SecitsDemoAppHttpApiClientModule),

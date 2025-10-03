@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Secyud.Abp.Features</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.AutoMapper" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.Ddd.Application" Version="$(AbpVersion)" />
+    <ProjectReference Include="..\Secyud.Abp.Features.Application.Contracts\Secyud.Abp.Features.Application.Contracts.csproj" />
+    <ProjectReference Include="..\Secyud.Abp.Features.Domain\Secyud.Abp.Features.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

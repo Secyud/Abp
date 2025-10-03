@@ -1,3 +1,5 @@
+using Secyud.Abp.Tenants;
+using Secyud.Abp.Features;
 using Secyud.Abp.Settings;
 using Secyud.Abp.Permissions;
 using Localization.Resources.AbpUi;
@@ -10,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 namespace SecitsDemoApp;
 
 [DependsOn(
+    typeof(AbpTenantsHttpApiModule),
+    typeof(AbpFeaturesHttpApiModule),
     typeof(AbpSettingsHttpApiModule),
     typeof(AbpPermissionsHttpApiModule),
     typeof(SecitsDemoAppApplicationContractsModule),

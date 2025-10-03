@@ -1,0 +1,9 @@
+{
+  "id": "f30e62ac-6ff7-4ff1-b519-c36d3d7c4b1c",
+  "template": "empty",
+  "modules": {
+    "Secyud.Abp.Features": {
+      "path": "Secyud.Abp.Features.abpmdl"
+    }
+  }
+}

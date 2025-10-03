@@ -13,11 +13,11 @@ using Volo.Abp.Localization;
 
 namespace Secyud.Abp.Secits.Blazor;
 
-public abstract class SecitsCrudPageBase<
+public abstract class AbpCrudPageBase<
     TAppService,
     TEntityDto,
     TKey>
-    : SecitsCrudPageBase<
+    : AbpCrudPageBase<
         TAppService,
         TEntityDto,
         TKey,
@@ -29,12 +29,12 @@ public abstract class SecitsCrudPageBase<
 {
 }
 
-public abstract class SecitsCrudPageBase<
+public abstract class AbpCrudPageBase<
     TAppService,
     TEntityDto,
     TKey,
     TGetListInput>
-    : SecitsCrudPageBase<
+    : AbpCrudPageBase<
         TAppService,
         TEntityDto,
         TKey,
@@ -49,13 +49,13 @@ public abstract class SecitsCrudPageBase<
 {
 }
 
-public abstract class SecitsCrudPageBase<
+public abstract class AbpCrudPageBase<
     TAppService,
     TEntityDto,
     TKey,
     TGetListInput,
     TCreateInput>
-    : SecitsCrudPageBase<
+    : AbpCrudPageBase<
         TAppService,
         TEntityDto,
         TKey,
@@ -73,14 +73,14 @@ public abstract class SecitsCrudPageBase<
 {
 }
 
-public abstract class SecitsCrudPageBase<
+public abstract class AbpCrudPageBase<
     TAppService,
     TEntityDto,
     TKey,
     TGetListInput,
     TCreateInput,
     TUpdateInput>
-    : SecitsCrudPageBase<
+    : AbpCrudPageBase<
         TAppService,
         TEntityDto,
         TEntityDto,
@@ -101,7 +101,7 @@ public abstract class SecitsCrudPageBase<
 {
 }
 
-public abstract class SecitsCrudPageBase<
+public abstract class AbpCrudPageBase<
     TAppService,
     TGetOutputDto,
     TGetListOutputDto,
@@ -109,7 +109,7 @@ public abstract class SecitsCrudPageBase<
     TGetListInput,
     TCreateInput,
     TUpdateInput>
-    : SecitsCrudPageBase<
+    : AbpCrudPageBase<
         TAppService,
         TGetOutputDto,
         TGetListOutputDto,
@@ -135,7 +135,7 @@ public abstract class SecitsCrudPageBase<
 {
 }
 
-public abstract class SecitsCrudPageBase<
+public abstract class AbpCrudPageBase<
     TAppService,
     TGetOutputDto,
     TGetListOutputDto,
@@ -191,20 +191,6 @@ public abstract class SecitsCrudPageBase<
     protected override async Task OnInitializedAsync()
     {
         await TrySetPermissionsAsync();
-        await TrySetEntityActionsAsync();
-        await TrySetTableColumnsAsync();
-        await InvokeAsync(StateHasChanged);
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await SetToolbarItemsAsync();
-            await SetBreadcrumbItemsAsync();
-        }
-
-        await base.OnAfterRenderAsync(firstRender);
     }
 
     private async Task TrySetPermissionsAsync()
@@ -320,6 +306,21 @@ public abstract class SecitsCrudPageBase<
         }
     }
 
+    protected virtual async Task OpenDeleteModalAsync(TListViewModel entity)
+    {
+        try
+        {
+            if (await Message.Confirm(GetDeleteConfirmationMessage(entity)))
+            {
+                await DeleteEntityAsync(entity);
+            }
+        }
+        catch (Exception ex)
+        {
+            await HandleErrorAsync(ex);
+        }
+    }
+
     protected virtual async Task CloseCreateModalAsync()
     {
         await InvokeAsync(CreateModal!.HideAsync);
@@ -365,7 +366,7 @@ public abstract class SecitsCrudPageBase<
             : ObjectMapper.Map<TUpdateViewModel, TUpdateInput>(updateViewModel);
     }
 
-    protected virtual Task CloseEditModalAsync()
+    protected virtual Task CloseUpdateModalAsync()
     {
         InvokeAsync(UpdateModal!.HideAsync);
         return Task.CompletedTask;
@@ -519,45 +520,5 @@ public abstract class SecitsCrudPageBase<
         }
 
         await AuthorizationService.CheckAsync(policyName);
-    }
-
-    protected virtual ValueTask SetBreadcrumbItemsAsync()
-    {
-        return ValueTask.CompletedTask;
-    }
-
-    private async ValueTask TrySetEntityActionsAsync()
-    {
-        if (IsDisposed)
-        {
-            return;
-        }
-
-        await SetEntityActionsAsync();
-    }
-
-    protected virtual ValueTask SetEntityActionsAsync()
-    {
-        return ValueTask.CompletedTask;
-    }
-
-    private async ValueTask TrySetTableColumnsAsync()
-    {
-        if (IsDisposed)
-        {
-            return;
-        }
-
-        await SetTableColumnsAsync();
-    }
-
-    protected virtual ValueTask SetTableColumnsAsync()
-    {
-        return ValueTask.CompletedTask;
-    }
-
-    protected virtual ValueTask SetToolbarItemsAsync()
-    {
-        return ValueTask.CompletedTask;
     }
 }

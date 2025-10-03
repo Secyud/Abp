@@ -1,0 +1,20 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Secyud.Abp.Features.Application.Contracts/Secyud.Abp.Features.Application.Contracts.csproj" />
+    <Project Path="src/Secyud.Abp.Features.Application/Secyud.Abp.Features.Application.csproj" />
+    <Project Path="src/Secyud.Abp.Features.Blazor.WebAssembly/Secyud.Abp.Features.Blazor.WebAssembly.csproj" />
+    <Project Path="src/Secyud.Abp.Features.Blazor/Secyud.Abp.Features.Blazor.csproj" />
+    <Project Path="src/Secyud.Abp.Features.Domain.Shared/Secyud.Abp.Features.Domain.Shared.csproj" />
+    <Project Path="src/Secyud.Abp.Features.Domain/Secyud.Abp.Features.Domain.csproj" />
+    <Project Path="src/Secyud.Abp.Features.EntityFrameworkCore/Secyud.Abp.Features.EntityFrameworkCore.csproj" />
+    <Project Path="src/Secyud.Abp.Features.HttpApi.Client/Secyud.Abp.Features.HttpApi.Client.csproj" />
+    <Project Path="src/Secyud.Abp.Features.HttpApi/Secyud.Abp.Features.HttpApi.csproj" />
+    <Project Path="src/Secyud.Abp.Features.Installer/Secyud.Abp.Features.Installer.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/Secyud.Abp.Features.Application.Tests/Secyud.Abp.Features.Application.Tests.csproj" />
+    <Project Path="test/Secyud.Abp.Features.Domain.Tests/Secyud.Abp.Features.Domain.Tests.csproj" />
+    <Project Path="test/Secyud.Abp.Features.EntityFrameworkCore.Tests/Secyud.Abp.Features.EntityFrameworkCore.Tests.csproj" />
+    <Project Path="test/Secyud.Abp.Features.TestBase/Secyud.Abp.Features.TestBase.csproj" />
+  </Folder>
+</Solution>

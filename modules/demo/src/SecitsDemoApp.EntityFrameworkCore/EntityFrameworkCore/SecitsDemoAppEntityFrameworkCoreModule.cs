@@ -1,3 +1,5 @@
+using Secyud.Abp.Tenants.EntityFrameworkCore;
+using Secyud.Abp.Features.EntityFrameworkCore;
 using Secyud.Abp.Settings.EntityFrameworkCore;
 using Secyud.Abp.Permissions.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,6 +9,8 @@ using Volo.Abp.Modularity;
 namespace SecitsDemoApp.EntityFrameworkCore;
 
 [DependsOn(
+    typeof(AbpTenantsEntityFrameworkCoreModule),
+    typeof(AbpFeaturesEntityFrameworkCoreModule),
     typeof(AbpSettingsEntityFrameworkCoreModule),
     typeof(AbpPermissionsEntityFrameworkCoreModule),
     typeof(SecitsDemoAppDomainModule),

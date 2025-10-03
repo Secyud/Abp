@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <Import Project="..\..\common.props"/>
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.AutoMapper" Version="$(AbpVersion)"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\framework\src\Secyud.Abp.AspNetCore.Components.Web.Theming\Secyud.Abp.AspNetCore.Components.Web.Theming.csproj"/>
+    <ProjectReference Include="..\..\..\settings\src\Secyud.Abp.Settings.Blazor\Secyud.Abp.Settings.Blazor.csproj" />
+    <ProjectReference Include="..\Secyud.Abp.Features.Application.Contracts\Secyud.Abp.Features.Application.Contracts.csproj"/>
+  </ItemGroup>
+
+</Project>

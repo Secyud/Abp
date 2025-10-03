@@ -1,0 +1,62 @@
+{
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {}
+    }
+  },
+  "packages": {
+    "Secyud.Abp.Tenants.Domain": {
+      "path": "src/Secyud.Abp.Tenants.Domain/Secyud.Abp.Tenants.Domain.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Tenants.Application.Contracts": {
+      "path": "src/Secyud.Abp.Tenants.Application.Contracts/Secyud.Abp.Tenants.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Tenants.Application": {
+      "path": "src/Secyud.Abp.Tenants.Application/Secyud.Abp.Tenants.Application.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Tenants.EntityFrameworkCore": {
+      "path": "src/Secyud.Abp.Tenants.EntityFrameworkCore/Secyud.Abp.Tenants.EntityFrameworkCore.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Tenants.HttpApi": {
+      "path": "src/Secyud.Abp.Tenants.HttpApi/Secyud.Abp.Tenants.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Tenants.HttpApi.Client": {
+      "path": "src/Secyud.Abp.Tenants.HttpApi.Client/Secyud.Abp.Tenants.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Tenants.Blazor": {
+      "path": "src/Secyud.Abp.Tenants.Blazor/Secyud.Abp.Tenants.Blazor.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Tenants.TestBase": {
+      "path": "test/Secyud.Abp.Tenants.TestBase/Secyud.Abp.Tenants.TestBase.abppkg",
+      "folder": "test"
+    },
+    "Secyud.Abp.Tenants.EntityFrameworkCore.Tests": {
+      "path": "test/Secyud.Abp.Tenants.EntityFrameworkCore.Tests/Secyud.Abp.Tenants.EntityFrameworkCore.Tests.abppkg",
+      "folder": "test"
+    },
+    "Secyud.Abp.Tenants.Domain.Tests": {
+      "path": "test/Secyud.Abp.Tenants.Domain.Tests/Secyud.Abp.Tenants.Domain.Tests.abppkg",
+      "folder": "test"
+    },
+    "Secyud.Abp.Tenants.Application.Tests": {
+      "path": "test/Secyud.Abp.Tenants.Application.Tests/Secyud.Abp.Tenants.Application.Tests.abppkg",
+      "folder": "test"
+    },
+    "Secyud.Abp.Tenants.Domain.Shared": {
+      "path": "src/Secyud.Abp.Tenants.Domain.Shared/Secyud.Abp.Tenants.Domain.Shared.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Tenants.Installer": {
+       "path": "src/Secyud.Abp.Tenants.Installer/Secyud.Abp.Tenants.Installer.abppkg",
+       "folder": "src"
+    }
+  }
+}

@@ -2,8 +2,10 @@
 using SecitsDemoApp.Menus;
 using Secyud.Abp.AspNetCore;
 using Secyud.Abp.AspNetCore.Components.Routing;
+using Secyud.Abp.Features;
 using Secyud.Abp.Permissions;
 using Secyud.Abp.Settings;
+using Secyud.Abp.Tenants;
 using Secyud.Secits.Blazor;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.Localization;
@@ -16,6 +18,8 @@ namespace SecitsDemoApp;
     typeof(SecitsDemoAppApplicationContractsModule),
     typeof(AbpSettingsBlazorModule),
     typeof(AbpPermissionsBlazorModule),
+    typeof(AbpFeaturesBlazorModule),
+    typeof(AbpTenantsBlazorModule),
     typeof(AbpAspNetCoreComponentsWebSecitsThemeModule),
     typeof(AbpAutoMapperModule)
 )]

@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <Import Project="..\..\common.props"/>
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.AspNetCore.Components.WebAssembly.Theming" Version="$(AbpVersion)"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Secyud.Abp.Features.Blazor\Secyud.Abp.Features.Blazor.csproj"/>
+    <ProjectReference Include="..\Secyud.Abp.Features.HttpApi.Client\Secyud.Abp.Features.HttpApi.Client.csproj"/>
+  </ItemGroup>
+
+</Project>

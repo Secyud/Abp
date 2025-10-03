@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.OpenApi.Models;
 using SecitsDemoApp.EntityFrameworkCore;
 using SecitsDemoApp.HealthChecks;
+using Secyud.Abp.Permissions;
 using StackExchange.Redis;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
@@ -13,6 +14,8 @@ using Volo.Abp.Autofac;
 using Volo.Abp.Caching;
 using Volo.Abp.Caching.StackExchangeRedis;
 using Volo.Abp.DistributedLocking;
+using Volo.Abp.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore.PostgreSql;
 using Volo.Abp.EventBus.RabbitMq;
 using Volo.Abp.Modularity;
 using Volo.Abp.Security.Claims;
@@ -32,6 +35,7 @@ namespace SecitsDemoApp;
     typeof(AbpDistributedLockingModule),
     typeof(AbpEventBusRabbitMqModule),
     typeof(AbpSwashbuckleModule),
+    typeof(AbpEntityFrameworkCorePostgreSqlModule),
     typeof(AbpAspNetCoreSerilogModule)
 )]
 public class SecitsDemoAppHttpApiHostModule : AbpModule
@@ -50,7 +54,7 @@ public class SecitsDemoAppHttpApiHostModule : AbpModule
         ConfigureUrls(configuration);
         ConfigureConventionalControllers();
         // ConfigureAuthentication(context, configuration);
-        // ConfigureSwagger(context, configuration);
+        ConfigureSwagger(context, configuration);
         ConfigureCache(configuration);
         ConfigureVirtualFileSystem(context);
         ConfigureDataProtection(context, configuration, hostingEnvironment);
@@ -58,7 +62,11 @@ public class SecitsDemoAppHttpApiHostModule : AbpModule
         ConfigureCors(context, configuration);
         ConfigureHealthChecks(context);
 
-        // Configure<Permissionop>(options => { options.IsDynamicPermissionStoreEnabled = true; });
+        
+        Configure<AbpDbContextOptions>(options =>
+        {
+            options.UseNpgsql();
+        });
     }
 
     private void ConfigureHealthChecks(ServiceConfigurationContext context)
@@ -85,15 +93,15 @@ public class SecitsDemoAppHttpApiHostModule : AbpModule
             Configure<AbpVirtualFileSystemOptions>(options =>
             {
                 options.FileSets.ReplaceEmbeddedByPhysical<SecitsDemoAppDomainSharedModule>(Path.Combine(hostingEnvironment.ContentRootPath,
-                    string.Format("..{0}..{0}demo{0}SecitsDemoApp.Domain.Shared", Path.DirectorySeparatorChar)));
+                    string.Format("..{0}..{0}src{0}SecitsDemoApp.Domain.Shared", Path.DirectorySeparatorChar)));
                 options.FileSets.ReplaceEmbeddedByPhysical<SecitsDemoAppDomainModule>(Path.Combine(hostingEnvironment.ContentRootPath,
-                    string.Format("..{0}..{0}demo{0}SecitsDemoApp.Domain", Path.DirectorySeparatorChar)));
+                    string.Format("..{0}..{0}src{0}SecitsDemoApp.Domain", Path.DirectorySeparatorChar)));
                 options.FileSets.ReplaceEmbeddedByPhysical<SecitsDemoAppApplicationContractsModule>(Path.Combine(hostingEnvironment.ContentRootPath,
-                    string.Format("..{0}..{0}demo{0}SecitsDemoApp.Application.Contracts", Path.DirectorySeparatorChar)));
+                    string.Format("..{0}..{0}src{0}SecitsDemoApp.Application.Contracts", Path.DirectorySeparatorChar)));
                 options.FileSets.ReplaceEmbeddedByPhysical<SecitsDemoAppApplicationModule>(Path.Combine(hostingEnvironment.ContentRootPath,
-                    string.Format("..{0}..{0}demo{0}SecitsDemoApp.Application", Path.DirectorySeparatorChar)));
+                    string.Format("..{0}..{0}src{0}SecitsDemoApp.Application", Path.DirectorySeparatorChar)));
                 options.FileSets.ReplaceEmbeddedByPhysical<SecitsDemoAppHttpApiModule>(Path.Combine(hostingEnvironment.ContentRootPath,
-                    string.Format("..{0}..{0}demo{0}SecitsDemoApp.HttpApi", Path.DirectorySeparatorChar)));
+                    string.Format("..{0}..{0}src{0}SecitsDemoApp.HttpApi", Path.DirectorySeparatorChar)));
             });
         }
     }
@@ -118,11 +126,18 @@ public class SecitsDemoAppHttpApiHostModule : AbpModule
 
     private static void ConfigureSwagger(ServiceConfigurationContext context, IConfiguration configuration)
     {
-        context.Services.AddAbpSwaggerGenWithOidc(
-            configuration["AuthServer:Authority"]!,
-            ["SecitsDemoApp"],
-            [AbpSwaggerOidcFlows.AuthorizationCode],
-            configuration["AuthServer:MetaAddress"],
+        // context.Services.AddAbpSwaggerGenWithOidc(
+        //     configuration["AuthServer:Authority"]!,
+        //     ["SecitsDemoApp"],
+        //     [AbpSwaggerOidcFlows.AuthorizationCode],
+        //     configuration["AuthServer:MetaAddress"],
+        //     options =>
+        //     {
+        //         options.SwaggerDoc("v1", new OpenApiInfo { Title = "SecitsDemoApp API", Version = "v1" });
+        //         options.DocInclusionPredicate((docName, description) => true);
+        //         options.CustomSchemaIds(type => type.FullName);
+        //     });
+        context.Services.AddAbpSwaggerGen(
             options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "SecitsDemoApp API", Version = "v1" });

@@ -1,0 +1,7 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="..\..\common.props"/>
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\SecitsDemoApp.EntityFrameworkCore\SecitsDemoApp.EntityFrameworkCore.csproj"/>
+        <ProjectReference Include="..\..\src\SecitsDemoApp.Application.Contracts\SecitsDemoApp.Application.Contracts.csproj"/>
+    </ItemGroup>
+</Project>

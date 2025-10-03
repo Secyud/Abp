@@ -16,7 +16,7 @@ public class TimeZonePageContributor : ISettingComponentContributor
         {
             context.Groups.Add(
                 new SettingComponentGroup(
-                    "Volo.Abp.TimeZone",
+                    "Secyud.Abp.TimeZone",
                     l["Menu:TimeZone"],
                     typeof(TimeZoneSettingGroupViewComponent)
                 )
