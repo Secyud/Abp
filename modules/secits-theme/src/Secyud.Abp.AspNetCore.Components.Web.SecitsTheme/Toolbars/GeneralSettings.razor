@@ -8,7 +8,7 @@
 	@if (ThemeOptions.Value.Styles.Count > 1)
 	{
 		<div class="setting-icon" id="style">
-			<SIcon Class="anim" IconName="@IconProvider.GetIcon(IconName.Laptop)"
+			<SIcon Class="anim" IconName="IconName.Laptop"
 			       Click="StyleMenuIconClick"/>
 		</div>
 	}
@@ -50,12 +50,9 @@
 		{
 			<div class="s-menu outer">
 				<div class="menu-item" @onclick="StyleMenuClick">
-					<SIcon IconName="@StyleMenuIcon"/>
+					<SIcon IconName="@IconName.Palette"/>
 					<span class="menu-item-text">@L["Appearance"]</span>
-					@{
-						var icon = StyleMenuVisible ? DownIcon : UpIcon;
-						<SIcon @key="icon" IconName="@icon"/>
-					}
+					<SIcon IconName="@(StyleMenuVisible ? IconName.DownAngle : IconName.UpAngle)"/>
 				</div>
 			</div>
 
@@ -74,12 +71,9 @@
 		{
 			<div class="s-menu">
 				<div class="menu-item" @onclick="LanguageMenuClick">
-					<SIcon IconName="@LanguageMenuIcon"/>
+					<SIcon IconName="@IconName.Globe"/>
 					<span class="menu-item-text">@L["Language"]</span>
-					@{
-						var icon = LanguageMenuVisible ? DownIcon : UpIcon;
-						<SIcon @key="icon" IconName="@icon"/>
-					}
+					<SIcon IconName="@(LanguageMenuVisible ? IconName.DownAngle : IconName.UpAngle)"/>
 				</div>
 			</div>
 

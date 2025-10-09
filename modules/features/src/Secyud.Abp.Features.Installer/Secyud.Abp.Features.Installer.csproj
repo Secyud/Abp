@@ -3,10 +3,7 @@
   <Import Project="..\..\common.props"/>
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
-    <RootNamespace>Secyud.Abp.Features</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

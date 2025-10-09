@@ -2,7 +2,6 @@
   <Folder Name="/src/">
     <Project Path="src/Secyud.Abp.Features.Application.Contracts/Secyud.Abp.Features.Application.Contracts.csproj" />
     <Project Path="src/Secyud.Abp.Features.Application/Secyud.Abp.Features.Application.csproj" />
-    <Project Path="src/Secyud.Abp.Features.Blazor.WebAssembly/Secyud.Abp.Features.Blazor.WebAssembly.csproj" />
     <Project Path="src/Secyud.Abp.Features.Blazor/Secyud.Abp.Features.Blazor.csproj" />
     <Project Path="src/Secyud.Abp.Features.Domain.Shared/Secyud.Abp.Features.Domain.Shared.csproj" />
     <Project Path="src/Secyud.Abp.Features.Domain/Secyud.Abp.Features.Domain.csproj" />

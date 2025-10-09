@@ -7,9 +7,6 @@ public partial class LayoutMenu
 {
     protected bool MenuFixed { get; set; }
 
-    [Inject]
-    private IIconProvider IconProvider { get; set; } = null!;
-
     [Parameter]
     public string? Class { get; set; }
 

@@ -2,12 +2,6 @@
 
   <Import Project="..\..\common.props" />
 
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <RootNamespace>Secyud.Abp.Tenants</RootNamespace>
-  </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Volo.Abp.EntityFrameworkCore" Version="$(AbpVersion)" />
     <ProjectReference Include="..\Secyud.Abp.Tenants.Domain\Secyud.Abp.Tenants.Domain.csproj" />

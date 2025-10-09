@@ -1,17 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="..\..\common.props" />
-
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <RootNamespace>Secyud.Abp.Features</RootNamespace>
-  </PropertyGroup>
+  <Import Project="..\..\common.props"/>
+  <Import Project="..\..\..\..\common.test.props"/>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Secyud.Abp.Features.Application\Secyud.Abp.Features.Application.csproj" />
-    <ProjectReference Include="..\Secyud.Abp.Features.Domain.Tests\Secyud.Abp.Features.Domain.Tests.csproj" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <ProjectReference Include="..\Secyud.Abp.Features.Domain.Tests\Secyud.Abp.Features.Domain.Tests.csproj"/>
+    <ProjectReference Include="..\..\src\Secyud.Abp.Features.Application\Secyud.Abp.Features.Application.csproj"/>
   </ItemGroup>
 
 </Project>

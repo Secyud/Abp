@@ -1,10 +1,7 @@
 ﻿@using Secyud.Secits.Blazor.Icons
 <div class="@GetClass()">
-    @{
-        var iconName = IconProvider.GetIcon(MenuFixed ? IconName.Pin : IconName.Bars);
-    }
-    <div @key="iconName" class="layout-menu-pin" @onclick="ChangeFixedAsync">
-        <SIcon IconName="@iconName" />
+    <div class="layout-menu-pin" @onclick="ChangeFixedAsync">
+        <SIcon IconName="@(MenuFixed ? IconName.Pin : IconName.Bars)"/>
     </div>
     @ChildContent
 </div>

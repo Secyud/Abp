@@ -1,82 +1,75 @@
 <Solution>
-    <Folder Name="/database/">
-        <Project Path="database\SecitsDemoApp.DbMigrator.PostgreSql\SecitsDemoApp.DbMigrator.PostgreSql.csproj"
-                 Type="Classic C#"/>
-        <Project Path="database\SecitsDemoApp.DbMigrator.Shared\SecitsDemoApp.DbMigrator.Shared.csproj"
-                 Type="Classic C#"/>
-        <Project Path="database\SecitsDemoApp.DbMigrator\SecitsDemoApp.DbMigrator.csproj" Type="Classic C#"/>
-    </Folder>
-    <Folder Name="/host/">
-        <Project Path="host\SecitsDemoApp.Blazor.Server\SecitsDemoApp.Blazor.Server.csproj"/>
-        <Project Path="host\SecitsDemoApp.Blazor.WebAssembly\SecitsDemoApp.Blazor.WebAssembly.csproj"/>
-        <Project Path="host\SecitsDemoApp.HttpApi.Host\SecitsDemoApp.HttpApi.Host.csproj"/>
-    </Folder>
-    <Folder Name="/modules/"/>
-    <Folder Name="/modules/features/">
-        <Project
-                Path="../features/src/Secyud.Abp.Features.Application.Contracts/Secyud.Abp.Features.Application.Contracts.csproj"/>
-        <Project Path="../features/src/Secyud.Abp.Features.Application/Secyud.Abp.Features.Application.csproj"/>
-        <Project
-                Path="../features/src/Secyud.Abp.Features.Blazor.WebAssembly/Secyud.Abp.Features.Blazor.WebAssembly.csproj"/>
-        <Project Path="../features/src/Secyud.Abp.Features.Blazor/Secyud.Abp.Features.Blazor.csproj"/>
-        <Project Path="../features/src/Secyud.Abp.Features.Domain.Shared/Secyud.Abp.Features.Domain.Shared.csproj"/>
-        <Project Path="../features/src/Secyud.Abp.Features.Domain/Secyud.Abp.Features.Domain.csproj"/>
-        <Project
-                Path="../features/src/Secyud.Abp.Features.EntityFrameworkCore/Secyud.Abp.Features.EntityFrameworkCore.csproj"/>
-        <Project Path="../features/src/Secyud.Abp.Features.HttpApi.Client/Secyud.Abp.Features.HttpApi.Client.csproj"/>
-        <Project Path="../features/src/Secyud.Abp.Features.HttpApi/Secyud.Abp.Features.HttpApi.csproj"/>
-        <Project Path="../features/src/Secyud.Abp.Features.Installer/Secyud.Abp.Features.Installer.csproj"/>
-    </Folder>
-    <Folder Name="/modules/permissions/">
-        <Project
-                Path="../permissions/src/Secyud.Abp.Permissions.Application.Contracts/Secyud.Abp.Permissions.Application.Contracts.csproj"/>
-        <Project
-                Path="../permissions/src/Secyud.Abp.Permissions.Application/Secyud.Abp.Permissions.Application.csproj"/>
-        <Project Path="../permissions/src/Secyud.Abp.Permissions.Blazor/Secyud.Abp.Permissions.Blazor.csproj"/>
-        <Project
-                Path="../permissions/src/Secyud.Abp.Permissions.Domain.Shared/Secyud.Abp.Permissions.Domain.Shared.csproj"/>
-        <Project Path="../permissions/src/Secyud.Abp.Permissions.Domain/Secyud.Abp.Permissions.Domain.csproj"/>
-        <Project
-                Path="../permissions/src/Secyud.Abp.Permissions.EntityFrameworkCore/Secyud.Abp.Permissions.EntityFrameworkCore.csproj"/>
-        <Project
-                Path="../permissions/src/Secyud.Abp.Permissions.HttpApi.Client/Secyud.Abp.Permissions.HttpApi.Client.csproj"/>
-        <Project Path="../permissions/src/Secyud.Abp.Permissions.HttpApi/Secyud.Abp.Permissions.HttpApi.csproj"/>
-        <Project Path="../permissions/src/Secyud.Abp.Permissions.Installer/Secyud.Abp.Permissions.Installer.csproj"/>
-    </Folder>
-    <Folder Name="/modules/settings/">
-        <Project
-                Path="../settings/src/Secyud.Abp.Settings.Application.Contracts/Secyud.Abp.Settings.Application.Contracts.csproj"/>
-        <Project Path="../settings/src/Secyud.Abp.Settings.Application/Secyud.Abp.Settings.Application.csproj"/>
-        <Project Path="../settings/src/Secyud.Abp.Settings.Blazor/Secyud.Abp.Settings.Blazor.csproj"/>
-        <Project Path="../settings/src/Secyud.Abp.Settings.Domain.Shared/Secyud.Abp.Settings.Domain.Shared.csproj"/>
-        <Project Path="../settings/src/Secyud.Abp.Settings.Domain/Secyud.Abp.Settings.Domain.csproj"/>
-        <Project
-                Path="../settings/src/Secyud.Abp.Settings.EntityFrameworkCore/Secyud.Abp.Settings.EntityFrameworkCore.csproj"/>
-        <Project Path="../settings/src/Secyud.Abp.Settings.HttpApi.Client/Secyud.Abp.Settings.HttpApi.Client.csproj"/>
-        <Project Path="../settings/src/Secyud.Abp.Settings.HttpApi/Secyud.Abp.Settings.HttpApi.csproj"/>
-        <Project Path="../settings/src/Secyud.Abp.Settings.Installer/Secyud.Abp.Settings.Installer.csproj"/>
-    </Folder>
-    <Folder Name="/modules/tenants/">
-        <Project
-                Path="../tenants/src/Secyud.Abp.Tenants.Application.Contracts/Secyud.Abp.Tenants.Application.Contracts.csproj"/>
-        <Project Path="../tenants/src/Secyud.Abp.Tenants.Application/Secyud.Abp.Tenants.Application.csproj"/>
-        <Project Path="../tenants/src/Secyud.Abp.Tenants.Blazor/Secyud.Abp.Tenants.Blazor.csproj"/>
-        <Project Path="../tenants/src/Secyud.Abp.Tenants.Domain.Shared/Secyud.Abp.Tenants.Domain.Shared.csproj"/>
-        <Project Path="../tenants/src/Secyud.Abp.Tenants.Domain/Secyud.Abp.Tenants.Domain.csproj"/>
-        <Project
-                Path="../tenants/src/Secyud.Abp.Tenants.EntityFrameworkCore/Secyud.Abp.Tenants.EntityFrameworkCore.csproj"/>
-        <Project Path="../tenants/src/Secyud.Abp.Tenants.HttpApi.Client/Secyud.Abp.Tenants.HttpApi.Client.csproj"/>
-        <Project Path="../tenants/src/Secyud.Abp.Tenants.HttpApi/Secyud.Abp.Tenants.HttpApi.csproj"/>
-        <Project Path="../tenants/src/Secyud.Abp.Tenants.Installer/Secyud.Abp.Tenants.Installer.csproj"/>
-    </Folder>
-    <Folder Name="/src/">
-        <Project Path="src\SecitsDemoApp.Application.Contracts\SecitsDemoApp.Application.Contracts.csproj"/>
-        <Project Path="src\SecitsDemoApp.Application\SecitsDemoApp.Application.csproj"/>
-        <Project Path="src\SecitsDemoApp.Blazor\SecitsDemoApp.Blazor.csproj"/>
-        <Project Path="src\SecitsDemoApp.Domain.Shared\SecitsDemoApp.Domain.Shared.csproj"/>
-        <Project Path="src\SecitsDemoApp.Domain\SecitsDemoApp.Domain.csproj"/>
-        <Project Path="src\SecitsDemoApp.EntityFrameworkCore\SecitsDemoApp.EntityFrameworkCore.csproj"/>
-        <Project Path="src\SecitsDemoApp.HttpApi.Client\SecitsDemoApp.HttpApi.Client.csproj"/>
-        <Project Path="src\SecitsDemoApp.HttpApi\SecitsDemoApp.HttpApi.csproj"/>
-    </Folder>
+  <Folder Name="/database/">
+    <Project Path="database\SecitsDemoApp.DbMigrator.PostgreSql\SecitsDemoApp.DbMigrator.PostgreSql.csproj" />
+    <Project Path="database\SecitsDemoApp.DbMigrator.Shared\SecitsDemoApp.DbMigrator.Shared.csproj" />
+    <Project Path="database\SecitsDemoApp.DbMigrator\SecitsDemoApp.DbMigrator.csproj" />
+  </Folder>
+  <Folder Name="/framework/">
+    <Project Path="..\..\framework\src\Secyud.Abp.Secits.Blazor\Secyud.Abp.Secits.Blazor.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/host/">
+    <Project Path="host\SecitsDemoApp.Blazor.Server\SecitsDemoApp.Blazor.Server.csproj" />
+    <Project Path="host\SecitsDemoApp.Blazor.WebAssembly\SecitsDemoApp.Blazor.WebAssembly.csproj" />
+    <Project Path="host\SecitsDemoApp.HttpApi.Host\SecitsDemoApp.HttpApi.Host.csproj" />
+  </Folder>
+  <Folder Name="/modules/" />
+  <Folder Name="/modules/features/">
+    <Project Path="../features/src/Secyud.Abp.Features.Application.Contracts/Secyud.Abp.Features.Application.Contracts.csproj" />
+    <Project Path="../features/src/Secyud.Abp.Features.Application/Secyud.Abp.Features.Application.csproj" />
+    <Project Path="../features/src/Secyud.Abp.Features.Blazor/Secyud.Abp.Features.Blazor.csproj" />
+    <Project Path="../features/src/Secyud.Abp.Features.Domain.Shared/Secyud.Abp.Features.Domain.Shared.csproj" />
+    <Project Path="../features/src/Secyud.Abp.Features.Domain/Secyud.Abp.Features.Domain.csproj" />
+    <Project Path="../features/src/Secyud.Abp.Features.EntityFrameworkCore/Secyud.Abp.Features.EntityFrameworkCore.csproj" />
+    <Project Path="../features/src/Secyud.Abp.Features.HttpApi.Client/Secyud.Abp.Features.HttpApi.Client.csproj" />
+    <Project Path="../features/src/Secyud.Abp.Features.HttpApi/Secyud.Abp.Features.HttpApi.csproj" />
+    <Project Path="../features/src/Secyud.Abp.Features.Installer/Secyud.Abp.Features.Installer.csproj" />
+  </Folder>
+  <Folder Name="/modules/permissions/">
+    <Project Path="../permissions/src/Secyud.Abp.Permissions.Application.Contracts/Secyud.Abp.Permissions.Application.Contracts.csproj" />
+    <Project Path="../permissions/src/Secyud.Abp.Permissions.Application/Secyud.Abp.Permissions.Application.csproj" />
+    <Project Path="../permissions/src/Secyud.Abp.Permissions.Blazor/Secyud.Abp.Permissions.Blazor.csproj" />
+    <Project Path="../permissions/src/Secyud.Abp.Permissions.Domain.Shared/Secyud.Abp.Permissions.Domain.Shared.csproj" />
+    <Project Path="../permissions/src/Secyud.Abp.Permissions.Domain/Secyud.Abp.Permissions.Domain.csproj" />
+    <Project Path="../permissions/src/Secyud.Abp.Permissions.EntityFrameworkCore/Secyud.Abp.Permissions.EntityFrameworkCore.csproj" />
+    <Project Path="../permissions/src/Secyud.Abp.Permissions.HttpApi.Client/Secyud.Abp.Permissions.HttpApi.Client.csproj" />
+    <Project Path="../permissions/src/Secyud.Abp.Permissions.HttpApi/Secyud.Abp.Permissions.HttpApi.csproj" />
+    <Project Path="../permissions/src/Secyud.Abp.Permissions.Installer/Secyud.Abp.Permissions.Installer.csproj" />
+  </Folder>
+  <Folder Name="/modules/secits/">
+    <Project Path="..\secits-theme\src\Secyud.Abp.AspNetCore.Components.Server.SecitsTheme\Secyud.Abp.AspNetCore.Components.Server.SecitsTheme.csproj" />
+    <Project Path="..\secits-theme\src\Secyud.Abp.AspNetCore.Components.Web.SecitsTheme\Secyud.Abp.AspNetCore.Components.Web.SecitsTheme.csproj" />
+    <Project Path="..\secits-theme\src\Secyud.Abp.AspNetCore.Components.WebAssembly.SecitsTheme\Secyud.Abp.AspNetCore.Components.WebAssembly.SecitsTheme.csproj" />
+  </Folder>
+  <Folder Name="/modules/settings/">
+    <Project Path="../settings/src/Secyud.Abp.Settings.Application.Contracts/Secyud.Abp.Settings.Application.Contracts.csproj" />
+    <Project Path="../settings/src/Secyud.Abp.Settings.Application/Secyud.Abp.Settings.Application.csproj" />
+    <Project Path="../settings/src/Secyud.Abp.Settings.Blazor/Secyud.Abp.Settings.Blazor.csproj" />
+    <Project Path="../settings/src/Secyud.Abp.Settings.Domain.Shared/Secyud.Abp.Settings.Domain.Shared.csproj" />
+    <Project Path="../settings/src/Secyud.Abp.Settings.Domain/Secyud.Abp.Settings.Domain.csproj" />
+    <Project Path="../settings/src/Secyud.Abp.Settings.EntityFrameworkCore/Secyud.Abp.Settings.EntityFrameworkCore.csproj" />
+    <Project Path="../settings/src/Secyud.Abp.Settings.HttpApi.Client/Secyud.Abp.Settings.HttpApi.Client.csproj" />
+    <Project Path="../settings/src/Secyud.Abp.Settings.HttpApi/Secyud.Abp.Settings.HttpApi.csproj" />
+    <Project Path="../settings/src/Secyud.Abp.Settings.Installer/Secyud.Abp.Settings.Installer.csproj" />
+  </Folder>
+  <Folder Name="/modules/tenants/">
+    <Project Path="../tenants/src/Secyud.Abp.Tenants.Application.Contracts/Secyud.Abp.Tenants.Application.Contracts.csproj" />
+    <Project Path="../tenants/src/Secyud.Abp.Tenants.Application/Secyud.Abp.Tenants.Application.csproj" />
+    <Project Path="../tenants/src/Secyud.Abp.Tenants.Blazor/Secyud.Abp.Tenants.Blazor.csproj" />
+    <Project Path="../tenants/src/Secyud.Abp.Tenants.Domain.Shared/Secyud.Abp.Tenants.Domain.Shared.csproj" />
+    <Project Path="../tenants/src/Secyud.Abp.Tenants.Domain/Secyud.Abp.Tenants.Domain.csproj" />
+    <Project Path="../tenants/src/Secyud.Abp.Tenants.EntityFrameworkCore/Secyud.Abp.Tenants.EntityFrameworkCore.csproj" />
+    <Project Path="../tenants/src/Secyud.Abp.Tenants.HttpApi.Client/Secyud.Abp.Tenants.HttpApi.Client.csproj" />
+    <Project Path="../tenants/src/Secyud.Abp.Tenants.HttpApi/Secyud.Abp.Tenants.HttpApi.csproj" />
+    <Project Path="../tenants/src/Secyud.Abp.Tenants.Installer/Secyud.Abp.Tenants.Installer.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src\SecitsDemoApp.Application.Contracts\SecitsDemoApp.Application.Contracts.csproj" />
+    <Project Path="src\SecitsDemoApp.Application\SecitsDemoApp.Application.csproj" />
+    <Project Path="src\SecitsDemoApp.Blazor\SecitsDemoApp.Blazor.csproj" />
+    <Project Path="src\SecitsDemoApp.Domain.Shared\SecitsDemoApp.Domain.Shared.csproj" />
+    <Project Path="src\SecitsDemoApp.Domain\SecitsDemoApp.Domain.csproj" />
+    <Project Path="src\SecitsDemoApp.EntityFrameworkCore\SecitsDemoApp.EntityFrameworkCore.csproj" />
+    <Project Path="src\SecitsDemoApp.HttpApi.Client\SecitsDemoApp.HttpApi.Client.csproj" />
+    <Project Path="src\SecitsDemoApp.HttpApi\SecitsDemoApp.HttpApi.csproj" />
+  </Folder>
 </Solution>

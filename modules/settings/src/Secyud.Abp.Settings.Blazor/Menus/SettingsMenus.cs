@@ -1,7 +1,15 @@
-﻿namespace Secyud.Abp.Settings.Menus;
+﻿using Secyud.Abp.AspNetCore.Components.Navigations;
+
+namespace Secyud.Abp.Settings.Menus;
 
 public class SettingsMenus
 {
-    public const string GroupName = "Settings";
-    public const string Url = "/settings";
+    public static MenuItem Default { get; } = new("Settings")
+    {
+        Url = DefaultUrl,
+        Icon = "fa fa-cog",
+        RequiredFeatures = [SettingsFeatures.Enable]
+    };
+
+    public const string DefaultUrl = "/settings";
 }

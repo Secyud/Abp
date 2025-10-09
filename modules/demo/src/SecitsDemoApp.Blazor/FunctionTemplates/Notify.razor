@@ -6,21 +6,13 @@
         @L["Notify"]
     </Header>
     <Body>
-    <SButton Class="inline-block" 
-             Click="@(() => Notify.Info(L["InfoContent"], L["Info"]))">
-        <AddTemplate>@L["Info"]</AddTemplate>
-    </SButton>
-    <SButton Class="inline-block" 
-             Click="@(() => Notify.Success(L["SuccessContent"], L["Success"]))">
-        <AddTemplate>@L["Success"]</AddTemplate>
-    </SButton>
-    <SButton Class="inline-block" 
-             Click="@(() => Notify.Warn(L["WarnContent"], L["Warn"]))">
-        <AddTemplate>@L["Warn"]</AddTemplate>
-    </SButton>
-    <SButton Class="inline-block" 
-             Click="@(() => Notify.Error(L["ErrorContent"], L["Error"]))">
-        <AddTemplate>@L["Error"]</AddTemplate>
-    </SButton>
+    <DemoButton Theme="Theme.Info" Text="@L["Info"]"
+                Click="@(() => Notify.Info(L["InfoContent"], L["Info"]))"/>
+    <DemoButton Theme="Theme.Success" Text="@L["Success"]"
+                Click="@(() => Notify.Success(L["SuccessContent"], L["Success"]))"/>
+    <DemoButton Theme="Theme.Warning" Text="@L["Warn"]"
+                Click="@(() => Notify.Warn(L["WarnContent"], L["Warn"]))"/>
+    <DemoButton Theme="Theme.Danger" Text="@L["Error"]"
+                Click="@(() => Notify.Error(L["ErrorContent"], L["Error"]))"/>
     </Body>
 </SCard>

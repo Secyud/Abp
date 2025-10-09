@@ -31,12 +31,7 @@ public class SettingsMenuContributor : IMenuContributor
         context.Menu
             .GetAdministration()
             .AddItem(
-                new ApplicationMenuItem(
-                    SettingsMenus.GroupName,
-                    l[SettingsMenus.GroupName],
-                    SettingsMenus.Url,
-                    icon: "fa fa-cog"
-                ).RequireFeatures(SettingsFeatures.Enable)
+                SettingsMenus.Default.Create(l)
             );
     }
 

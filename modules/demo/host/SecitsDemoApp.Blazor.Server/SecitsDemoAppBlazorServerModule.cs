@@ -1,9 +1,13 @@
 ﻿using Microsoft.Extensions.Options;
 using SecitsDemoApp.Pages;
 using Secyud.Abp.AspNetCore;
+using Secyud.Abp.AspNetCore.Bundling;
+using Secyud.Abp.AspNetCore.Components.Bundling;
 using Secyud.Abp.AspNetCore.Components.Routing;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Components.Web;
+using Volo.Abp.AspNetCore.Mvc.Libs;
+using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Modularity;
 
@@ -11,6 +15,7 @@ namespace SecitsDemoApp;
 
 [DependsOn(
     typeof(SecitsDemoAppBlazorModule),
+    typeof(SecitsDemoAppHttpApiClientModule),
     typeof(AbpAspNetCoreComponentsServerSecitsThemeModule),
     typeof(AbpAspNetCoreSerilogModule)
 )]
@@ -23,7 +28,22 @@ public class SecitsDemoAppBlazorServerModule : AbpModule
 
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        Configure<AbpRouterOptions>(options => { options.AppAssembly = typeof(SecitsDemoAppBlazorServerModule).Assembly; });
+        Configure<AbpBundlingOptions>(options
+            =>
+        {
+            options.StyleBundles.Configure(BlazorSecitsThemeBundles.Styles.Global, bundle
+                =>
+            {
+                bundle.AddExternalFiles("app.css");
+            });
+        });
+        Configure<AbpRouterOptions>(options
+            =>
+        {
+            options.AppAssembly = typeof(SecitsDemoAppBlazorServerModule).Assembly;
+        });
+
+        Configure<AbpMvcLibsOptions>(options => { options.CheckLibs = false; });
 
 
         context.Services.AddRazorComponents()

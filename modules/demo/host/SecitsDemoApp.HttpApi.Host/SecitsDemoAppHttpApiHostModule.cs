@@ -18,6 +18,7 @@ using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.PostgreSql;
 using Volo.Abp.EventBus.RabbitMq;
 using Volo.Abp.Modularity;
+using Volo.Abp.RabbitMQ;
 using Volo.Abp.Security.Claims;
 using Volo.Abp.Studio;
 using Volo.Abp.Swashbuckle;
@@ -36,6 +37,7 @@ namespace SecitsDemoApp;
     typeof(AbpEventBusRabbitMqModule),
     typeof(AbpSwashbuckleModule),
     typeof(AbpEntityFrameworkCorePostgreSqlModule),
+    typeof(AbpRabbitMqModule),
     typeof(AbpAspNetCoreSerilogModule)
 )]
 public class SecitsDemoAppHttpApiHostModule : AbpModule

@@ -27,9 +27,6 @@ public partial class UiNotificationAlert : ComponentBase, IDisposable
     [Inject]
     protected IStringLocalizerFactory StringLocalizerFactory { get; set; } = null!;
 
-    [Inject]
-    protected IIconProvider IconProvider { get; set; } = null!;
-
     [Parameter]
     public EventCallback Ensured { get; set; }
 

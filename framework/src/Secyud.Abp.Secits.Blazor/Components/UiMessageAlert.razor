@@ -1,11 +1,11 @@
 ﻿<SPopup @ref="PopupRef" Class="middle center ui-message">
-    <SCard Class="ui-message-card">
+    <SCard Class="@($"ui-message-card {ColorClass}")">
         <Header>
             @Title
             @if (ShowMessageIcon)
             {
-                <div class="ui-message-icon">
-                    <SIcon IconName="@MessageIcon?.ToString()" Style="@MessageIconStyle"/>
+                <div class="ui-message-icon colored">
+                    <SIcon IconName="@MessageIcon"/>
                 </div>
             }
         </Header>

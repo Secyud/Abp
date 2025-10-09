@@ -2,12 +2,6 @@
 
   <Import Project="..\..\common.props" />
 
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <RootNamespace>Secyud.Abp.Features</RootNamespace>
-  </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="$(AbpVersion)"/>
     <ProjectReference Include="..\Secyud.Abp.Features.Application.Contracts\Secyud.Abp.Features.Application.Contracts.csproj" />

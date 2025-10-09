@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="..\..\common.props" />
+  <Import Project="..\..\..\..\common.test.props" />
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Secyud.Abp.Permissions.Application\Secyud.Abp.Permissions.Application.csproj" />
     <ProjectReference Include="..\Secyud.Abp.Permissions.Domain.Tests\Secyud.Abp.Permissions.Domain.Tests.csproj" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="$(TestVersion)" />
   </ItemGroup>
 
 </Project>

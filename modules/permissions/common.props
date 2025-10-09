@@ -4,7 +4,6 @@
 
     <PropertyGroup>
         <PackageOutputPath>../../$(PackageOutputPath)</PackageOutputPath>
-        <RootNamespace>Secyud.Abp.Permissions</RootNamespace>
     </PropertyGroup>
 
 </Project>

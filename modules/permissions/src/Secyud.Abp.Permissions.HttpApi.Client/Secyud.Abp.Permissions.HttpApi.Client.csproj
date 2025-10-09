@@ -6,10 +6,5 @@
     <PackageReference Include="Volo.Abp.Http.Client" Version="$(AbpVersion)"/>
     <ProjectReference Include="..\Secyud.Abp.Permissions.Application.Contracts\Secyud.Abp.Permissions.Application.Contracts.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="**\*generate-proxy.json" />
-    <Content Remove="**\*generate-proxy.json" />
-  </ItemGroup>
-
+  
 </Project>

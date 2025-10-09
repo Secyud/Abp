@@ -14,9 +14,6 @@ namespace Secyud.Abp.AspNetCore.Toolbars;
 public partial class GeneralSettings
 {
     [Inject]
-    protected IIconProvider IconProvider { get; set; } = null!;
-
-    [Inject]
     protected IOptions<SecitsThemeOptions> ThemeOptions { get; set; } = null!;
 
     [Inject]
@@ -44,17 +41,9 @@ public partial class GeneralSettings
     protected bool ContextMenuVisible { get; set; }
     protected bool LanguageMenuVisible { get; set; } = true;
     protected bool StyleMenuVisible { get; set; } = true;
-    protected string? LanguageMenuIcon { get; set; }
-    protected string? StyleMenuIcon { get; set; }
-    protected string? UpIcon { get; set; }
-    protected string? DownIcon { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        UpIcon = IconProvider.GetIcon(IconName.UpAngle);
-        DownIcon = IconProvider.GetIcon(IconName.DownAngle);
-        LanguageMenuIcon = IconProvider.GetIcon(IconName.Globe);
-        StyleMenuIcon = IconProvider.GetIcon(IconName.Palette);
         Languages = await LanguageProvider.GetLanguagesAsync();
         CurrentLanguage = await LanguagePlatformManager.GetCurrentAsync();
 

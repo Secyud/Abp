@@ -1,0 +1,37 @@
+{
+  "solution": {
+    "path": "secits-demo.slnx",
+    "projects": [
+      "..\\..\\framework\\src\\Secyud.Abp.Secits.Blazor\\Secyud.Abp.Secits.Blazor.csproj",
+      "..\\features\\src\\Secyud.Abp.Features.Blazor\\Secyud.Abp.Features.Blazor.csproj",
+      "..\\features\\src\\Secyud.Abp.Features.HttpApi.Client\\Secyud.Abp.Features.HttpApi.Client.csproj",
+      "..\\features\\src\\Secyud.Abp.Features.Domain.Shared\\Secyud.Abp.Features.Domain.Shared.csproj",
+      "..\\permissions\\src\\Secyud.Abp.Permissions.Blazor\\Secyud.Abp.Permissions.Blazor.csproj",
+      "..\\permissions\\src\\Secyud.Abp.Permissions.HttpApi.Client\\Secyud.Abp.Permissions.HttpApi.Client.csproj",
+      "..\\permissions\\src\\Secyud.Abp.Permissions.Domain.Shared\\Secyud.Abp.Permissions.Domain.Shared.csproj",
+      "..\\secits-theme\\src\\Secyud.Abp.AspNetCore.Components.Server.SecitsTheme\\Secyud.Abp.AspNetCore.Components.Server.SecitsTheme.csproj",
+      "..\\secits-theme\\src\\Secyud.Abp.AspNetCore.Components.Web.SecitsTheme\\Secyud.Abp.AspNetCore.Components.Web.SecitsTheme.csproj",
+      "..\\secits-theme\\src\\Secyud.Abp.AspNetCore.Components.WebAssembly.SecitsTheme\\Secyud.Abp.AspNetCore.Components.WebAssembly.SecitsTheme.csproj",
+      "..\\settings\\src\\Secyud.Abp.Settings.Blazor\\Secyud.Abp.Settings.Blazor.csproj",
+      "..\\settings\\src\\Secyud.Abp.Settings.HttpApi.Client\\Secyud.Abp.Settings.HttpApi.Client.csproj",
+      "..\\settings\\src\\Secyud.Abp.Settings.Domain.Shared\\Secyud.Abp.Settings.Domain.Shared.csproj",
+      "..\\tenants\\src\\Secyud.Abp.Tenants.Blazor\\Secyud.Abp.Tenants.Blazor.csproj",
+      "..\\tenants\\src\\Secyud.Abp.Tenants.HttpApi.Client\\Secyud.Abp.Tenants.HttpApi.Client.csproj",
+      "..\\tenants\\src\\Secyud.Abp.Tenants.Domain.Shared\\Secyud.Abp.Tenants.Domain.Shared.csproj",
+      "database\\SecitsDemoApp.DbMigrator.PostgreSql\\SecitsDemoApp.DbMigrator.PostgreSql.csproj",
+      "database\\SecitsDemoApp.DbMigrator.Shared\\SecitsDemoApp.DbMigrator.Shared.csproj",
+      "database\\SecitsDemoApp.DbMigrator\\SecitsDemoApp.DbMigrator.csproj",
+      "host\\SecitsDemoApp.Blazor.Server\\SecitsDemoApp.Blazor.Server.csproj",
+      "host\\SecitsDemoApp.Blazor.WebAssembly\\SecitsDemoApp.Blazor.WebAssembly.csproj",
+      "host\\SecitsDemoApp.HttpApi.Host\\SecitsDemoApp.HttpApi.Host.csproj",
+      "src\\SecitsDemoApp.Application.Contracts\\SecitsDemoApp.Application.Contracts.csproj",
+      "src\\SecitsDemoApp.Application\\SecitsDemoApp.Application.csproj",
+      "src\\SecitsDemoApp.Blazor\\SecitsDemoApp.Blazor.csproj",
+      "src\\SecitsDemoApp.Domain.Shared\\SecitsDemoApp.Domain.Shared.csproj",
+      "src\\SecitsDemoApp.Domain\\SecitsDemoApp.Domain.csproj",
+      "src\\SecitsDemoApp.EntityFrameworkCore\\SecitsDemoApp.EntityFrameworkCore.csproj",
+      "src\\SecitsDemoApp.HttpApi.Client\\SecitsDemoApp.HttpApi.Client.csproj",
+      "src\\SecitsDemoApp.HttpApi\\SecitsDemoApp.HttpApi.csproj"
+    ]
+  }
+}

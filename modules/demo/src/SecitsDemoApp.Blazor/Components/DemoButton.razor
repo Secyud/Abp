@@ -1,0 +1,28 @@
+﻿@inherits SButton
+
+@((RenderFragment)base.BuildRenderTree)
+
+@code
+{
+
+    [Parameter]
+    public string? Text { get; set; }
+
+    protected override RenderFragment GenerateSetting()
+    {
+        return __builder =>
+        {
+            <AddTemplate>
+                @Text
+            </AddTemplate>
+            @base.GenerateSetting()
+        };
+    }
+
+    protected override void BuildClassStyle(ClassStyleContext context)
+    {
+        base.BuildClassStyle(context);
+        context.AppendClass("demo");
+        context.AppendClass("inline-block");
+    }
+}

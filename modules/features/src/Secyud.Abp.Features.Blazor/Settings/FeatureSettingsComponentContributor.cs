@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
-using Secyud.Abp.Features.Components.FeatureSettingGroup;
+using Secyud.Abp.Features.Components;
 using Secyud.Abp.Features.Localization;
 using Secyud.Abp.Settings;
 
 namespace Secyud.Abp.Features.Settings;
 
-public class FeatureSettingsComponentContributor: ISettingComponentContributor
+public class FeatureSettingsComponentContributor : ISettingComponentContributor
 {
     public virtual async Task ConfigureAsync(SettingComponentCreationContext context)
     {

@@ -1,26 +1,26 @@
 <Project>
-    <Import Project="..\secyud.props"/>
 
     <PropertyGroup>
-        <PackageOutputPath>../../../../$(PackageOutputPath)</PackageOutputPath>
-        <RootNamespace/>
-        <NoWarn>$(NoWarn);CS1591</NoWarn>
-        <Version>9.0.0</Version>
-        <TargetFramework>net9.0</TargetFramework>
         <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-        <ReferenceType>Package</ReferenceType>
-        <ReferenceType>Project</ReferenceType>
-    </PropertyGroup>
-
-    <Import Project=".\version.props"/>
-
-
-    <PropertyGroup>
-        <LangVersion>latest</LangVersion>
         <NoWarn>$(NoWarn);CS1591;CS0436</NoWarn>
         <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
         <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
         <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
         <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     </PropertyGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="Volo.Abp.TestBase" Version="$(AbpVersion)"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+        <PackageReference Include="NSubstitute" Version="5.3.0" />
+        <PackageReference Include="NSubstitute.Analyzers.CSharp" Version="1.0.17">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Shouldly" Version="4.2.1" />
+        <PackageReference Include="xunit" Version="2.9.3" />
+        <PackageReference Include="xunit.extensibility.execution" Version="2.9.3" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="3.0.1" />
+    </ItemGroup>
+    
 </Project>

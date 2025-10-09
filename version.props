@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(TargetFramework)' == 'net9.0'">
-        <AbpVersion>9.3.3</AbpVersion>
+        <AbpVersion>9.3.4</AbpVersion>
     </PropertyGroup>
     
 </Project>

@@ -1,6 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <Import Project="..\..\common.props"/>
+  
+  <PropertyGroup>
+    <RootNamespace>Secyud.Abp.Settings</RootNamespace>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Volo.Abp.AutoMapper" Version="$(AbpVersion)"/>

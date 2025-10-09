@@ -8,9 +8,4 @@
     <ProjectReference Include="..\Secyud.Abp.Settings.Application.Contracts\Secyud.Abp.Settings.Application.Contracts.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="**\*generate-proxy.json" />
-    <Content Remove="**\*generate-proxy.json" />
-  </ItemGroup>
-
 </Project>

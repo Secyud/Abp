@@ -1,13 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
-using Secyud.Abp.AspNetCore.Components.Toolbars;
 using Secyud.Abp.Features.Components;
-using Secyud.Abp.ObjectExtending;
 using Secyud.Abp.Tenants.Localization;
 using Secyud.Abp.Tenants.Navigation;
 using Secyud.Secits.Blazor.Icons;
-using Volo.Abp.AspNetCore.Components.Web.Extensibility.EntityActions;
-using Volo.Abp.AspNetCore.Components.Web.Extensibility.TableColumns;
 
 namespace Secyud.Abp.Tenants.Components;
 

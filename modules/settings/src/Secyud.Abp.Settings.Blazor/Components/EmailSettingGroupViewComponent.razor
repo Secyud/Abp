@@ -1,0 +1,132 @@
+﻿@namespace Secyud.Abp.Settings.Components
+@inherits AbpComponentBase
+
+@if (EmailSettings != null)
+{
+    <ValidationForm @ref="@EmailSettingValidation">
+        <SFormLayout EnableValidation>
+            <FormLayoutItem ColSpanMd="12" Title="@($"{L["DefaultFromDisplayName"]} *")" ShowValidationMessage>
+                <SInput TValue="string">
+                    <InputTextTemplate/>
+                    <EnableValueInput @bind-Value="EmailSettings.DefaultFromDisplayName"/>
+                </SInput>
+            </FormLayoutItem>
+            <FormLayoutItem ColSpanMd="12" Title="@($"{L["DefaultFromAddress"]} *")" ShowValidationMessage>
+                <SInput TValue="string">
+                    <InputTextTemplate/>
+                    <EnableValueInput @bind-Value="EmailSettings.DefaultFromAddress"/>
+                </SInput>
+            </FormLayoutItem>
+            <FormLayoutItem ColSpanMd="12" Title="@($"{L["SmtpHost"]} *")" ShowValidationMessage>
+                <SInput TValue="string">
+                    <InputTextTemplate/>
+                    <EnableValueInput @bind-Value="EmailSettings.SmtpHost"/>
+                </SInput>
+            </FormLayoutItem>
+            <FormLayoutItem ColSpanMd="12" Title="@($"{L["SmtpPort"]}")" EnableValidation="false">
+                <SInput TValue="int">
+                    <InputTextTemplate/>
+                    <EnableValueInput @bind-Value="EmailSettings.SmtpPort"/>
+                </SInput>
+            </FormLayoutItem>
+            <FormLayoutItem ColSpanMd="12" Title="@($"{L["SmtpEnableSsl"]}")" EnableValidation="false">
+                <SInput TValue="bool">
+                    <InputCheckTemplate/>
+                    <EnableValueInput @bind-Value="EmailSettings.SmtpEnableSsl"/>
+                </SInput>
+            </FormLayoutItem>
+            <FormLayoutItem ColSpanMd="12" Title="@($"{L["SmtpUseDefaultCredentials"]}")" EnableValidation="false">
+                <SInput TValue="bool">
+                    <InputCheckTemplate/>
+                    <EnableValueInput @bind-Value="EmailSettings.SmtpUseDefaultCredentials"/>
+                </SInput>
+            </FormLayoutItem>
+
+            @if (!EmailSettings.SmtpUseDefaultCredentials)
+            {
+                <FormLayoutItem ColSpanMd="12" Title="@($"{L["SmtpDomain"]}")" ShowValidationMessage>
+                    <SInput TValue="string">
+                        <InputTextTemplate/>
+                        <EnableValueInput @bind-Value="EmailSettings.SmtpDomain"/>
+                    </SInput>
+                </FormLayoutItem>
+                <FormLayoutItem ColSpanMd="12" Title="@($"{L["SmtpUserName"]}")" ShowValidationMessage>
+                    <SInput TValue="string">
+                        <InputTextTemplate/>
+                        <EnableValueInput @bind-Value="EmailSettings.SmtpUserName"/>
+                    </SInput>
+                </FormLayoutItem>
+                <FormLayoutItem ColSpanMd="12" Title="@($"{L["SmtpPassword"]}")" ShowValidationMessage>
+                    <SInput TValue="string">
+                        <InputTextTemplate/>
+                        <EnableValueInput @bind-Value="EmailSettings.SmtpPassword"/>
+                    </SInput>
+                </FormLayoutItem>
+            }
+        </SFormLayout>
+    </ValidationForm>
+
+
+    @if (HasSendTestEmailPermission)
+    {
+        <SButton Click="OpenSendTestEmailModalAsync" Class="inline-block end">
+            <AddTemplate>@L["SendTestEmail"]</AddTemplate>
+        </SButton>
+    }
+
+    <SButton Click="UpdateSettingsAsync" Class="inline-block end">
+        <AddTemplate>@L["Submit"]</AddTemplate>
+    </SButton>
+
+    @if (HasSendTestEmailPermission && SendTestEmailInput is not null)
+    {
+        <SModal @ref="SendTestEmailModal">
+            <SCard>
+                <Header>
+                    @L["SendTestEmail"]
+                    <CloseButton Click="CloseSendTestEmailModalAsync" Class="modal-close-icon"/>
+                </Header>
+                <Body>
+                <SFormLayout EnableValidation>
+                    <FormLayoutItem Title="@L["SenderEmailAddress"]" ShowValidationMessage>
+                        <SInput TValue="string">
+                            <InputTextTemplate/>
+                            <EnableValueInput @bind-Value="SendTestEmailInput.SenderEmailAddress"/>
+                        </SInput>
+                    </FormLayoutItem>
+                    <FormLayoutItem Title="@L["TargetEmailAddress"]" ShowValidationMessage>
+                        <SInput TValue="string">
+                            <InputTextTemplate/>
+                            <EnableValueInput @bind-Value="SendTestEmailInput.TargetEmailAddress"/>
+                        </SInput>
+                    </FormLayoutItem>
+                    <FormLayoutItem Title="@L["Subject"]" ShowValidationMessage>
+                        <SInput TValue="string">
+                            <InputTextTemplate/>
+                            <EnableValueInput @bind-Value="SendTestEmailInput.Subject"/>
+                        </SInput>
+                    </FormLayoutItem>
+                    <FormLayoutItem Title="@L["Body"]" ShowValidationMessage>
+                        <SInput TValue="string">
+                            <InputTextTemplate/>
+                            <EnableValueInput @bind-Value="SendTestEmailInput.Body"/>
+                        </SInput>
+                    </FormLayoutItem>
+                </SFormLayout>
+                </Body>
+                <Footer>
+                    <SButton Theme="Theme.Secondary" Click="CloseSendTestEmailModalAsync">
+                        <AddTemplate>
+                            @L["Cancel"]
+                        </AddTemplate>
+                    </SButton>
+                    <SButton Theme="Theme.Primary" Click="SendTestEmailAsync">
+                        <AddTemplate>
+                            @L["Send"]
+                        </AddTemplate>
+                    </SButton>
+                </Footer>
+            </SCard>
+        </SModal>
+    }
+}

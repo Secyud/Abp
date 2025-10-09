@@ -1,9 +1,8 @@
-﻿
-@attribute [Authorize(TenantsPermissions.Tenants.Default)]
+﻿@attribute [Authorize(TenantsPermissions.Tenants.Default)]
 @using Microsoft.AspNetCore.Authorization
-@using Secyud.Abp.Features.Components
 @using Secyud.Abp.ObjectExtending
 @using Secyud.Secits.Blazor.Icons
+@using Secyud.Abp.Features.Components
 @namespace Secyud.Abp.Tenants.Components
 @inherits AbpCrudPageBase<ITenantAppService, TenantDto, Guid, GetTenantsInput, TenantCreateDto, TenantUpdateDto>
 

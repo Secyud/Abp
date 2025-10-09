@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
-using Secyud.Abp.Settings.Components.EmailSettingGroup;
+using Secyud.Abp.Settings.Components;
 using Secyud.Abp.Settings.Localization;
 using Volo.Abp.Features;
 using Volo.Abp.MultiTenancy;

@@ -15,6 +15,5 @@
     <Project Path="test/Secyud.Abp.Settings.Domain.Tests/Secyud.Abp.Settings.Domain.Tests.csproj" />
     <Project Path="test/Secyud.Abp.Settings.EntityFrameworkCore.Tests/Secyud.Abp.Settings.EntityFrameworkCore.Tests.csproj" />
     <Project Path="test/Secyud.Abp.Settings.TestBase/Secyud.Abp.Settings.TestBase.csproj" />
-    <Project Path="test\Secyud.Abp.Settings.Tests\Secyud.Abp.Settings.Tests.csproj" Type="Classic C#" />
   </Folder>
 </Solution>

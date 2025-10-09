@@ -1,20 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="..\..\common.props" />
-
+  <Import Project="..\..\common.props"/>
+  
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.Auditing.Contracts" Version="$(AbpVersion)" />
-    <PackageReference Include="Volo.Abp.Ddd.Domain.Shared" Version="$(AbpVersion)" />
-    <PackageReference Include="Volo.Abp.Validation" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.Auditing.Contracts" Version="$(AbpVersion)"/>
+    <PackageReference Include="Volo.Abp.Ddd.Domain.Shared" Version="$(AbpVersion)"/>
+    <PackageReference Include="Volo.Abp.Validation" Version="$(AbpVersion)"/>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="$(DotnetVersion)" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="$(DotnetVersion)"/>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Localization\Tenants\*.json" />
-    <Content Remove="Localization\Tenants\*.json" />
+    <EmbeddedResource Include="**\Localization\**\*.json" />
+    <Content Remove="**\Localization\**\*.json" />
   </ItemGroup>
 
 </Project>

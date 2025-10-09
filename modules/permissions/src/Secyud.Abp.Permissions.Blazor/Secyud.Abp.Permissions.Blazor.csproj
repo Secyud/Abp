@@ -2,9 +2,12 @@
 
   <Import Project="..\..\common.props"/>
 
+  <PropertyGroup>
+    <RootNamespace>Secyud.Abp.Permissions</RootNamespace>
+  </PropertyGroup>
+  
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.AutoMapper" Version="$(AbpVersion)" />
-    
+    <PackageReference Include="Volo.Abp.AutoMapper" Version="$(AbpVersion)" />    
   </ItemGroup>
 
   <ItemGroup>

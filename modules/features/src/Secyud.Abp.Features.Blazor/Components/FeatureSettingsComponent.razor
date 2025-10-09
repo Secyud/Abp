@@ -1,0 +1,13 @@
+﻿@namespace Secyud.Abp.Features.Components
+@inherits Volo.Abp.AspNetCore.Components.AbpComponentBase
+
+@if (Settings is { HasManageHostFeaturesPermission: true })
+{
+    <SButton Size="Size.Small" Click="@OnManageHostFeaturesClicked">
+        <AddTemplate>
+            <SIcon IconName="@("fa-cog")"/> @L["ManageHostFeatures"]
+        </AddTemplate>
+    </SButton>
+
+    <FeaturesModal @ref="FeaturesModal"/>
+}

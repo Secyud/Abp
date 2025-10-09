@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Secyud.Abp.Settings.Components.EmailSettingGroup;
+using Secyud.Abp.Settings.Components;
 
 namespace Secyud.Abp.Settings;
 

@@ -1,14 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="..\..\common.props" />
+  <Import Project="..\..\..\..\common.test.props" />
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Users.Abstractions" Version="$(AbpVersion)"/>
     <ProjectReference Include="..\..\src\Secyud.Abp.Settings.Domain\Secyud.Abp.Settings.Domain.csproj" />
-    <ProjectReference Include="..\Secyud.Abp.Settings.TestBase\Secyud.Abp.Settings.TestBase.csproj" />
+    <ProjectReference Include="..\Secyud.Abp.Settings.EntityFrameworkCore.Tests\Secyud.Abp.Settings.EntityFrameworkCore.Tests.csproj" />
   </ItemGroup>
 
 
