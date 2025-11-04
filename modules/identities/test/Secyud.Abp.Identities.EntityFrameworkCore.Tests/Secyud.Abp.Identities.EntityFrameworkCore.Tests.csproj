@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+  <Import Project="..\..\..\..\common.test.props" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Secyud.Abp.Identities.EntityFrameworkCore\Secyud.Abp.Identities.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\..\permissions\src\Secyud.Abp.Permissions.EntityFrameworkCore\Secyud.Abp.Permissions.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\Secyud.Abp.Identities.TestBase\Secyud.Abp.Identities.TestBase.csproj" />
+    <PackageReference Include="Volo.Abp.EntityFrameworkCore.Sqlite" Version="$(AbpVersion)"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="$(DotnetVersion)" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,80 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+@inherits Volo.Abp.AspNetCore.Components.AbpComponentBase
+
+<DropdownBox>
+    <ChildContent>
+        @L["Import"]
+    </ChildContent>
+    <DropdownContentTemplate>
+        <Button Click="@OpenExternalUserModalAsync">@L["ExternalUser"]</Button>
+        <Button Click="@(() => OpenUploadFileModalAsync(ImportUsersFromFileType.Excel))">@L["FromExcel"]</Button>
+        <Button Click="@(() => OpenUploadFileModalAsync(ImportUsersFromFileType.Csv))">@L["FromCSV"]</Button>
+    </DropdownContentTemplate>
+</DropdownBox>
+
+@* ************************* EXTERNAL USER MODAL ************************* *@
+<SModal @ref="ExternalUserModal">
+    <SCard>
+        <Header>
+            <STitle>@L["ExternalUser"]</STitle>
+            <CloseButton Click="@CloseExternalUserModal"/>
+        </Header>
+        <Body>
+        <SFormLayout EnableValidation ParentValidationForm>
+            <FormLayoutItem Title="@($"{L["Provider"]} *")" ShowValidationMessage>
+                <SInput TValue="ExternalLoginProviderDto">
+                    <EnableFieldInput @bind-Field="ExternalUser.Provider"
+                                      ValueField="u => u.Name"/>
+                    <SList Class="ipd" Style="max-height: calc(var(--s-s) * 16);">
+                        <EnableStaticSource Items="ExternalLoginProviders"/>
+                        <EnableIteratorFixed/>
+                        <EnableIteratorSelect/>
+                        <ListColumn>
+                            @context.Name
+                        </ListColumn>
+                    </SList>
+                </SInput>
+            </FormLayoutItem>
+            <FormLayoutItem Title="@($"{L["UserNameOrEmailAddress"]} *")" ShowValidationMessage>
+                <TextBox @bind-Value="ExternalUser.UserNameOrEmailAddress"/>
+            </FormLayoutItem>
+            @if (!ExternalLoginProviders.First(x => x.Name == ExternalUser.Provider).CanObtainUserInfoWithoutPassword)
+            {
+                <FormLayoutItem Title="@L["Password"]">
+                    <div class="s-input">
+                        <input type="password" @bind="ExternalUser.Password"/>
+                    </div>
+                </FormLayoutItem>
+            }
+        </SFormLayout>
+        </Body>
+        <Footer>
+            <CancelButton Click="CloseExternalUserModal"/>
+            <SubmitButton Click="@ImportExternalUserAsync"/>
+        </Footer>
+    </SCard>
+</SModal>
+
+@* ************************* IMPORT USER FROM FILE MODAL ************************* *@
+<SModal @ref="UploadFileModal">
+    <SCard>
+        <Header>
+            <STitle>@L["UploadFile"]</STitle>
+            <CloseButton Click="@CloseUploadFileModal"/>
+        </Header>
+        <Body>
+        <div class="s-input group">
+            <label for="importUserFile" class="l s-button">
+                <i class="fas fa-upload me-2"></i>@UploadFile.FileName
+            </label>
+            <InputFile id="importUserFile" OnChange="@OnChooseFileChangedAsync"
+                       accept="@UploadFile.Accept" style="display: none"/>
+        </div>
+        </Body>
+        <Footer>
+            <Button Click="CloseUploadFileModal">@L["Close"]</Button>
+            <Button Click="DownloadImportSampleFileAsync" Class="outline">@L["DownloadTemplateFile"]</Button>
+            <Button Click="ImportUsersFromFileAsync">@L["Upload"]</Button>
+        </Footer>
+    </SCard>
+</SModal>

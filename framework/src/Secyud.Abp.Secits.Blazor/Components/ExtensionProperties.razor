@@ -1,4 +1,5 @@
 ﻿
+@using Microsoft.Extensions.Localization
 @typeparam TEntity
 
 @code {
@@ -8,5 +9,8 @@
 
     [Parameter]
     public ExtensionPropertyModalType ModalType { get; set; }
+
+    [Parameter]
+    public IStringLocalizer? Localizer { get; set; }
 
 }

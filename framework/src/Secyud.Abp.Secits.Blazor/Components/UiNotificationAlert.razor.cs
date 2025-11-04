@@ -1,13 +1,10 @@
-﻿using System.Timers;
-using Localization.Resources.AbpUi;
+﻿using Localization.Resources.AbpUi;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Secyud.Secits.Blazor;
-using Secyud.Secits.Blazor.Icons;
 using Volo.Abp.AspNetCore.Components.Notifications;
 using Volo.Abp.Localization;
-using Timer = System.Timers.Timer;
 
 namespace Secyud.Abp.Secits.Blazor.Components;
 

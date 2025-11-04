@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Secyud.Secits.Blazor.Icons;
 using Secyud.Secits.Blazor.PageRoutes;
 using Volo.Abp.AspNetCore.Components.Web.Security;
 

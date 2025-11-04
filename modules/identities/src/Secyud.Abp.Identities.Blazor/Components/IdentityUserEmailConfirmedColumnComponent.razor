@@ -1,0 +1,14 @@
+﻿@if (Data.As<IdentityUserDto>().EmailConfirmed)
+{
+    <SIcon Class="success colored sm" IconName="@IconName.Check" />
+}
+else
+{
+    <SIcon Class="danger colored sm" IconName="IconName.Cross" />
+}
+
+
+@code {
+    [Parameter]
+    public object Data { get; set; } = null!;
+}

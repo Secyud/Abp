@@ -3,11 +3,9 @@
 
 @if (Settings is { HasManageHostFeaturesPermission: true })
 {
-    <SButton Size="Size.Small" Click="@OnManageHostFeaturesClicked">
-        <AddTemplate>
-            <SIcon IconName="@("fa-cog")"/> @L["ManageHostFeatures"]
-        </AddTemplate>
-    </SButton>
+    <Button Size="Size.Small" Click="@OnManageHostFeaturesClicked">
+        <SIcon IconName="@("fa-cog")"/> @L["ManageHostFeatures"]
+    </Button>
 
     <FeaturesModal @ref="FeaturesModal"/>
 }

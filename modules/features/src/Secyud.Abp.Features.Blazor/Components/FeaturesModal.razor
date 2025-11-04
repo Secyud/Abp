@@ -98,16 +98,16 @@
             </Body>
             <Footer>
 
-                <SButton Click="CloseModal">
-                    <AddTemplate>@L["Cancel"]</AddTemplate>
-                </SButton>
-                <SButton Class="outline"
+                <Button Click="CloseModal">
+                    @L["Cancel"]
+                </Button>
+                <Button Class="outline"
                          Click="@(async () => await DeleteAsync(ProviderName, ProviderKey))">
-                    <AddTemplate>@L["ResetToDefault"]</AddTemplate>
-                </SButton>
-                <SButton Click="SaveAsync">
-                    <AddTemplate>@L["Save"]</AddTemplate>
-                </SButton>
+                    @L["ResetToDefault"]
+                </Button>
+                <Button Click="SaveAsync">
+                    @L["Save"]
+                </Button>
             </Footer>
         }
     </SCard>

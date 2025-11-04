@@ -8,17 +8,12 @@ using Volo.Abp.MultiTenancy;
 namespace Secyud.Abp.Tenants;
 
 [LocalEventHandlerOrder(-1)]
-public class TenantConfigurationCacheItemInvalidator :
+public class TenantConfigurationCacheItemInvalidator(IDistributedCache<TenantConfigurationCacheItem> cache) :
     ILocalEventHandler<EntityChangedEventData<Tenant>>,
     ILocalEventHandler<TenantChangedEvent>,
     ITransientDependency
 {
-    protected IDistributedCache<TenantConfigurationCacheItem> Cache { get; }
-
-    public TenantConfigurationCacheItemInvalidator(IDistributedCache<TenantConfigurationCacheItem> cache)
-    {
-        Cache = cache;
-    }
+    protected IDistributedCache<TenantConfigurationCacheItem> Cache { get; } = cache;
 
     public virtual async Task HandleEventAsync(EntityChangedEventData<Tenant> eventData)
     {

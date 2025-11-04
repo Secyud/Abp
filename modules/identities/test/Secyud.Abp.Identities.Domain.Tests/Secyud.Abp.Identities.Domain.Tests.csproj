@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+  <Import Project="..\..\..\..\common.test.props" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Secyud.Abp.Identities.Domain\Secyud.Abp.Identities.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Secyud.Abp.Permissions.Domain.Identity\Secyud.Abp.Permissions.Domain.Identity.csproj" />
+    <ProjectReference Include="..\Secyud.Abp.Identities.EntityFrameworkCore.Tests\Secyud.Abp.Identities.EntityFrameworkCore.Tests.csproj" />
+  </ItemGroup>
+
+</Project>

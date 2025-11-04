@@ -1,0 +1,22 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Secyud.Abp.Identities.Application.Contracts/Secyud.Abp.Identities.Application.Contracts.csproj" />
+    <Project Path="src/Secyud.Abp.Identities.Application/Secyud.Abp.Identities.Application.csproj" />
+    <Project Path="src/Secyud.Abp.Identities.Blazor/Secyud.Abp.Identities.Blazor.csproj" />
+    <Project Path="src/Secyud.Abp.Identities.Domain.Shared/Secyud.Abp.Identities.Domain.Shared.csproj" />
+    <Project Path="src/Secyud.Abp.Identities.Domain/Secyud.Abp.Identities.Domain.csproj" />
+    <Project Path="src/Secyud.Abp.Identities.EntityFrameworkCore/Secyud.Abp.Identities.EntityFrameworkCore.csproj" />
+    <Project Path="src/Secyud.Abp.Identities.HttpApi.Client/Secyud.Abp.Identities.HttpApi.Client.csproj" />
+    <Project Path="src/Secyud.Abp.Identities.HttpApi/Secyud.Abp.Identities.HttpApi.csproj" />
+    <Project Path="src/Secyud.Abp.Identities.Installer/Secyud.Abp.Identities.Installer.csproj" />
+    <Project Path="src\Secyud.Abp.Identities.AspNetCore\Secyud.Abp.Identities.AspNetCore.csproj" Type="Classic C#" />
+    <Project Path="src\Secyud.Abp.Permissions.Domain.Identity\Secyud.Abp.Permissions.Domain.Identity.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/Secyud.Abp.Identities.Application.Tests/Secyud.Abp.Identities.Application.Tests.csproj" />
+    <Project Path="test/Secyud.Abp.Identities.Domain.Tests/Secyud.Abp.Identities.Domain.Tests.csproj" />
+    <Project Path="test/Secyud.Abp.Identities.EntityFrameworkCore.Tests/Secyud.Abp.Identities.EntityFrameworkCore.Tests.csproj" />
+    <Project Path="test/Secyud.Abp.Identities.TestBase/Secyud.Abp.Identities.TestBase.csproj" />
+    <Project Path="test\Secyud.Abp.Identities.AspNetCore.Tests\Secyud.Abp.Identities.AspNetCore.Tests.csproj" Type="Classic C#" />
+  </Folder>
+</Solution>

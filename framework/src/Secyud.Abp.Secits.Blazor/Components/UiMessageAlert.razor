@@ -17,36 +17,30 @@
         <Footer>
             @if (IsConfirmation)
             {
-                <SButton Theme="Theme.Primary" Class="outline" Click="@OnCancelClicked">
-                    <AddTemplate>
-                        @if (Options?.CancelButtonIcon != null)
-                        {
-                            <SIcon IconName="@Options.CancelButtonIcon.ToString()"/>
-                        }
-                        @CancelButtonText
-                    </AddTemplate>
-                </SButton>
-                <SButton Theme="Theme.Primary" Click="@OnConfirmClicked">
-                    <AddTemplate>
-                        @if (Options?.ConfirmButtonIcon != null)
-                        {
-                            <SIcon IconName="@Options.ConfirmButtonIcon.ToString()"/>
-                        }
-                        @ConfirmButtonText
-                    </AddTemplate>
-                </SButton>
+                <Button Theme="Theme.Primary" Class="outline" Click="@OnCancelClicked">
+                    @if (Options?.CancelButtonIcon != null)
+                    {
+                        <SIcon IconName="@Options.CancelButtonIcon.ToString()"/>
+                    }
+                    @CancelButtonText
+                </Button>
+                <Button Theme="Theme.Primary" Click="@OnConfirmClicked">
+                    @if (Options?.ConfirmButtonIcon != null)
+                    {
+                        <SIcon IconName="@Options.ConfirmButtonIcon.ToString()"/>
+                    }
+                    @ConfirmButtonText
+                </Button>
             }
             else
             {
-                <SButton Theme="Theme.Primary" Click="@OnOkClicked">
-                    <AddTemplate>
-                        @if (Options?.OkButtonIcon != null)
-                        {
-                            <SIcon IconName="@Options.OkButtonIcon.ToString()"/>
-                        }
-                        @OkButtonText
-                    </AddTemplate>
-                </SButton>
+                <Button Theme="Theme.Primary" Click="@OnOkClicked">
+                    @if (Options?.OkButtonIcon != null)
+                    {
+                        <SIcon IconName="@Options.OkButtonIcon.ToString()"/>
+                    }
+                    @OkButtonText
+                </Button>
             }
         </Footer>
     </SCard>

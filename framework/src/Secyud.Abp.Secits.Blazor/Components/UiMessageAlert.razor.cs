@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Logging;
 using Secyud.Secits.Blazor.Element;
 using Secyud.Secits.Blazor.Icons;

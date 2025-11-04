@@ -5,14 +5,9 @@ using Volo.Abp.EntityFrameworkCore;
 
 namespace Secyud.Abp.Tenants.EntityFrameworkCore;
 
-public class EfCoreTenantRepository : EfCoreRepository<ITenantsDbContext, Tenant, Guid>, ITenantRepository
+public class EfCoreTenantRepository(IDbContextProvider<ITenantsDbContext> dbContextProvider)
+    : EfCoreRepository<ITenantsDbContext, Tenant, Guid>(dbContextProvider), ITenantRepository
 {
-    public EfCoreTenantRepository(IDbContextProvider<ITenantsDbContext> dbContextProvider)
-        : base(dbContextProvider)
-    {
-
-    }
-
     public virtual async Task<Tenant?> FindByNameAsync(
         string normalizedName,
         bool includeDetails = true,

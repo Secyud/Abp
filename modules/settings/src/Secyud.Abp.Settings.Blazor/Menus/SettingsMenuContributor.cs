@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Secyud.Abp.Settings.Localization;
-using Volo.Abp.Features;
 using Volo.Abp.UI.Navigation;
 
 namespace Secyud.Abp.Settings.Menus;

@@ -1,0 +1,26 @@
+﻿@using Localization.Resources.AbpUi
+@using Microsoft.Extensions.Localization
+@inherits SButton
+@inject IStringLocalizer<AbpUiResource> L
+
+@((RenderFragment)base.BuildRenderTree)
+
+@code
+{
+    protected override RenderFragment GenerateSetting()
+    {
+        return __builder =>
+        {
+            <AddTemplate>
+                @L["Cancel"]
+            </AddTemplate>
+            @ChildContent
+        };
+    }
+
+    protected override void BuildClassStyle(ClassStyleContext context)
+    {
+        context.AppendClass("outline");
+        base.BuildClassStyle(context);
+    }
+}

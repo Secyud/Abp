@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IdentityModel" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="$(DotnetVersion)" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="$(DotnetVersion)"/>
+    <PackageReference Include="Volo.Abp.Ddd.Domain" Version="$(AbpVersion)"/>
+    <PackageReference Include="Volo.Abp.Ldap" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.Caching" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.AutoMapper" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.Gdpr.Abstractions" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.AspNetCore.Abstractions" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.Users.Abstractions" Version="$(AbpVersion)"/>
+    <ProjectReference Include="..\Secyud.Abp.Identities.Domain.Shared\Secyud.Abp.Identities.Domain.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

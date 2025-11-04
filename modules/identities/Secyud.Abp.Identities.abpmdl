@@ -1,0 +1,66 @@
+{
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {}
+    }
+  },
+  "packages": {
+    "Secyud.Abp.Identities.Domain": {
+      "path": "src/Secyud.Abp.Identities.Domain/Secyud.Abp.Identities.Domain.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Identities.Application.Contracts": {
+      "path": "src/Secyud.Abp.Identities.Application.Contracts/Secyud.Abp.Identities.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Identities.Application": {
+      "path": "src/Secyud.Abp.Identities.Application/Secyud.Abp.Identities.Application.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Identities.EntityFrameworkCore": {
+      "path": "src/Secyud.Abp.Identities.EntityFrameworkCore/Secyud.Abp.Identities.EntityFrameworkCore.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Identities.HttpApi": {
+      "path": "src/Secyud.Abp.Identities.HttpApi/Secyud.Abp.Identities.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Identities.HttpApi.Client": {
+      "path": "src/Secyud.Abp.Identities.HttpApi.Client/Secyud.Abp.Identities.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Identities.Blazor": {
+      "path": "src/Secyud.Abp.Identities.Blazor/Secyud.Abp.Identities.Blazor.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Identities.Blazor.WebAssembly": {
+      "path": "src/Secyud.Abp.Identities.Blazor.WebAssembly/Secyud.Abp.Identities.Blazor.WebAssembly.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Identities.TestBase": {
+      "path": "test/Secyud.Abp.Identities.TestBase/Secyud.Abp.Identities.TestBase.abppkg",
+      "folder": "test"
+    },
+    "Secyud.Abp.Identities.EntityFrameworkCore.Tests": {
+      "path": "test/Secyud.Abp.Identities.EntityFrameworkCore.Tests/Secyud.Abp.Identities.EntityFrameworkCore.Tests.abppkg",
+      "folder": "test"
+    },
+    "Secyud.Abp.Identities.Domain.Tests": {
+      "path": "test/Secyud.Abp.Identities.Domain.Tests/Secyud.Abp.Identities.Domain.Tests.abppkg",
+      "folder": "test"
+    },
+    "Secyud.Abp.Identities.Application.Tests": {
+      "path": "test/Secyud.Abp.Identities.Application.Tests/Secyud.Abp.Identities.Application.Tests.abppkg",
+      "folder": "test"
+    },
+    "Secyud.Abp.Identities.Domain.Shared": {
+      "path": "src/Secyud.Abp.Identities.Domain.Shared/Secyud.Abp.Identities.Domain.Shared.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Identities.Installer": {
+       "path": "src/Secyud.Abp.Identities.Installer/Secyud.Abp.Identities.Installer.abppkg",
+       "folder": "src"
+    }
+  }
+}

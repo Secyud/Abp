@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.AutoMapper" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.Ddd.Application" Version="$(AbpVersion)" />
+    <ProjectReference Include="..\Secyud.Abp.Identities.Application.Contracts\Secyud.Abp.Identities.Application.Contracts.csproj" />
+    <ProjectReference Include="..\Secyud.Abp.Identities.Domain\Secyud.Abp.Identities.Domain.csproj" />
+    <ProjectReference Include="..\..\..\permissions\src\Secyud.Abp.Permissions.Application\Secyud.Abp.Permissions.Application.csproj" />
+    <ProjectReference Include="..\..\..\settings\src\Secyud.Abp.Settings.Domain\Secyud.Abp.Settings.Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MiniExcel" Version="1.34.2" />
+  </ItemGroup>
+
+</Project>

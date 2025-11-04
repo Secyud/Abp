@@ -1,11 +1,7 @@
-﻿using Microsoft.Extensions.Options;
-using SecitsDemoApp.Pages;
-using Secyud.Abp.AspNetCore;
+﻿using Secyud.Abp.AspNetCore;
 using Secyud.Abp.AspNetCore.Bundling;
-using Secyud.Abp.AspNetCore.Components.Bundling;
 using Secyud.Abp.AspNetCore.Components.Routing;
 using Volo.Abp;
-using Volo.Abp.AspNetCore.Components.Web;
 using Volo.Abp.AspNetCore.Mvc.Libs;
 using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
 using Volo.Abp.AspNetCore.Serilog;

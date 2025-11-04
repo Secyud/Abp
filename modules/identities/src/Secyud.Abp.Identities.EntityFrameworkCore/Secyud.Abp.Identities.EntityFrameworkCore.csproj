@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.EntityFrameworkCore" Version="$(AbpVersion)" />
+    <ProjectReference Include="..\Secyud.Abp.Identities.Domain\Secyud.Abp.Identities.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

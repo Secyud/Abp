@@ -1,0 +1,119 @@
+@using Volo.Abp.ObjectExtending
+@using Volo.Abp.Localization
+@using Volo.Abp.Data
+@inherits AbpIdentitiesComponentBase
+
+<SModal @ref="ViewDetailsModal">
+    <SCard>
+        <Header>
+            <STitle>@L["ViewDetails"] - @User.UserName</STitle>
+            <CloseButton Click="CloseViewDetailsModalAsync"/>
+        </Header>
+        <Body>
+        <STabContainer>
+            <FixTab Key="UserInformations">
+                <Tag>@L["UserInformations"]</Tag>
+                <Content>
+                    <table class="table table-striped align-middle">
+                        <tbody>
+                        <tr>
+                            <td class="col-5">@L["DisplayName:UserName"]</td>
+                            <td>@ConvertUserFriendlyFormat(User.UserName)</td>
+                        </tr>
+                        <tr>
+                            <td class="col-5">@L["DisplayName:Name"]</td>
+                            <td>@ConvertUserFriendlyFormat(User.Name)</td>
+                        </tr>
+                        <tr>
+                            <td class="col-5">@L["DisplayName:Surname"]</td>
+                            <td>@ConvertUserFriendlyFormat(User.Surname)</td>
+                        </tr>
+                        <tr>
+                            <td class="col-5">@L["DisplayName:Email"]</td>
+                            <td>@ConvertUserFriendlyFormat(User.Email)</td>
+                        </tr>
+                        <tr>
+                            <td class="col-5">@L["Roles"]</td>
+                            <td>@(User.RoleNames.Any() ? User.RoleNames.JoinAsString(",") : DefaultEmptyValue)</td>
+                        </tr>
+                        @foreach (var propertyInfo in ObjectExtensionManager.Instance.GetProperties<IdentityUserDto>())
+                        {
+                            if (!propertyInfo.Name.EndsWith("_Text"))
+                            {
+                                <tr>
+                                    <td class="col-5">@propertyInfo.GetLocalizedDisplayName(StringLocalizerFactory)</td>
+                                    <td>@ConvertUserFriendlyFormat(User.GetProperty(propertyInfo.Name)?.ToString())</td>
+                                </tr>
+                            }
+                        }
+                        <tr>
+                            <td class="col-5">@L["DisplayName:PhoneNumber"]</td>
+                            <td>@ConvertUserFriendlyFormat(User.PhoneNumber)</td>
+                        </tr>
+                        <tr>
+                            <td class="col-5">@L["DisplayName:IsActive"]</td>
+                            <td>@ConvertUserFriendlyFormat(User.IsActive)</td>
+                        </tr>
+                        <tr>
+                            <td class="col-5">@L["DisplayName:ShouldChangePasswordOnNextLogin"]</td>
+                            <td>@ConvertUserFriendlyFormat(User.ShouldChangePasswordOnNextLogin)</td>
+                        </tr>
+                        <tr>
+                            <td class="col-5">@L["DisplayName:LockoutEnabled"]</td>
+                            <td>@ConvertUserFriendlyFormat(User.LockoutEnabled)</td>
+                        </tr>
+                        <tr>
+                            <td class="col-5">@L["IsExternal"]</td>
+                            <td>@ConvertUserFriendlyFormat(User.IsExternal)</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </Content>
+            </FixTab>
+            <FixTab Key="General">
+                <Tag>@L["General"]</Tag>
+                <Content>
+
+                    <table class="table table-striped align-middle">
+                        <tbody>
+                        <tr>
+                            <td class="col-5">@L["CreatedBy"]</td>
+                            <td>@ConvertUserFriendlyFormat(CreatedBy)</td>
+                        </tr>
+                        <tr>
+                            <td class="col-5">@L["CreationTime"]</td>
+                            <td>@ConvertUserFriendlyFormat(User.CreationTime)</td>
+                        </tr>
+                        <tr>
+                            <td class="col-5">@L["ModifiedBy"]</td>
+                            <td>@ConvertUserFriendlyFormat(ModifiedBy)</td>
+                        </tr>
+                        <tr>
+                            <td class="col-5">@L["ModificationTime"]</td>
+                            <td>@ConvertUserFriendlyFormat(User.LastModificationTime)</td>
+                        </tr>
+                        <tr>
+                            <td class="col-5">@L["PasswordUpdateTime"]</td>
+                            <td>@ConvertUserFriendlyFormat(User.LastPasswordChangeTime)</td>
+                        </tr>
+                        <tr>
+                            <td class="col-5">@L["LockoutEndTime"]</td>
+                            <td>@ConvertUserFriendlyFormat(User.LockoutEnd)</td>
+                        </tr>
+                        <tr>
+                            <td class="col-5">@L["FailedAccessCount"]</td>
+                            <td>@User.AccessFailedCount</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </Content>
+            </FixTab>
+        </STabContainer>
+        </Body>
+        <Footer>
+            <Button Theme="Theme.Secondary" Click="CloseViewDetailsModalAsync">
+                @L["Close"]
+            </Button>
+        </Footer>
+    </SCard>
+</SModal>

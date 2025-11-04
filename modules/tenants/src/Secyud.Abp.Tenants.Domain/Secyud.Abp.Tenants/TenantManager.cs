@@ -5,21 +5,15 @@ using Volo.Abp.MultiTenancy;
 
 namespace Secyud.Abp.Tenants;
 
-public class TenantManager : DomainService, ITenantManager
+public class TenantManager(
+    ITenantValidator tenantValidator,
+    ITenantNormalizer tenantNormalizer,
+    ILocalEventBus localEventBus)
+    : DomainService, ITenantManager
 {
-    protected ITenantValidator TenantValidator { get; }
-    protected ITenantNormalizer TenantNormalizer { get; }
-    protected ILocalEventBus LocalEventBus { get; }
-
-    public TenantManager(
-        ITenantValidator tenantValidator,
-        ITenantNormalizer tenantNormalizer,
-        ILocalEventBus localEventBus)
-    {
-        TenantValidator = tenantValidator;
-        TenantNormalizer = tenantNormalizer;
-        LocalEventBus = localEventBus;
-    }
+    protected ITenantValidator TenantValidator { get; } = tenantValidator;
+    protected ITenantNormalizer TenantNormalizer { get; } = tenantNormalizer;
+    protected ILocalEventBus LocalEventBus { get; } = localEventBus;
 
     public virtual async Task<Tenant> CreateAsync(string name)
     {

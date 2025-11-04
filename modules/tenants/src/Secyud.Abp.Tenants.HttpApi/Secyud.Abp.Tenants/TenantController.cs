@@ -9,14 +9,10 @@ namespace Secyud.Abp.Tenants;
 [RemoteService(Name = TenantsRemoteServiceConsts.RemoteServiceName)]
 [Area(TenantsRemoteServiceConsts.ModuleName)]
 [Route("api/multi-tenancy/tenants")]
-public class TenantController : AbpControllerBase, ITenantAppService //TODO: Throws exception on validation if we inherit from Controller
+public class TenantController(ITenantAppService tenantAppService)
+    : AbpControllerBase, ITenantAppService //TODO: Throws exception on validation if we inherit from Controller
 {
-    protected ITenantAppService TenantAppService { get; }
-
-    public TenantController(ITenantAppService tenantAppService)
-    {
-        TenantAppService = tenantAppService;
-    }
+    protected ITenantAppService TenantAppService { get; } = tenantAppService;
 
     [HttpGet]
     [Route("{id}")]

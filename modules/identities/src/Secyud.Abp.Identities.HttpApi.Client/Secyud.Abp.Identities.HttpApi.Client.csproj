@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Http.Client" Version="$(AbpVersion)"/>
+    <ProjectReference Include="..\Secyud.Abp.Identities.Application.Contracts\Secyud.Abp.Identities.Application.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

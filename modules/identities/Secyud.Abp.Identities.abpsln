@@ -1,0 +1,9 @@
+{
+  "id": "a80d21a4-23c4-444b-9977-64412770e702",
+  "template": "empty",
+  "modules": {
+    "Secyud.Abp.Identities": {
+      "path": "Secyud.Abp.Identities.abpmdl"
+    }
+  }
+}

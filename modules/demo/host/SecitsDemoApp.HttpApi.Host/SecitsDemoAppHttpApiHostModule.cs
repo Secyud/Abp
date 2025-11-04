@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.OpenApi.Models;
 using SecitsDemoApp.EntityFrameworkCore;
 using SecitsDemoApp.HealthChecks;
-using Secyud.Abp.Permissions;
 using StackExchange.Redis;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;

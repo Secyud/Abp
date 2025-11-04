@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Secyud.Abp.Identities.AspNetCore": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:49540;http://localhost:49542"
+    }
+  }
+}

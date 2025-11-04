@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-using Volo.Abp;
+﻿using Volo.Abp;
 
 namespace Secyud.Abp.Settings;
 

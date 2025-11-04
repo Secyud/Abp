@@ -5,7 +5,6 @@ using Microsoft.Extensions.Options;
 using Secyud.Abp.AspNetCore.Localization;
 using Secyud.Abp.AspNetCore.Styles;
 using Secyud.Secits.Blazor;
-using Secyud.Secits.Blazor.Icons;
 using Secyud.Secits.Blazor.Services;
 using Volo.Abp.Localization;
 

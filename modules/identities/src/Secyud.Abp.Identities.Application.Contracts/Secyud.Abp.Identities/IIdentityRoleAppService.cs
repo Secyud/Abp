@@ -1,0 +1,22 @@
+﻿using Volo.Abp.Application.Dtos;
+using Volo.Abp.Application.Services;
+
+namespace Secyud.Abp.Identities;
+
+public interface IIdentityRoleAppService : ICrudAppService<
+    IdentityRoleDto,
+    Guid,
+    GetIdentityRoleListInput,
+    IdentityRoleCreateDto,
+    IdentityRoleUpdateDto>
+{
+    Task<ListResultDto<IdentityRoleDto>> GetAllListAsync();
+
+    Task UpdateClaimsAsync(Guid id, List<IdentityRoleClaimDto> input);
+
+    Task<List<ClaimTypeDto>> GetAllClaimTypesAsync();
+
+    Task<List<IdentityRoleClaimDto>> GetClaimsAsync(Guid id);
+
+    Task MoveAllUsersAsync(Guid id, Guid? targetRoleId);
+}

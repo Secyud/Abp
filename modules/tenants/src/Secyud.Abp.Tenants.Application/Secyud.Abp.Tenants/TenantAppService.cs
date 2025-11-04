@@ -8,28 +8,20 @@ using Volo.Abp.ObjectExtending;
 
 namespace Secyud.Abp.Tenants;
 
-[Authorize(TenantsPermissions.Tenants.Default)]
-public class TenantAppService : TenantsAppServiceBase, ITenantAppService
+[Authorize(TenantsPermissions.Tenants.DefaultName)]
+public class TenantAppService(
+    ITenantRepository tenantRepository,
+    ITenantManager tenantManager,
+    IDataSeeder dataSeeder,
+    IDistributedEventBus distributedEventBus,
+    ILocalEventBus localEventBus)
+    : TenantsAppServiceBase, ITenantAppService
 {
-    protected IDataSeeder DataSeeder { get; }
-    protected ITenantRepository TenantRepository { get; }
-    protected ITenantManager TenantManager { get; }
-    protected IDistributedEventBus DistributedEventBus { get; }
-    protected ILocalEventBus LocalEventBus { get; }
-
-    public TenantAppService(
-        ITenantRepository tenantRepository,
-        ITenantManager tenantManager,
-        IDataSeeder dataSeeder,
-        IDistributedEventBus distributedEventBus,
-        ILocalEventBus localEventBus)
-    {
-        DataSeeder = dataSeeder;
-        TenantRepository = tenantRepository;
-        TenantManager = tenantManager;
-        DistributedEventBus = distributedEventBus;
-        LocalEventBus = localEventBus;
-    }
+    protected IDataSeeder DataSeeder { get; } = dataSeeder;
+    protected ITenantRepository TenantRepository { get; } = tenantRepository;
+    protected ITenantManager TenantManager { get; } = tenantManager;
+    protected IDistributedEventBus DistributedEventBus { get; } = distributedEventBus;
+    protected ILocalEventBus LocalEventBus { get; } = localEventBus;
 
     public virtual async Task<TenantDto> GetAsync(Guid id)
     {
@@ -59,7 +51,7 @@ public class TenantAppService : TenantsAppServiceBase, ITenantAppService
         );
     }
 
-    [Authorize(TenantsPermissions.Tenants.Create)]
+    [Authorize(TenantsPermissions.Tenants.CreateName)]
     public virtual async Task<TenantDto> CreateAsync(TenantCreateDto input)
     {
         var tenant = await TenantManager.CreateAsync(input.Name);
@@ -76,26 +68,26 @@ public class TenantAppService : TenantsAppServiceBase, ITenantAppService
                 Name = tenant.Name,
                 Properties =
                 {
-                        { "AdminEmail", input.AdminEmailAddress },
-                        { "AdminPassword", input.AdminPassword }
+                    { "AdminEmail", input.AdminEmailAddress },
+                    { "AdminPassword", input.AdminPassword }
                 }
             });
 
         using (CurrentTenant.Change(tenant.Id, tenant.Name))
         {
-            //TODO: Handle database creation?
+            // TODO: Handle database creation?
             // TODO: Seeder might be triggered via event handler.
             await DataSeeder.SeedAsync(
-                            new DataSeedContext(tenant.Id)
-                                .WithProperty("AdminEmail", input.AdminEmailAddress)
-                                .WithProperty("AdminPassword", input.AdminPassword)
-                            );
+                new DataSeedContext(tenant.Id)
+                    .WithProperty("AdminEmail", input.AdminEmailAddress)
+                    .WithProperty("AdminPassword", input.AdminPassword)
+            );
         }
 
         return ObjectMapper.Map<Tenant, TenantDto>(tenant);
     }
 
-    [Authorize(TenantsPermissions.Tenants.Update)]
+    [Authorize(TenantsPermissions.Tenants.UpdateName)]
     public virtual async Task<TenantDto> UpdateAsync(Guid id, TenantUpdateDto input)
     {
         var tenant = await TenantRepository.GetAsync(id);
@@ -110,7 +102,7 @@ public class TenantAppService : TenantsAppServiceBase, ITenantAppService
         return ObjectMapper.Map<Tenant, TenantDto>(tenant);
     }
 
-    [Authorize(TenantsPermissions.Tenants.Delete)]
+    [Authorize(TenantsPermissions.Tenants.DeleteName)]
     public virtual async Task DeleteAsync(Guid id)
     {
         var tenant = await TenantRepository.FindAsync(id);
@@ -122,14 +114,14 @@ public class TenantAppService : TenantsAppServiceBase, ITenantAppService
         await TenantRepository.DeleteAsync(tenant);
     }
 
-    [Authorize(TenantsPermissions.Tenants.ManageConnectionStrings)]
+    [Authorize(TenantsPermissions.Tenants.ManageConnectionStringsName)]
     public virtual async Task<string?> GetDefaultConnectionStringAsync(Guid id)
     {
         var tenant = await TenantRepository.GetAsync(id);
         return tenant.FindDefaultConnectionString();
     }
 
-    [Authorize(TenantsPermissions.Tenants.ManageConnectionStrings)]
+    [Authorize(TenantsPermissions.Tenants.ManageConnectionStringsName)]
     public virtual async Task UpdateDefaultConnectionStringAsync(Guid id, string defaultConnectionString)
     {
         var tenant = await TenantRepository.GetAsync(id);
@@ -137,11 +129,12 @@ public class TenantAppService : TenantsAppServiceBase, ITenantAppService
         {
             await LocalEventBus.PublishAsync(new TenantChangedEvent(tenant.Id, tenant.NormalizedName));
         }
+
         tenant.SetDefaultConnectionString(defaultConnectionString);
         await TenantRepository.UpdateAsync(tenant);
     }
 
-    [Authorize(TenantsPermissions.Tenants.ManageConnectionStrings)]
+    [Authorize(TenantsPermissions.Tenants.ManageConnectionStringsName)]
     public virtual async Task DeleteDefaultConnectionStringAsync(Guid id)
     {
         var tenant = await TenantRepository.GetAsync(id);

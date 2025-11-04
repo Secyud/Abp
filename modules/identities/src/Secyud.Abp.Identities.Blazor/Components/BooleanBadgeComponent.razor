@@ -1,0 +1,13 @@
+﻿@if (Value)
+{
+    <SIcon Class="success colored sm" IconName="@IconName.Check" />
+}
+else
+{
+    <SIcon Class="danger colored sm" IconName="IconName.Cross" />
+}
+
+@code {
+    [Parameter]
+    public bool Value { get; set; } 
+}

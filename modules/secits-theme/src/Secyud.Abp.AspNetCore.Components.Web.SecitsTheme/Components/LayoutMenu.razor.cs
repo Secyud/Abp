@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Secyud.Secits.Blazor.Icons;
 
 namespace Secyud.Abp.AspNetCore.Components;
 

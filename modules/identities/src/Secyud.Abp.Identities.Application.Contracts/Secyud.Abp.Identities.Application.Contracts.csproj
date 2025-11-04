@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Ddd.Application.Contracts" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.Authorization" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.Users.Abstractions" Version="$(AbpVersion)" />
+    <ProjectReference Include="..\Secyud.Abp.Identities.Domain.Shared\Secyud.Abp.Identities.Domain.Shared.csproj" />
+    <ProjectReference Include="..\..\..\permissions\src\Secyud.Abp.Permissions.Application.Contracts\Secyud.Abp.Permissions.Application.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

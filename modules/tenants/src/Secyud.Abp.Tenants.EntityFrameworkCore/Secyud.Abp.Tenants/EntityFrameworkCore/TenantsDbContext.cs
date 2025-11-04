@@ -7,16 +7,11 @@ namespace Secyud.Abp.Tenants.EntityFrameworkCore;
 
 [IgnoreMultiTenancy]
 [ConnectionStringName(AbpTenantsDbProperties.ConnectionStringName)]
-public class TenantsDbContext : AbpDbContext<TenantsDbContext>, ITenantsDbContext
+public class TenantsDbContext(DbContextOptions<TenantsDbContext> options) : AbpDbContext<TenantsDbContext>(options), ITenantsDbContext
 {
     public DbSet<Tenant> Tenants { get; set; }
 
     public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
-
-    public TenantsDbContext(DbContextOptions<TenantsDbContext> options)
-        : base(options)
-    {
-    }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

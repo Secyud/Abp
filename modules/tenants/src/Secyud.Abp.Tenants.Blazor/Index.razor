@@ -1,0 +1,107 @@
+﻿@using Secyud.Abp.Features.Components
+@using Secyud.Abp.ObjectExtending
+@using Secyud.Secits.Blazor.Icons
+@namespace Secyud.Abp.Tenants
+@inherits AbpCrudPageBase<ITenantAppService, TenantDto, Guid, GetTenantsInput, TenantCreateDto, TenantUpdateDto>
+
+<SCard>
+    <Header>
+        @L["Tenants"]
+        @if (HasCreatePermission)
+        {
+            <Button Click="OpenCreateModalAsync">
+                <SIcon IconName="IconName.Create"/>
+                @L["NewTenant"]
+            </Button>
+        }
+    </Header>
+</SCard>
+<SCard>
+    <Body>
+    @* ************************* DATA GRID ************************* *@
+    <SGrid TValue="TenantDto">
+        <DynamicDataSource Items="GetEntitiesAsync"/>
+        <EnableIteratorPager/>
+
+        <GridColumn Field="u => u.Id" Caption="@L["Actions"]">
+            <ColumnTemplate>
+                <SIcon Class="anim"
+                       IconName="IconName.Update"
+                       Click="@(() => OpenUpdateModalAsync(context))"/>
+                <SIcon Class="anim"
+                       IconName="IconName.Update"
+                       Click="@(() => FeaturesModal!.OpenAsync(FeatureProviderName, context.Id.ToString(), context.Name))"/>
+                <SIcon Class="anim"
+                       IconName="IconName.Delete"
+                       Click="@(() => OpenDeleteModalAsync(context))"/>
+            </ColumnTemplate>
+        </GridColumn>
+        <GridColumn Field="u => u.Name" EnableSorter Caption="@L["Name"]"/>
+        <ExtensionTableColumns ModuleName="@TenantsModuleExtensionConsts.ModuleName"
+                               EntityName="@TenantsModuleExtensionConsts.EntityNames.Tenant"/>
+    </SGrid>
+    </Body>
+</SCard>
+
+@* ************************* CREATE MODAL ************************* *@
+@if (HasCreatePermission)
+{
+    <SModal @ref="CreateModal">
+        <SCard>
+            <Header>
+                @L["NewTenant"]
+                <CloseButton Click="CloseCreateModalAsync"/>
+            </Header>
+            <Body>
+            <SFormLayout EnableValidation ParentValidationForm>
+                <FormLayoutItem Title="@($"{L["TenantName"]} *")" ShowValidationMessage>
+                    <TextBox @bind-Value="@CreateEntity.Name"/>
+                </FormLayoutItem>
+                <FormLayoutItem Title="@($"{L["DisplayName:AdminEmailAddress"]} *")" ShowValidationMessage>
+                    <TextBox @bind-Value="@CreateEntity.AdminEmailAddress"/>
+                </FormLayoutItem>
+                <FormLayoutItem Title="@($"{L["DisplayName:AdminPassword"]} *")" ShowValidationMessage>
+                    <TextBox @bind-Value="@CreateEntity.AdminPassword"/>
+                </FormLayoutItem>
+                <ExtensionProperties Entity="@CreateEntity"
+                                     ModalType="ExtensionPropertyModalType.CreateModal"/>
+            </SFormLayout>
+            </Body>
+            <Footer>
+                <CancelButton Click="CloseCreateModalAsync"/>
+                <SubmitButton Click="CreateEntityAsync"/>
+            </Footer>
+        </SCard>
+    </SModal>
+}
+
+@* ************************* EDIT MODAL ************************* *@
+@if (HasUpdatePermission)
+{
+    <SModal @ref="UpdateModal">
+        <SCard>
+            <Header>
+                @L["Edit"]
+                <CloseButton Click="CloseUpdateModalAsync"/>
+            </Header>
+            <Body>
+            <SFormLayout EnableValidation ParentValidationForm>
+                <FormLayoutItem Title="@($"{L["TenantName"]} *")" ShowValidationMessage>
+                    <TextBox @bind-Value="@UpdateEntity.Name"/>
+                </FormLayoutItem>
+                <ExtensionProperties Entity="@UpdateEntity"
+                                     ModalType="ExtensionPropertyModalType.UpdateModal"/>
+            </SFormLayout>
+            </Body>
+            <Footer>
+                <CancelButton Click="CloseUpdateModalAsync"/>
+                <SubmitButton Click="UpdateEntityAsync"/>
+            </Footer>
+        </SCard>
+    </SModal>
+}
+
+@if (HasManageFeaturesPermission)
+{
+    <FeaturesModal @ref="FeaturesModal"/>
+}

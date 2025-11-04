@@ -1,0 +1,110 @@
+﻿@inherits AbpIdentitiesComponentBase
+@* ************************* PAGE HEADER ************************* *@
+
+<SCard>
+    <Header>
+        <STitle>
+            @L["SecurityLogs"]
+        </STitle>
+    </Header>
+</SCard>
+
+@* ************************* SEARCH ************************* *@
+<SCard>
+    <Body>
+    <SFormLayout>
+        <FormLayoutItem Title="@L["StartTime"]">
+            <DateTimeBox @bind-Value="Filter.StartTime"/>
+        </FormLayoutItem>
+        <FormLayoutItem Title="@L["EndTime"]">
+            <DateTimeBox @bind-Value="Filter.EndTime"/>
+        </FormLayoutItem>
+        <FormLayoutItem Title="@L["SecurityLogs:Application"]">
+            <TitleTemplate>
+                <STooltip Text="@L["SecurityLogs:ApplicationDescription"]">
+                    <SIcon IconName="IconName.Exclamation" Class="anim"/>
+                </STooltip>
+            </TitleTemplate>
+            <ChildContent>
+                <TextBox @bind-Value="@Filter.ApplicationName"/>
+            </ChildContent>
+        </FormLayoutItem>
+        <FormLayoutItem Title="@L["SecurityLogs:Identity"]">
+            <TitleTemplate>
+                <STooltip Text="@L["SecurityLogs:IdentityDescription"]">
+                    <SIcon IconName="IconName.Exclamation" Class="anim"/>
+                </STooltip>
+            </TitleTemplate>
+            <ChildContent>
+                <TextBox @bind-Value="@Filter.Identity"/>
+            </ChildContent>
+        </FormLayoutItem>
+        <FormLayoutItem Title="@L["SecurityLogs:UserName"]">
+            <TextBox @bind-Value="Filter.UserName"/>
+        </FormLayoutItem>
+        <FormLayoutItem Title="@L["SecurityLogs:Action"]">
+            <TitleTemplate>
+                <STooltip Text="@L["SecurityLogs:ActionDescription"]">
+                    <SIcon IconName="IconName.Exclamation" Class="anim"/>
+                </STooltip>
+            </TitleTemplate>
+            <ChildContent>
+                <TextBox @bind-Value="@Filter.Action"/>
+            </ChildContent>
+        </FormLayoutItem>
+        <FormLayoutItem Title="@L["SecurityLogs:Client"]">
+            <TextBox @bind-Value="Filter.ClientId"/>
+        </FormLayoutItem>
+        <FormLayoutItem Title="@L["SecurityLogs:CorrelationId"]">
+            <TextBox @bind-Value="Filter.CorrelationId"/>
+        </FormLayoutItem>
+        <FormLayoutItem Title="@L["SecurityLogs:IpAddress"]">
+            <TextBox @bind-Value="Filter.ClientIpAddress"/>
+        </FormLayoutItem>
+    </SFormLayout>
+    </Body>
+    <Footer>
+        <div class="justify-content-end row">
+            <Button Theme="Theme.Primary" Class="outline" Click="ClearFilterAsync">
+                @L["Clear"]
+            </Button>
+            <Button Theme="Theme.Primary" Click="SearchEntitiesAsync">
+                <SIcon IconName="IconName.Search"/> @L["Search"]
+            </Button>
+        </div>
+    </Footer>
+</SCard>
+
+@* ************************* DATA GRID ************************* *@
+<SCard>
+    <Body>
+    <SGrid @ref="View" TValue="IdentitySecurityLogDto">
+        <EnableDynamicSource Items="GetEntitiesAsync"/>
+        <EnableIteratorPager/>
+        <EnableColumnResize/>
+
+        <GridColumn Field="u => u.CreationTime" Caption="@L["SecurityLogs:Date"]" EnableSorter/>
+        <GridColumn Field="u => u.Action" Caption="@L["SecurityLogs:Action"]" EnableSorter/>
+        <GridColumn Field="u => u.ClientIpAddress" Caption="@L["SecurityLogs:IpAddress"]" EnableSorter/>
+        <GridColumn Field="u => u.BrowserInfo" Caption="@L["SecurityLogs:Browser"]" EnableSorter>
+            <ColumnTemplate>
+                @if (context.BrowserInfo is { Length: > 20 } browserInfo)
+                {
+                    <STooltip Text="@browserInfo">
+                        @(browserInfo[..20])...
+                    </STooltip>
+                }
+                else
+                {
+                    <span>@context.BrowserInfo</span>
+                }
+            </ColumnTemplate>
+        </GridColumn>
+        <GridColumn Field="u => u.ApplicationName" Caption="@L["SecurityLogs:Application"]" EnableSorter/>
+        <GridColumn Field="u => u.Identity" Caption="@L["SecurityLogs:Identity"]" EnableSorter/>
+        <GridColumn Field="u => u.UserName" Caption="@L["SecurityLogs:UserName"]" EnableSorter/>
+        <GridColumn Field="u => u.ClientId" Caption="@L["SecurityLogs:Client"]" EnableSorter/>
+        <GridColumn Field="u => u.CorrelationId" Caption="@L["SecurityLogs:CorrelationId"]" EnableSorter/>
+    </SGrid>
+    </Body>
+</SCard>

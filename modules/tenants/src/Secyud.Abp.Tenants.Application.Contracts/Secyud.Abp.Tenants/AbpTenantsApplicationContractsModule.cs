@@ -1,4 +1,5 @@
 ﻿using Secyud.Abp.ObjectExtending;
+using Secyud.Abp.Permissions;
 using Volo.Abp.Application;
 using Volo.Abp.Authorization;
 using Volo.Abp.Modularity;
@@ -10,7 +11,7 @@ namespace Secyud.Abp.Tenants;
 [DependsOn(
     typeof(AbpDddApplicationContractsModule),
     typeof(AbpTenantsDomainSharedModule),
-    typeof(AbpAuthorizationAbstractionsModule)
+    typeof(AbpPermissionsModule)
     )]
 public class AbpTenantsApplicationContractsModule : AbpModule
 {

@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+  <Import Project="..\..\..\..\common.test.props" />
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Autofac" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.Authorization" Version="$(AbpVersion)"/>
+    <PackageReference Include="Volo.Abp.Guids" Version="$(AbpVersion)"/>
+    <ProjectReference Include="..\..\src\Secyud.Abp.Identities.Domain\Secyud.Abp.Identities.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

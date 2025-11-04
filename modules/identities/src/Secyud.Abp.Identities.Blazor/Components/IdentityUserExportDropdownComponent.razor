@@ -1,0 +1,17 @@
+@using Microsoft.Extensions.Localization
+@inject AbpBlazorMessageLocalizerHelper<AbpIdentitiesResource> LH
+@inject IStringLocalizer<AbpIdentitiesResource> L
+
+<DropdownBox>
+    <ChildContent>
+        @L["Export"]
+    </ChildContent>
+    <DropdownContentTemplate>
+        <Button Click="ExportToExcelFileAsync">
+            @L["ToExcel"]
+        </Button>
+        <Button Click="ExportToCsvFileAsync">
+            @L["ToCSV"]
+        </Button>
+    </DropdownContentTemplate>
+</DropdownBox>

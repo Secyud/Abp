@@ -1,0 +1,785 @@
+﻿
+@using System.Drawing
+@using Secyud.Abp.Identities
+@using Secyud.Abp.ObjectExtending
+@using Secyud.Abp.Permissions.Components
+@using Volo.Abp.Users
+@inherits AbpCrudPageBase<IIdentityUserAppService, IdentityUserDto,
+	Guid, GetIdentityUsersInput, IdentityUserCreateDto, IdentityUserUpdateDto>
+
+@* ************************* PAGE HEADER ************************* *@
+<SCard>
+	<Header>
+		<STitle>
+			@L["Users"]
+		</STitle>
+
+		@if (HasCreatePermission)
+		{
+			<Button Click="OpenCreateModalAsync">
+				<SIcon IconName="IconName.Create"/>
+				@L["NewUser"]
+			</Button>
+		}
+		<IdentityUserImportDropdownComponent/>
+		<IdentityUserExportDropdownComponent/>
+	</Header>
+</SCard>
+@* ************************* SEARCH ************************* *@
+<SCard>
+	<Body>
+	<SFormLayout>
+		<FormLayoutItem ColSpanMd="10">
+			<div class="group" style="grid-template-columns: 1fr var(--u)">
+				<TextBox Class="l" placeholder="@L["Search"]" @bind-Value="GetListInput.Filter"/>
+				<SIcon Class="anim r" IconName="IconName.Search" Click="SearchEntitiesAsync"/>
+			</div>
+		</FormLayoutItem>
+		<FormLayoutItem ColSpanMd="2">
+			<Button Theme="Theme.Primary" Class="outline"
+			        Click="@OnAdvancedFilterSectionClick">
+				@L["Filters"] <SIcon IconName="@(!ShowAdvancedFilters ? IconName.DownAngle : IconName.UpAngle)"/>
+			</Button>
+		</FormLayoutItem>
+	</SFormLayout>
+
+	<div id="AdvancedFilterSection" style="display: @(!ShowAdvancedFilters ? "none" : "block")" class="mt-3">
+		<SFormLayout>
+			<FormLayoutItem Title="@L["Role"]">
+				<ComboBox Items="Roles"
+				          ValueField="v => v.Id"
+				          @bind-Field="AdvancedFilterInput.RoleId">
+					<EnableValueTextField TextField="u => u.Name"/>
+				</ComboBox>
+			</FormLayoutItem>
+			<FormLayoutItem Title="@L["UserName"]">
+				<TextBox @bind-Value="@GetListInput.UserName"/>
+			</FormLayoutItem>
+			<FormLayoutItem Title="@L["PhoneNumber"]">
+				<TextBox @bind-Value="@GetListInput.PhoneNumber"/>
+			</FormLayoutItem>
+			<FormLayoutItem Title="@L["CreationStartDate"]">
+				<DateTimeBox @bind-Value="@GetListInput.MinCreationTime"/>
+			</FormLayoutItem>
+			<FormLayoutItem Title="@L["CreationEndDate"]">
+				<DateTimeBox @bind-Value="@GetListInput.MaxCreationTime"/>
+			</FormLayoutItem>
+			<FormLayoutItem Title="@L["ModificationStartDate"]">
+				<DateTimeBox @bind-Value="@GetListInput.MinModifitionTime"/>
+			</FormLayoutItem>
+			<FormLayoutItem Title="@L["ModificationEndDate"]">
+				<DateTimeBox @bind-Value="@GetListInput.MaxModifitionTime"/>
+			</FormLayoutItem>
+			<FormLayoutItem Title="@L["EmailAddress"]">
+				<TextBox @bind-Value="@GetListInput.EmailAddress"/>
+			</FormLayoutItem>
+			<FormLayoutItem Title="@L["Name"]">
+				<TextBox @bind-Value="@GetListInput.Name"/>
+			</FormLayoutItem>
+			<FormLayoutItem Title="@L["Surname"]">
+				<TextBox @bind-Value="@GetListInput.Surname"/>
+			</FormLayoutItem>
+			<FormLayoutItem Title="@L["NotActive"]">
+				<ComboBox Items="BoolItems" @bind-Field="@GetListInput.NotActive">
+					<EnableValueTextField TValue="bool?" TextField="BoolDisplayName"/>
+				</ComboBox>
+			</FormLayoutItem>
+			<FormLayoutItem Title="@L["EmailConfirmed"]">
+				<ComboBox Items="BoolItems" @bind-Field="@GetListInput.EmailConfirmed">
+					<EnableValueTextField TValue="bool?" TextField="BoolDisplayName"/>
+				</ComboBox>
+			</FormLayoutItem>
+			<FormLayoutItem Title="@L["Lock"]">
+				<ComboBox Items="BoolItems" @bind-Field="@GetListInput.IsLockedOut">
+					<EnableValueTextField TValue="bool?" TextField="BoolDisplayName"/>
+				</ComboBox>
+			</FormLayoutItem>
+			<FormLayoutItem Title="@L["External"]">
+				<ComboBox Items="BoolItems" @bind-Field="@GetListInput.IsExternal">
+					<EnableValueTextField TValue="bool?" TextField="BoolDisplayName"/>
+				</ComboBox>
+			</FormLayoutItem>
+		</SFormLayout>
+	</div>
+	</Body>
+</SCard>
+@* ************************* DATA GRID ************************* *@
+<SCard>
+	<Body>
+	<SGrid @ref="View" TValue="IdentityUserDto">
+		<EnableDynamicSource Items="GetEntitiesAsync"/>
+		<EnableIteratorPager/>
+		<EnableColumnResize/>
+
+		<GridColumn Field="u => u.Id" Caption="@L["Actions"]">
+			<ColumnTemplate>
+				<DropdownBox>
+					<ChildContent>
+						@L["Actions"]
+					</ChildContent>
+					<DropdownContentTemplate>
+						@if (HasViewDetailsPermission)
+						{
+							<Button Click="@(() => ViewDetailsModal.OpenAsync(context.Id))">
+								@L["ViewDetails"]
+							</Button>
+						}
+						@if (HasUpdatePermission)
+						{
+							<Button Click="@(() => OpenUpdateModalAsync(context))">
+								@L["Update"]
+							</Button>
+							<Button Click="@(() => OpenClaimsModalAsync(context))">
+								@L["Claims"]
+							</Button>
+							@if (CurrentUser.Id != context.Id && context.LockoutEnabled)
+							{
+								<Button Click="@(() => OpenLockModalAsync(context))">
+									@L["Lock"]
+								</Button>
+							}
+
+							@if (CurrentUser.Id != context.Id && context.IsLockedOut)
+							{
+								<Button Click="@(() => UnlockUserAsync(context))">
+									@L["Lock"]
+								</Button>
+							}
+
+							<Button Click="@(() => OpenSetPasswordModalAsync(context))">
+								@L["SetPassword"]
+							</Button>
+							<Button Click="@(() => OpenTwoFactorModalAsync(context))">
+								@L["TwoFactor"]
+							</Button>
+							<Button Click="@(() => OpenSessionsModalAsync(context))">
+								@L["Sessions"]
+							</Button>
+						}
+						@if (HasManagePermissionsPermission)
+						{
+							<Button Click="@(() => PermissionsGrantModal.OpenAsync(
+								               PermissionProviderName, context.Id.ToString(), context.Name ?? ""))">
+								@L["Permissions"]
+							</Button>
+						}
+						@if (Options.Value.EnableUserImpersonation &&
+						     CurrentUser.FindImpersonatorUserId() == null &&
+						     HasImpersonationPermission &&
+						     context.Id != CurrentUser.Id)
+						{
+							<Button Click="@(() => LoginWithUserAsync(context))">
+								@L["LoginWithThisUser"]
+							</Button>
+						}
+						@if (HasDeletePermission)
+						{
+							<Button Click="@(() => OpenDeleteModalAsync(context))">
+								@L["Delete"]
+							</Button>
+						}
+					</DropdownContentTemplate>
+				</DropdownBox>
+			</ColumnTemplate>
+		</GridColumn>
+		<GridColumn Field="u => u.UserName" Caption="@L["UserName"]" EnableSorter>
+			<ColumnTemplate>
+				@if (context.IsLockedOut)
+				{
+					<SIcon Class="danger" IconName="@IconName.Lock"/>
+				}
+				<span>@context.UserName</span>
+			</ColumnTemplate>
+		</GridColumn>
+		<GridColumn Field="u => u.RoleNames"
+		            Caption="@L["Roles"]">
+			<ColumnTemplate>
+				@(string.Join(", ", context.RoleNames))
+			</ColumnTemplate>
+		</GridColumn>
+		<GridColumn Field="u => u.PhoneNumber"
+		            Caption="@L["PhoneNumber"]" EnableSorter/>
+		<GridColumn Field="u => u.Name"
+		            Caption="@L["Name"]" EnableSorter/>
+		<GridColumn Field="u => u.Surname"
+		            Caption="@L["Surname"]" EnableSorter/>
+		<GridColumn Field="u => u.IsActive"
+		            Caption="@L["DisplayName:IsActive"]" EnableSorter>
+			<ColumnTemplate>
+				<BooleanBadgeComponent Value="context.IsActive"/>
+			</ColumnTemplate>
+		</GridColumn>
+		<GridColumn Field="u => u.LockoutEnabled"
+		            Caption="@L["DisplayName:LockoutEnabled"]" EnableSorter>
+			<ColumnTemplate>
+				<BooleanBadgeComponent Value="context.LockoutEnabled"/>
+			</ColumnTemplate>
+		</GridColumn>
+		<GridColumn Field="u => u.EmailConfirmed"
+		            Caption="@L["DisplayName:EmailConfirmed"]" EnableSorter>
+			<ColumnTemplate>
+				<BooleanBadgeComponent Value="context.EmailConfirmed"/>
+			</ColumnTemplate>
+		</GridColumn>
+		<GridColumn Field="u => u.TwoFactorEnabled"
+		            Caption="@L["DisplayName:TwoFactorEnabled"]" EnableSorter>
+			<ColumnTemplate>
+				<BooleanBadgeComponent Value="context.TwoFactorEnabled"/>
+			</ColumnTemplate>
+		</GridColumn>
+		<GridColumn Field="u => u.AccessFailedCount"
+		            Caption="@L["DisplayName:AccessFailedCount"]" EnableSorter/>
+		<GridColumn Field="u => u.CreationTime"
+		            Caption="@L["CreationTime"]" EnableSorter/>
+		<GridColumn Field="u => u.LastModificationTime"
+		            Caption="@L["LastModificationTime"]" EnableSorter/>
+		<ExtensionTableColumns ModuleName="@IdentityModuleExtensionConsts.ModuleName"
+		                       EntityName="@IdentityModuleExtensionConsts.EntityNames.User"/>
+	</SGrid>
+	</Body>
+</SCard>
+
+@if (Options.Value.EnableUserImpersonation)
+{
+	<form method="post" action="/Account/ImpersonateUser" id="ImpersonationForm">
+		<input type="hidden" name="UserId" id="ImpersonationUserId">
+	</form>
+}
+
+@* ************************* CREATE MODAL ************************* *@
+@if (HasCreatePermission)
+{
+	<SModal @ref="CreateModal">
+		<SCard>
+			<Header>
+				<STitle>@L["NewUser"]</STitle>
+				<CloseButton Click="CloseCreateModalAsync"/>
+			</Header>
+			<Body>
+			<STabContainer>
+				<FixTab>
+					<Tag>@L["UserInformations"]</Tag>
+					<Content>
+						<SFormLayout EnableValidation ParentValidationForm>
+							<FormLayoutItem Title="@($"{L["DisplayName:UserName"]} *")"
+							                ShowValidationMessage>
+								<TextBox @bind-Value="CreateEntity.UserName"/>
+							</FormLayoutItem>
+							<FormLayoutItem Title="@L["DisplayName:Name"]"
+							                ShowValidationMessage>
+								<TextBox @bind-Value="CreateEntity.Name"/>
+							</FormLayoutItem>
+							<FormLayoutItem Title="@L["DisplayName:Surname"]"
+							                ShowValidationMessage>
+								<TextBox @bind-Value="CreateEntity.Surname"/>
+							</FormLayoutItem>
+							<FormLayoutItem Title="@L["DisplayName:Password"]"
+							                ShowValidationMessage>
+								<div class="s-input">
+									<input type="password" @bind="CreateEntity.Password"/>
+								</div>
+							</FormLayoutItem>
+							<FormLayoutItem Title="@L["DisplayName:Email"]"
+							                ShowValidationMessage>
+								<TextBox @bind-Value="CreateEntity.Email"/>
+							</FormLayoutItem>
+							<FormLayoutItem Title="@L["DisplayName:PhoneNumber"]"
+							                ShowValidationMessage>
+								<TextBox @bind-Value="CreateEntity.PhoneNumber"/>
+							</FormLayoutItem>
+							<FormLayoutItem Title="@L["DisplayName:IsActive"]">
+								<CheckBox @bind-Value="CreateEntity.IsActive"/>
+							</FormLayoutItem>
+							<FormLayoutItem Title="@L["DisplayName:LockoutEnabled"]">
+								<TitleTemplate>
+									<STooltip Text="@L["Description:LockoutEnabled"]">
+										<SIcon IconName="IconName.Exclamation"/>
+									</STooltip>
+								</TitleTemplate>
+								<ChildContent>
+									<CheckBox @bind-Value="CreateEntity.LockoutEnabled"/>
+								</ChildContent>
+							</FormLayoutItem>
+							<FormLayoutItem Title="@L["DisplayName:EmailConfirmed"]">
+								<CheckBox @bind-Value="CreateEntity.EmailConfirmed"/>
+							</FormLayoutItem>
+							<FormLayoutItem Title="@L["DisplayName:PhoneNumberConfirmed"]">
+								<CheckBox @bind-Value="CreateEntity.PhoneNumberConfirmed"/>
+							</FormLayoutItem>
+							<FormLayoutItem Title="@L["DisplayName:ShouldChangePasswordOnNextLogin"]">
+								<TitleTemplate>
+									<STooltip Text="@L["Description:ShouldChangePasswordOnNextLogin"]">
+										<SIcon IconName="IconName.Exclamation"/>
+									</STooltip>
+								</TitleTemplate>
+								<ChildContent>
+									<CheckBox @bind-Value="CreateEntity.ShouldChangePasswordOnNextLogin"/>
+								</ChildContent>
+							</FormLayoutItem>
+							@if (RequireConfirmedEmail)
+							{
+								<FormLayoutItem Title="@L["DisplayName:SendConfirmationEmail"]">
+									<CheckBox @bind-Value="CreateEntity.SendConfirmationEmail"/>
+								</FormLayoutItem>
+							}
+
+							<ExtensionProperties Entity="@CreateEntity" Localizer="@L"
+							                     ModalType="ExtensionPropertyModalType.CreateModal"/>
+						</SFormLayout>
+					</Content>
+				</FixTab>
+				@if (NewUserRoles.Any())
+				{
+					<FixTab>
+						<Tag>@L["Roles{0}", NewUserRoles.Count(r => r.IsAssigned)]</Tag>
+						<Content>
+							<SFormLayout EnableValidation ParentValidationForm>
+
+								@foreach (var role in NewUserRoles)
+								{
+									<FormLayoutItem Title="@role.Name">
+										<CheckBox @bind-Value="@role.IsAssigned"/>
+									</FormLayoutItem>
+								}
+							</SFormLayout>
+						</Content>
+					</FixTab>
+				}
+
+				<STabTagsView/>
+				<STabContentsView/>
+			</STabContainer>
+			</Body>
+			<Footer>
+				<CancelButton Click="CloseCreateModalAsync"/>
+				<SubmitButton Click="CreateEntityAsync"/>
+			</Footer>
+		</SCard>
+	</SModal>
+}
+
+@* ************************* EDIT MODAL ************************* *@
+@if (HasUpdatePermission)
+{
+	<SModal @ref="UpdateModal">
+		<SCard>
+			<Header>
+				<STitle>
+					@L["Edit"] - @UpdateEntity.UserName
+				</STitle>
+				<CloseButton Click="CloseUpdateModalAsync"/>
+			</Header>
+			<Body>
+			<SFormLayout EnableValidation ParentValidationForm>
+				<STabContainer>
+
+					<FixTab>
+						<Tag>@L["UserInformations"]</Tag>
+						<Content>
+							<SFormLayout EnableValidation ParentValidationForm>
+								<FormLayoutItem Title="@($"{L["DisplayName:UserName"]} *")"
+								                ShowValidationMessage>
+									<TextBox @bind-Value="UpdateEntity.UserName"/>
+								</FormLayoutItem>
+								<FormLayoutItem Title="@L["DisplayName:Name"]"
+								                ShowValidationMessage>
+									<TextBox @bind-Value="UpdateEntity.Name"/>
+								</FormLayoutItem>
+								<FormLayoutItem Title="@L["DisplayName:Surname"]"
+								                ShowValidationMessage>
+									<TextBox @bind-Value="UpdateEntity.Surname"/>
+								</FormLayoutItem>
+								<FormLayoutItem Title="@L["DisplayName:Email"]"
+								                ShowValidationMessage>
+									<TextBox @bind-Value="UpdateEntity.Email"/>
+								</FormLayoutItem>
+								<FormLayoutItem Title="@L["DisplayName:PhoneNumber"]"
+								                ShowValidationMessage>
+									<TextBox @bind-Value="UpdateEntity.PhoneNumber"/>
+								</FormLayoutItem>
+								@if (!IsEditCurrentUser)
+								{
+									<FormLayoutItem Title="@L["DisplayName:IsActive"]">
+										<CheckBox @bind-Value="UpdateEntity.IsActive"/>
+									</FormLayoutItem>
+								}
+								<FormLayoutItem Title="@L["DisplayName:LockoutEnabled"]">
+									<TitleTemplate>
+										<STooltip Text="@L["Description:LockoutEnabled"]">
+											<SIcon IconName="IconName.Exclamation"/>
+										</STooltip>
+									</TitleTemplate>
+									<ChildContent>
+										<CheckBox @bind-Value="UpdateEntity.LockoutEnabled"/>
+									</ChildContent>
+								</FormLayoutItem>
+								<FormLayoutItem Title="@L["DisplayName:EmailConfirmed"]">
+									<CheckBox @bind-Value="UpdateEntity.EmailConfirmed"/>
+								</FormLayoutItem>
+								<FormLayoutItem Title="@L["DisplayName:PhoneNumberConfirmed"]">
+									<CheckBox @bind-Value="UpdateEntity.PhoneNumberConfirmed"/>
+								</FormLayoutItem>
+								<FormLayoutItem Title="@L["DisplayName:ShouldChangePasswordOnNextLogin"]">
+									<TitleTemplate>
+										<STooltip Text="@L["Description:ShouldChangePasswordOnNextLogin"]">
+											<SIcon IconName="IconName.Exclamation"/>
+										</STooltip>
+									</TitleTemplate>
+									<ChildContent>
+										<CheckBox @bind-Value="UpdateEntity.ShouldChangePasswordOnNextLogin"/>
+									</ChildContent>
+								</FormLayoutItem>
+								<ExtensionProperties Entity="@UpdateEntity" Localizer="@L"
+								                     ModalType="ExtensionPropertyModalType.UpdateModal"/>
+							</SFormLayout>
+						</Content>
+					</FixTab>
+					@if (EditUserRoles.Any())
+					{
+						<FixTab>
+							<Tag>@L["Roles{0}", EditUserRoles.Count(r => r.IsAssigned)]</Tag>
+							<Content>
+								<SFormLayout EnableValidation ParentValidationForm>
+
+									@foreach (var role in EditUserRoles)
+									{
+										<FormLayoutItem Title="@role.Name">
+											<CheckBox @bind-Value="@role.IsAssigned"/>
+										</FormLayoutItem>
+									}
+								</SFormLayout>
+							</Content>
+						</FixTab>
+					}
+					<STabTagsView/>
+					<STabContentsView/>
+				</STabContainer>
+			</SFormLayout>
+			</Body>
+			<Footer>
+				<CancelButton Click="CloseUpdateModalAsync"/>
+				<SubmitButton Click="UpdateEntityAsync"/>
+			</Footer>
+		</SCard>
+	</SModal>
+}
+@* ************************* LOCK MODAL ************************* *@
+@if (HasUpdatePermission)
+{
+	<SModal @ref="LockModal">
+		<SCard>
+			<Header>
+				<STitle>
+					@L["Lock"]
+				</STitle>
+				<CloseButton Click="CloseLockModalAsync"/>
+			</Header>
+			<Body>
+			<input type="hidden" name="LockingUser.Id" @bind-value="LockingUser.Id"/>
+			<SFormLayout>
+				<FormLayoutItem Title="@L["DisplayName:LockoutEnd"]">
+					<DateTimeBox @bind-Value="LockingUser.LockoutEnd"/>
+				</FormLayoutItem>
+			</SFormLayout>
+			</Body>
+			<Footer>
+				<CancelButton Click="CloseLockModalAsync"/>
+				<SubmitButton Click="@LockUserAsync"/>
+			</Footer>
+		</SCard>
+	</SModal>
+}
+@* ************************* Password MODAL ************************* *@
+@if (HasUpdatePermission)
+{
+	<SModal @ref="ChangePasswordModal">
+		<SCard>
+			<Header>
+				<STitle>@(L["SetPassword"].Value + " - " + ChangePasswordModel.UserName)</STitle>
+				<CloseButton Click="CloseChangePasswordModalAsync"/>
+			</Header>
+			<Body>
+			<input type="hidden" name="ChangePasswordModel.Id" @bind-value="ChangePasswordModel.Id"/>
+			<SFormLayout>
+				<FormLayoutItem Title="@L["DisplayName:NewPassword"]" ShowValidationMessage>
+					<div class="s-input">
+						<input type="password" @bind="ChangePasswordModel.NewPassword"/>
+
+						<STooltip Text="@L["GenerateRandomPasswordTooltip"]">
+							<Button Theme="Theme.Secondary" Click="GenerateRandomPassword">
+								<SIcon Name="@IconName.Random"/>
+							</Button>
+						</STooltip>
+					</div>
+				</FormLayoutItem>
+			</SFormLayout>
+			</Body>
+			<Footer>
+				<CancelButton Click="CloseChangePasswordModalAsync"/>
+				<SubmitButton Click="ChangePasswordAsync"/>
+			</Footer>
+		</SCard>
+	</SModal>
+}
+@* ************************* TwoFactor MODAL ************************* *@
+@if (HasUpdatePermission)
+{
+	<SModal @ref="TwoFactorModal">
+		<SCard>
+			<Header>
+				<STitle>@(L["TwoFactor"].Value + " - " + TwoFactorModel.UserName)</STitle>
+				<CloseButton Click="CloseTwoFactorModalAsync"/>
+			</Header>
+			<Body>
+			<input type="hidden" name="TwoFactorModel.Id" @bind-value="TwoFactorModel.Id"/>
+			<SFormLayout>
+				<FormLayoutItem Title="@L["DisplayName:TwoFactorEnabled"]">
+					<CheckBox @bind-Value="TwoFactorModel.TwoFactorEnabled"></CheckBox>
+				</FormLayoutItem>
+			</SFormLayout>
+			</Body>
+			<Footer>
+				<CancelButton Click="CloseTwoFactorModalAsync"/>
+				<SubmitButton Click="ChangeTwoFactorAsync"/>
+			</Footer>
+		</SCard>
+	</SModal>
+}
+@* ************************* Claims MODAL ************************* *@
+@if (HasUpdatePermission)
+{
+	<SModal @ref="ClaimsModal" RenderMode="ModalRenderMode.LazyReload">
+		<SCard>
+			<Header>
+				<STitle>@(L["Claims"].Value + " - " + ClaimsModel.UserName)</STitle>
+				<CloseButton Click="CloseClaimsModalAsync"/>
+			</Header>
+			<Body>
+			<SFormLayout>
+				<FormLayoutItem Title="@L["Type"]">
+					<SelectBox Items="ClaimsModel.AllClaims"
+					           @bind-Value="@SelectedClaim">
+						<EnableValueTextField TValue="ClaimTypeDto" TextField="@(u => u.Name)"/>
+					</SelectBox>
+				</FormLayoutItem>
+
+				<FormLayoutItem Title="@L["Value"]">
+					@if (SelectedClaim is not null)
+					{
+						switch (SelectedClaim.ValueType)
+						{
+							case IdentityClaimValueType.String:
+								<TextBox @bind-Value="@SelectedClaimValueText"/>
+								break;
+							case IdentityClaimValueType.Int:
+								<NumberBox @bind-Value="@SelectedClaimValueNumeric"/>
+								break;
+							case IdentityClaimValueType.Boolean:
+
+								<ComboBox Items="@([true, false])" @bind-Field="@SelectedClaimValueBool">
+									<EnableValueTextField TValue="bool" TextField="BoolDisplayName"/>
+								</ComboBox>
+								break;
+							case IdentityClaimValueType.DateTime:
+								<DateTimeBox @bind-Value="@SelectedClaimValueDate"/>
+								break;
+						}
+					}
+				</FormLayoutItem>
+				<FormLayoutItem ColSpanMd="12">
+					<Button Theme="Theme.Success" Click="@AddClaimAsync" class="inline">
+						<SIcon IconName="@("fa fa-plus")"/>
+						@L["AddClaim"]
+					</Button>
+				</FormLayoutItem>
+
+				@foreach (var ownedClaim in ClaimsModel.OwnedClaims)
+				{
+					@GenerateClaimField(ownedClaim)
+				}
+			</SFormLayout>
+
+
+			</Body>
+			<Footer>
+				<CancelButton Click="CloseClaimsModalAsync">@L["Cancel"]</CancelButton>
+				<SubmitButton Click="@SaveClaimsAsync"/>
+			</Footer>
+		</SCard>
+	</SModal>
+}
+
+@code{
+
+	RenderFragment? GenerateClaimField(IdentityUserClaimViewModel ownedClaim)
+	{
+		if (ClaimsModel.AllClaims.FirstOrDefault(c => c.Name == ownedClaim.ClaimType) == null)
+		{
+			return null;
+		}
+
+		return
+			@<FormLayoutItem @Title="@ownedClaim.ClaimType">
+				<div class="group">
+					@if (GetClaimValueType(ownedClaim.ClaimType) == IdentityClaimValueType.String)
+					{
+						<TextBox @bind-Value="@ownedClaim.ClaimValueText"
+						         pattern="@GetClaimRegex(ownedClaim.ClaimType)"/>
+					}
+					@if (GetClaimValueType(ownedClaim.ClaimType) == IdentityClaimValueType.Int)
+					{
+						<NumberBox @bind-Value="@ownedClaim.ClaimValueNumeric"/>
+					}
+					@if (GetClaimValueType(ownedClaim.ClaimType) == IdentityClaimValueType.DateTime)
+					{
+						<DateTimeBox @bind-Value="@ownedClaim.ClaimValueDate"></DateTimeBox>
+					}
+					@if (GetClaimValueType(ownedClaim.ClaimType) == IdentityClaimValueType.Boolean)
+					{
+						<ComboBox Items="@([true, false])" @bind-Field="@SelectedClaimValueBool">
+							<EnableValueTextField TValue="bool" TextField="BoolDisplayName"/>
+						</ComboBox>
+					}
+					<Button Class="r" Theme="Theme.Danger" Click="() => RemoveClaim(ownedClaim)">
+						<i class="fa fa-trash"></i>
+					</Button>
+				</div>
+			</FormLayoutItem>;
+	}
+
+}
+
+@* ************************* SESSIONS MODAL ************************* *@
+@if (HasUpdatePermission)
+{
+	<SModal @ref="SessionsModal" RenderMode="ModalRenderMode.LazyReload">
+		<SCard>
+			<Header>
+				<STitle>@L["Sessions"] - @CurrentSessionUserName</STitle>
+				<CloseButton Click="CloseSessionsModalAsync"/>
+			</Header>
+			<Body>
+			<SGrid TValue="IdentitySessionDto" @ref="SessionsGrid">
+				<EnableDynamicSource Items="OnSessionsDataGridReadAsync"/>
+				<EnableIteratorPager PageSizes="@([SessionPageSize])"/>
+				<GridColumn Field="@(u => u.Id)" Caption="@L["Actions"]">
+					<ColumnTemplate>
+						<DropdownBox>
+							<ChildContent>
+								@L["Actions"]
+							</ChildContent>
+							<DropdownContentTemplate>
+								<Button Click="@(async () =>
+								               {
+									               SessionDetail = context;
+									               await SessionDetailModal.ShowAsync();
+								               })">
+									@L["Session:Detail"]
+								</Button>
+								<Button Click="@(async () =>
+								               {
+									               if (await Message.Confirm(L["SessionRevokeConfirmationMessage"]))
+									               {
+										               await IdentitySessionAppService.RevokeAsync(context.Id);
+
+										               if (context.IsCurrent)
+										               {
+											               NavigationManager.NavigateTo("/", true);
+											               return;
+										               }
+
+										               await SessionsGrid.RefreshAsync(true);
+									               }
+								               })">
+									@L["Session:Revoke"]
+								</Button>
+							</DropdownContentTemplate>
+						</DropdownBox>
+					</ColumnTemplate>
+				</GridColumn>
+				<GridColumn Caption="@L["Device"]" Field="@(u => u.Device)">
+					<ColumnTemplate Context="session">
+						@{
+							var currentText = L["Session:Current"].Value;
+						}
+						@(session.IsCurrent ? session.Device + " " : session.Device)
+						@if (session.IsCurrent)
+						{
+							<STooltip Text="@currentText">
+								<SIcon IconName="@("fa-dot-circle")"/>
+							</STooltip>
+						}
+					</ColumnTemplate>
+				</GridColumn>
+				<GridColumn Caption="@L["DeviceInfo"]" Field="u => u.DeviceInfo"></GridColumn>
+				<GridColumn Caption="@L["SignedIn"]" Field="u => u.SignedIn"></GridColumn>
+				<GridColumn Caption="@L["LastAccessed"]" Field="u => u.LastAccessed"></GridColumn>
+			</SGrid>
+			</Body>
+			<Footer>
+				<CancelButton Click="CloseSessionsModalAsync"/>
+			</Footer>
+		</SCard>
+	</SModal>
+}
+
+@* ************************* SESSION DETAIL MODAL ************************* *@
+<SModal @ref="@SessionDetailModal" RenderMode="ModalRenderMode.LazyReload">
+	<SCard>
+		<Header>
+			<STitle>@L["Session:Detail"]</STitle>
+		</Header>
+		<Body>
+		<SFormLayout>
+			<FormLayoutItem Title="@L["Session:Device"]" ColSpanMd="12">
+				@SessionDetail.Device
+			</FormLayoutItem>
+			<FormLayoutItem Title="@L["Session:DeviceInfo"]" ColSpanMd="12">
+				@SessionDetail.DeviceInfo
+			</FormLayoutItem>
+			<FormLayoutItem Title="@L["Session:UserInfo"]" ColSpanMd="12">
+				@(SessionDetail.TenantName.IsNullOrWhiteSpace()
+					? SessionDetail.UserName
+					: (SessionDetail.TenantName
+					   + "\\" + SessionDetail.UserName))
+			</FormLayoutItem>
+			<FormLayoutItem Title="@L["Session:ClientId"]" ColSpanMd="12">
+				@SessionDetail.ClientId
+			</FormLayoutItem>
+			<FormLayoutItem Title="@L["Session:IpAddresses"]" ColSpanMd="12">
+
+				@if (!SessionDetail.IpAddresses.IsNullOrEmpty())
+				{
+					<ul class="list-group list-group-flush">
+						@foreach (var ip in SessionDetail.IpAddresses)
+						{
+							<li class="list-group-item">@ip</li>
+						}
+					</ul>
+				}
+			</FormLayoutItem>
+			<FormLayoutItem Title="@L["Session:SignedIn"]" ColSpanMd="12">
+				@SessionDetail.SignedIn
+			</FormLayoutItem>
+			<FormLayoutItem Title="@L["Session:LastAccessed"]" ColSpanMd="12">
+				@SessionDetail.LastAccessed
+			</FormLayoutItem>
+		</SFormLayout>
+		</Body>
+		<Footer>
+			<CancelButton Click="CloseSessionDetailModalAsync"/>
+		</Footer>
+	</SCard>
+</SModal>
+
+@* ************************* ViewDetails MODAL ************************* *@
+@if (HasViewDetailsPermission)
+{
+	<IdentityUserViewDetailsModal @ref="ViewDetailsModal"/>
+}
+
+@if (HasManagePermissionsPermission)
+{
+	<PermissionsGrantModal @ref="PermissionsGrantModal"/>
+}
+

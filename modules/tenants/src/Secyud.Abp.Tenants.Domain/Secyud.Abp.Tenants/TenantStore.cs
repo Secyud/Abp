@@ -6,24 +6,17 @@ using Volo.Abp.ObjectMapping;
 
 namespace Secyud.Abp.Tenants;
 
-public class TenantStore : ITenantStore, ITransientDependency
+public class TenantStore(
+    ITenantRepository tenantRepository,
+    IObjectMapper<AbpTenantsDomainModule> objectMapper,
+    ICurrentTenant currentTenant,
+    IDistributedCache<TenantConfigurationCacheItem> cache)
+    : ITenantStore, ITransientDependency
 {
-    protected ITenantRepository TenantRepository { get; }
-    protected IObjectMapper<AbpTenantsDomainModule> ObjectMapper { get; }
-    protected ICurrentTenant CurrentTenant { get; }
-    protected IDistributedCache<TenantConfigurationCacheItem> Cache { get; }
-
-    public TenantStore(
-        ITenantRepository tenantRepository,
-        IObjectMapper<AbpTenantsDomainModule> objectMapper,
-        ICurrentTenant currentTenant,
-        IDistributedCache<TenantConfigurationCacheItem> cache)
-    {
-        TenantRepository = tenantRepository;
-        ObjectMapper = objectMapper;
-        CurrentTenant = currentTenant;
-        Cache = cache;
-    }
+    protected ITenantRepository TenantRepository { get; } = tenantRepository;
+    protected IObjectMapper<AbpTenantsDomainModule> ObjectMapper { get; } = objectMapper;
+    protected ICurrentTenant CurrentTenant { get; } = currentTenant;
+    protected IDistributedCache<TenantConfigurationCacheItem> Cache { get; } = cache;
 
     public virtual async Task<TenantConfiguration?> FindAsync(string normalizedName)
     {

@@ -3,7 +3,7 @@ using Volo.Abp.Modularity;
 
 namespace Secyud.Abp.Permissions;
 
-[DependsOn(typeof(AbpAuthorizationModule))]
+[DependsOn(typeof(AbpAuthorizationAbstractionsModule))]
 public class AbpPermissionsModule : AbpModule
 {
 }

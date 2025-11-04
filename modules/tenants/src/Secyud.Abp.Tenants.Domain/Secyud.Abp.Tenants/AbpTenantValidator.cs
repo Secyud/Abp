@@ -3,14 +3,9 @@ using Volo.Abp.DependencyInjection;
 
 namespace Secyud.Abp.Tenants;
 
-public class AbpTenantValidator : ITenantValidator, ITransientDependency
+public class AbpTenantValidator(ITenantRepository tenantRepository) : ITenantValidator, ITransientDependency
 {
-    protected ITenantRepository TenantRepository { get; }
-
-    public AbpTenantValidator(ITenantRepository tenantRepository)
-    {
-        TenantRepository = tenantRepository;
-    }
+    protected ITenantRepository TenantRepository { get; } = tenantRepository;
 
     public virtual async Task ValidateAsync(Tenant tenant)
     {

@@ -1,6 +1,5 @@
 ﻿using Secyud.Abp.AspNetCore.Components;
 using Secyud.Abp.AspNetCore.Components.Theming;
-using Secyud.Abp.AspNetCore.Navigation;
 
 namespace Secyud.Abp.AspNetCore.Styles;
 

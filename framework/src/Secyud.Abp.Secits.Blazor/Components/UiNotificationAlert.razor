@@ -15,11 +15,9 @@
             @notify.Message
             </Body>
             <Footer>
-                <SButton Click="@(() => CloseNotificationAsync(notify))">
-                    <AddTemplate>
-                        @notify.ButtonText
-                    </AddTemplate>
-                </SButton>
+                <Button Click="@(() => CloseNotificationAsync(notify))">
+                    @notify.ButtonText
+                </Button>
             </Footer>
         </SCard>;
 }

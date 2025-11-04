@@ -1,0 +1,168 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+@using Secyud.Abp.ObjectExtending
+@inherits AbpCrudPageBase<IIdentityClaimTypeAppService, ClaimTypeDto, Guid, GetIdentityClaimTypesInput, CreateClaimTypeDto, UpdateClaimTypeDto>
+@* ************************* PAGE HEADER ************************* *@
+<SCard>
+    <Header>
+        <STitle>
+            @L["ClaimTypes"]
+        </STitle>
+
+        @if (HasCreatePermission)
+        {
+            <Button Click="OpenCreateModalAsync">
+                <SIcon IconName="IconName.Create"/>
+                @L["NewTenant"]
+            </Button>
+        }
+    </Header>
+</SCard>
+
+@* ************************* SEARCH ************************* *@
+<SCard>
+    <Body>
+    <div class="group" style="grid-template-columns: 1fr var(--u)">
+        <TextBox Class="l" placeholder="@L["Search"]" @bind-Value="GetListInput.Filter"/>
+        <SIcon Class="anim r" IconName="IconName.Search" Click="SearchEntitiesAsync"/>
+    </div>
+    </Body>
+</SCard>
+
+@* ************************* DATA GRID ************************* *@
+<SCard>
+    <Body>
+    <SGrid @ref="View" TValue="ClaimTypeDto">
+        <EnableDynamicSource Items="GetEntitiesAsync"/>
+        <EnableIteratorPager/>
+        <EnableColumnResize/>
+
+        <GridColumn Field="u => u.Id" Caption="@L["Actions"]">
+            <ColumnTemplate>
+                <DropdownBox>
+                    <ChildContent>
+                        @L["Actions"]
+                    </ChildContent>
+                    <DropdownContentTemplate>
+                        @if (HasUpdatePermission)
+                        {
+                            <Button Click="@(() => OpenUpdateModalAsync(context))">
+                                @L["Update"]
+                            </Button>
+                        }
+                        @if (HasDeletePermission)
+                        {
+                            <Button Click="@(() => OpenDeleteModalAsync(context))">
+                                @L["Delete"]
+                            </Button>
+                        }
+                    </DropdownContentTemplate>
+                </DropdownBox>
+            </ColumnTemplate>
+        </GridColumn>
+        <GridColumn Field="u => u.Name" Caption="@L["Name"]" EnableSorter/>
+        <GridColumn Field="u => u.ValueType" Caption="@L["ValueType"]" EnableSorter/>
+        <GridColumn Field="u => u.Description" Caption="@L["Description"]" EnableSorter/>
+        <GridColumn Field="u => u.Regex" Caption="@L["Regex"]" EnableSorter/>
+        <GridColumn Field="u => u.Required" Caption="@L["Required"]" EnableSorter>
+            <ColumnTemplate>
+                <BooleanBadgeComponent Value="context.Required"/>
+            </ColumnTemplate>
+        </GridColumn>
+        <GridColumn Field="u => u.IsStatic" Caption="@L["IsStatic"]" EnableSorter>
+            <ColumnTemplate>
+                <BooleanBadgeComponent Value="context.IsStatic"/>
+            </ColumnTemplate>
+        </GridColumn>
+        <ExtensionTableColumns ModuleName="@IdentityModuleExtensionConsts.ModuleName"
+                               EntityName="@IdentityModuleExtensionConsts.EntityNames.ClaimType"/>
+    </SGrid>
+    </Body>
+</SCard>
+
+@* ************************* CREATE MODAL ************************* *@
+@if (HasCreatePermission)
+{
+    <SModal @ref="CreateModal">
+        <SCard>
+            <Header>
+                <STitle>@L["NewClaimType"]</STitle>
+                <CloseButton Click="CloseCreateModalAsync"/>
+            </Header>
+            <Body>
+            <SFormLayout EnableValidation ParentValidationForm>
+                <FormLayoutItem Title="@($"{L["Name"]} *")" ShowValidationMessage>
+                    <TextBox @bind-Value="@CreateEntity.Name"/>
+                </FormLayoutItem>
+                <FormLayoutItem Title="@L["Required"]" EnableValidation="false">
+                    <InputCheckbox @bind-Value="@CreateEntity.Required"/>
+                </FormLayoutItem>
+                <FormLayoutItem Title="@L["Regex"]" ShowValidationMessage>
+                    <TextBox @bind-Value="@CreateEntity.Regex"/>
+                </FormLayoutItem>
+
+                <FormLayoutItem Title="@L["RegexDescription"]" ShowValidationMessage>
+                    <TextBox @bind-Value="@CreateEntity.RegexDescription"/>
+                </FormLayoutItem>
+                <FormLayoutItem Title="@L["Description"]" ShowValidationMessage>
+                    <TextBox @bind-Value="@CreateEntity.Description"/>
+                </FormLayoutItem>
+                <FormLayoutItem Title="@L["ValueType"]" ShowValidationMessage>
+                    <EnumSelector @bind-Value="@CreateEntity.ValueType"/>
+                </FormLayoutItem>
+
+                <ExtensionProperties Entity="@CreateEntity" Localizer="L"
+                                     ModalType="ExtensionPropertyModalType.CreateModal"/>
+            </SFormLayout>
+            </Body>
+            <Footer>
+                <CancelButton Click="CloseCreateModalAsync"/>
+                <SubmitButton Click="CreateEntityAsync"/>
+            </Footer>
+        </SCard>
+    </SModal>
+}
+
+@* ************************* EDIT MODAL ************************* *@
+@if (HasUpdatePermission)
+{
+    <SModal @ref="UpdateModal">
+        <SCard>
+            <Header>
+                <STitle>@L["Edit"]</STitle>
+                <CloseButton Click="CloseUpdateModalAsync"/>
+            </Header>
+            <Body>
+            <SFormLayout EnableValidation ParentValidationForm>
+                <FormLayoutItem Title="@($"{L["Name"]} *")" ShowValidationMessage>
+                    <TextBox @bind-Value="@UpdateEntity.Name"/>
+                </FormLayoutItem>
+                <FormLayoutItem Title="@L["Required"]" EnableValidation="false">
+                    <InputCheckbox @bind-Value="@UpdateEntity.Required"/>
+                </FormLayoutItem>
+                <FormLayoutItem Title="@L["Regex"]" ShowValidationMessage>
+                    <TextBox @bind-Value="@UpdateEntity.Regex"/>
+                </FormLayoutItem>
+
+                <FormLayoutItem Title="@L["RegexDescription"]" ShowValidationMessage>
+                    <TextBox @bind-Value="@UpdateEntity.RegexDescription"/>
+                </FormLayoutItem>
+                <FormLayoutItem Title="@L["Description"]" ShowValidationMessage>
+                    <TextBox @bind-Value="@UpdateEntity.Description"/>
+                </FormLayoutItem>
+                <FormLayoutItem Title="@L["ValueType"]" ShowValidationMessage>
+                    <EnumSelector @bind-Value="@UpdateEntity.ValueType"/>
+                </FormLayoutItem>
+
+                <ExtensionProperties Entity="@UpdateEntity" Localizer="L"
+                                     ModalType="ExtensionPropertyModalType.UpdateModal"/>
+            </SFormLayout>
+            </Body>
+            <Footer>
+                <CancelButton Click="CloseUpdateModalAsync"/>
+                <SubmitButton Click="UpdateEntityAsync"/>
+            </Footer>
+        </SCard>
+    </SModal>
+}
+
+

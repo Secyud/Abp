@@ -69,14 +69,12 @@
 
     @if (HasSendTestEmailPermission)
     {
-        <SButton Click="OpenSendTestEmailModalAsync" Class="inline-block end">
-            <AddTemplate>@L["SendTestEmail"]</AddTemplate>
-        </SButton>
+        <Button Click="OpenSendTestEmailModalAsync" Class="inline-block end">
+            @L["SendTestEmail"]
+        </Button>
     }
 
-    <SButton Click="UpdateSettingsAsync" Class="inline-block end">
-        <AddTemplate>@L["Submit"]</AddTemplate>
-    </SButton>
+    <SubmitButton Click="UpdateSettingsAsync"/>
 
     @if (HasSendTestEmailPermission && SendTestEmailInput is not null)
     {
@@ -115,16 +113,12 @@
                 </SFormLayout>
                 </Body>
                 <Footer>
-                    <SButton Theme="Theme.Secondary" Click="CloseSendTestEmailModalAsync">
-                        <AddTemplate>
-                            @L["Cancel"]
-                        </AddTemplate>
-                    </SButton>
-                    <SButton Theme="Theme.Primary" Click="SendTestEmailAsync">
-                        <AddTemplate>
-                            @L["Send"]
-                        </AddTemplate>
-                    </SButton>
+                    <Button Theme="Theme.Secondary" Click="CloseSendTestEmailModalAsync">
+                        @L["Cancel"]
+                    </Button>
+                    <Button Theme="Theme.Primary" Click="SendTestEmailAsync">
+                        @L["Send"]
+                    </Button>
                 </Footer>
             </SCard>
         </SModal>

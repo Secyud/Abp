@@ -1,9 +1,20 @@
-﻿namespace Secyud.Abp.Tenants.Navigation;
+﻿using Secyud.Abp.AspNetCore.Components.Navigations;
+
+namespace Secyud.Abp.Tenants.Navigation;
 
 public class TenantsMenuNames
 {
-    public const string GroupName = "Tenants";
+    public static MenuItem Group { get; } = new("Tenants")
+    {
+        CssClass = "fa fa-users"
+    };
+    public const string GroupUrl = "/tenants";
 
-    public const string Tenants = GroupName + ".Tenants";
-    public const string TenantsUri = "/tenants/tenants";
+    public static MenuItem Tenants { get; } = new("Tenants", null, Group)
+    {
+        RequiredPermissions = [TenantsPermissions.Tenants.DefaultName],
+        Url = TenantsUri
+    };
+
+    public const string TenantsUri = GroupUrl + "/tenants";
 }

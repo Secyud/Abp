@@ -4,7 +4,8 @@
 
   <ItemGroup>
     <PackageReference Include="Volo.Abp.Ddd.Application.Contracts" Version="$(AbpVersion)" />
-    <PackageReference Include="Volo.Abp.Authorization" Version="$(AbpVersion)" />
+
+    <ProjectReference Include="..\..\..\..\framework\src\Secyud.Abp.Permissions\Secyud.Abp.Permissions.csproj" />
     <ProjectReference Include="..\Secyud.Abp.Tenants.Domain.Shared\Secyud.Abp.Tenants.Domain.Shared.csproj" />
   </ItemGroup>
 

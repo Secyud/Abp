@@ -1,0 +1,375 @@
+﻿@inherits AbpComponentBase
+
+@if (Settings is not null)
+{
+    <STabContainer>
+        <FixTab>
+            <Tag>
+                @L["IdentitySettingsGeneral"]
+            </Tag>
+            <Content>
+                <ValidationForm @ref="IdentitySettingsForm">
+                    <SCard>
+                        @GenerateIdentityPasswordSettings(Settings.IdentitySettings.Password)
+                        @GenerateIdentityLockoutSettings(Settings.IdentitySettings.Lockout)
+                        @GenerateIdentitySignInSettings(Settings.IdentitySettings.SignIn)
+                        @GenerateIdentityUserSettings(Settings.IdentitySettings.User)
+                        <Footer>
+                            <SubmitButton Click="UpdateSettingsAsync"/>
+                        </Footer>
+                    </SCard>
+                </ValidationForm>
+            </Content>
+        </FixTab>
+        @if (Settings.IdentitySessionSettings is { } sessionSettings)
+        {
+            <FixTab>
+                <Tag>
+                    @L["IdentitySettingsSessions"]
+                </Tag>
+                <Content>
+                    <ValidationForm @ref="IdentitySessionSettingsForm">
+                        <SCard>
+                            <Body>
+                            <SFormLayout EnableValidation ParentValidationForm>
+                                <FormLayoutItem Title="@L["DisplayName:Abp.Identity.PreventConcurrentLogin"]">
+                                    <EnumSelector @bind-Value="sessionSettings.PreventConcurrentLogin">
+                                        <ListItemTemplate>
+                                            @L[$"Enum:IdentitiesPreventConcurrentLoginBehaviour.{context}"]
+                                        </ListItemTemplate>
+                                    </EnumSelector>
+                                    <div class="form-text">
+                                        <p>@L["Description:Abp.Identity.PreventConcurrentLogin"].Value</p>
+                                        <ol class="list-group">
+                                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                                <div class="me-auto">
+                                                    <div class="fw-bold">
+                                                        @L["Enum:IdentitiesPreventConcurrentLoginBehaviour.Disabled"].Value
+                                                    </div>
+                                                    @L["Description:IdentitiesPreventConcurrentLoginBehaviour.Disabled"].Value
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                                <div class="me-auto">
+                                                    <div class="fw-bold">
+                                                        @L["Enum:IdentitiesPreventConcurrentLoginBehaviour.LogoutFromSameTypeDevices"].Value
+                                                    </div>
+                                                    @L["Description:IdentitiesPreventConcurrentLoginBehaviour.LogoutFromSameTypeDevices"].Value
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                                <div class="me-auto">
+                                                    <div class="fw-bold">
+                                                        @L["Enum:IdentitiesPreventConcurrentLoginBehaviour.LogoutFromAllDevices"].Value
+                                                    </div>
+                                                    @L["Description:IdentitiesPreventConcurrentLoginBehaviour.LogoutFromAllDevices"].Value
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </FormLayoutItem>
+                            </SFormLayout>
+                            </Body>
+                            <Footer>
+                                <SubmitButton Click="UpdateSessionsSettingsAsync"/>
+                            </Footer>
+                        </SCard>
+                    </ValidationForm>
+                </Content>
+            </FixTab>
+        }
+        @if (Settings.IdentityLdapSettings is { } ldapSettings)
+        {
+            <FixTab>
+                <Tag>
+                    @L["IdentityLdapSettings"]
+                </Tag>
+                <Content>
+                    <ValidationForm @ref="IdentityLdapSettingsForm">
+                        <SCard>
+                            <Body>
+                            <SFormLayout EnableValidation ParentValidationForm>
+                                <FormLayoutItem Title="@L["DisplayName:Abp.Identity.EnableLdapLogin"]">
+                                    <CheckBox @bind-Value="ldapSettings.EnableLdapLogin"/>
+                                </FormLayoutItem>
+                                <FormLayoutItem Title="@L["DisplayName:Abp.Identity.Ldaps"]">
+                                    <CheckBox @bind-Value="ldapSettings.Ldaps"/>
+                                </FormLayoutItem>
+                                <FormLayoutItem Title="@L["DisplayName:Abp.Ldap.ServerHost"]"
+                                                ShowValidationMessage>
+                                    <TextBox @bind-Value="ldapSettings.LdapServerHost"/>
+                                </FormLayoutItem>
+                                <FormLayoutItem Title="@L["DisplayName:Abp.Ldap.ServerPort"]"
+                                                ShowValidationMessage>
+                                    <TextBox @bind-Value="ldapSettings.LdapServerPort"/>
+                                </FormLayoutItem>
+                                <FormLayoutItem Title="@L["DisplayName:Abp.Ldap.BaseDc"]"
+                                                ShowValidationMessage>
+                                    <TextBox @bind-Value="ldapSettings.LdapBaseDc"/>
+                                </FormLayoutItem>
+                                <FormLayoutItem Title="@L["DisplayName:Abp.Ldap.Domain"]"
+                                                ShowValidationMessage>
+                                    <TextBox @bind-Value="ldapSettings.LdapDomain"/>
+                                </FormLayoutItem>
+                                <FormLayoutItem Title="@L["DisplayName:Abp.Ldap.UserName"]"
+                                                ShowValidationMessage>
+                                    <TextBox @bind-Value="ldapSettings.LdapUserName"/>
+                                </FormLayoutItem>
+                                <FormLayoutItem Title="@L["DisplayName:Abp.Ldap.Password"]"
+                                                ShowValidationMessage>
+                                    <TextBox @bind-Value="ldapSettings.LdapPassword"/>
+                                </FormLayoutItem>
+                            </SFormLayout>
+                            <SDivider/>
+                            </Body>
+                            <Footer>
+                                <SubmitButton Click="UpdateLdapSettingsAsync"/>
+                            </Footer>
+                        </SCard>
+                    </ValidationForm>
+                </Content>
+            </FixTab>
+        }
+        @if (Settings.IdentityOAuthSettings is { } oauthSettings)
+        {
+            <FixTab>
+                <Tag>
+                    @L["IdentitySettingsOAuth"]
+                </Tag>
+                <Content>
+                    <ValidationForm @ref="IdentityOAuthSettingsForm">
+                        <SCard>
+                            <Body>
+                            <SFormLayout EnableValidation ParentValidationForm>
+                                <FormLayoutItem Title="@L["DisplayName:Abp.Identity.EnableOAuthLogin"]">
+                                    <CheckBox @bind-Value="oauthSettings.EnableOAuthLogin"/>
+                                </FormLayoutItem>
+                                <FormLayoutItem Title="@L["DisplayName:Abp.Identity.ClientId"]"
+                                                ShowValidationMessage>
+                                    <TextBox @bind-Value="oauthSettings.ClientId"/>
+                                </FormLayoutItem>
+                                <FormLayoutItem Title="@L["DisplayName:Abp.Identity.ClientSecret"]"
+                                                ShowValidationMessage>
+                                    <TextBox @bind-Value="oauthSettings.ClientSecret"/>
+                                </FormLayoutItem>
+                                <FormLayoutItem Title="@L["DisplayName:Abp.Identity.Authority"]"
+                                                ShowValidationMessage>
+                                    <TextBox @bind-Value="oauthSettings.Authority"/>
+                                </FormLayoutItem>
+                                <FormLayoutItem Title="@L["DisplayName:Abp.Identity.Scope"]"
+                                                ShowValidationMessage>
+                                    <TextBox @bind-Value="oauthSettings.Scope"/>
+                                </FormLayoutItem>
+                                <FormLayoutItem Title="@L["DisplayName:Abp.Identity.RequireHttpsMetadata"]">
+                                    <CheckBox @bind-Value="oauthSettings.RequireHttpsMetadata"/>
+                                </FormLayoutItem>
+                                <FormLayoutItem Title="@L["DisplayName:Abp.Identity.ValidateEndpoints"]">
+                                    <CheckBox @bind-Value="oauthSettings.ValidateEndpoints"/>
+                                </FormLayoutItem>
+                                <FormLayoutItem Title="@L["DisplayName:Abp.Identity.ValidateIssuerName"]">
+                                    <CheckBox @bind-Value="oauthSettings.ValidateIssuerName"/>
+                                </FormLayoutItem>
+                            </SFormLayout>
+                            </Body>
+                        </SCard>
+                        <Footer>
+                            <SubmitButton Click="UpdateOAuthSettingsAsync"/>
+                        </Footer>
+                    </ValidationForm>
+                </Content>
+            </FixTab>
+        }
+
+        <STabTagsView/>
+        <STabContentsView RenderMode="TabRenderMode.LoadAll"/>
+    </STabContainer>
+}
+
+@code
+{
+    protected RenderFragment? GenerateIdentityPasswordSettings(IdentityPasswordSettingsDto? settings)
+    {
+        if (settings is null) return null;
+
+        return __builder =>
+        {
+            <Header>
+                <STitle> @L["PasswordStrengthSettings"] </STitle>
+            </Header>
+            <Body>
+            <SFormLayout EnableValidation ParentValidationForm>
+                <FormLayoutItem Title="@T("RequiredLength")"
+                                ShowValidationMessage>
+                    <NumberBox @bind - Value="@settings.RequiredLength"/>
+                    <SLabel Text="@D("RequiredLength")"/>
+                </FormLayoutItem>
+                <FormLayoutItem Title="@T("RequiredUniqueChars")"
+                                ShowValidationMessage>
+                    <NumberBox @bind - Value="@settings.RequiredUniqueChars"/>
+                    <SLabel Text="@D("RequiredUniqueChars")"/>
+                </FormLayoutItem>
+                <FormLayoutItem Title="@T("RequireNonAlphanumeric")">
+                    <CheckBox @bind - Value="@settings.RequireNonAlphanumeric"/>
+                    <SLabel Text="@D("RequireNonAlphanumeric")"/>
+                </FormLayoutItem>
+                <FormLayoutItem Title="@T("RequireLowercase")">
+                    <CheckBox @bind - Value="@settings.RequireLowercase"/>
+                    <SLabel Text="@D("RequireLowercase")"/>
+                </FormLayoutItem>
+                <FormLayoutItem Title="@T("RequireUppercase")">
+                    <CheckBox @bind - Value="@settings.RequireUppercase"/>
+                    <SLabel Text="@D("RequireUppercase")"/>
+                </FormLayoutItem>
+                <FormLayoutItem Title="@T("RequireDigit")">
+                    <CheckBox @bind - Value="@settings.RequireDigit"/>
+                    <SLabel Text="@D("RequireDigit")"/>
+                </FormLayoutItem>
+            </SFormLayout>
+            <SDivider/>
+            </Body>
+            <Header>
+                <STitle> @L["PasswordRenewingSettings"] </STitle>
+            </Header>
+            <Body>
+            <SFormLayout EnableValidation ParentValidationForm>
+                <FormLayoutItem Title="@T("ForceUsersToPeriodicallyChangePassword")">
+                    <CheckBox @bind - Value="@settings.ForceUsersToPeriodicallyChangePassword"/>
+                    <SLabel Text="@D("ForceUsersToPeriodicallyChangePassword")"/>
+                </FormLayoutItem>
+                <FormLayoutItem Title="@T("PasswordChangePeriodDays")"
+                                ShowValidationMessage>
+                    <NumberBox @bind-Value="@settings.PasswordChangePeriodDays"/>
+                    <SLabel Text="@D("PasswordChangePeriodDays")"/>
+                </FormLayoutItem>
+            </SFormLayout>
+            <SDivider/>
+            </Body>
+        };
+
+        string T(string field)
+        {
+            return L[$"DisplayName:Abp.Identity.Password.{field}"];
+        }
+
+        string D(string field)
+        {
+            return L[$"Description:Abp.Identity.Password.{field}"];
+        }
+    }
+
+    protected RenderFragment? GenerateIdentityLockoutSettings(IdentityLockoutSettingsDto? settings)
+    {
+        if (settings is null) return null;
+
+        return __builder =>
+        {
+            <Header>
+                <STitle> @L["LockoutSettings"] </STitle>
+            </Header>
+            <Body>
+            <SFormLayout EnableValidation ParentValidationForm>
+                <FormLayoutItem Title="@T("AllowedForNewUsers")">
+                    <CheckBox @bind - Value="@settings.AllowedForNewUsers"/>
+                    <SLabel Text="@D("AllowedForNewUsers")"/>
+                </FormLayoutItem>
+                <FormLayoutItem Title="@T("LockoutDuration")"
+                                ShowValidationMessage>
+                    <NumberBox @bind - Value="@settings.LockoutDuration"/>
+                    <SLabel Text="@D("LockoutDuration")"/>
+                </FormLayoutItem>
+                <FormLayoutItem Title="@T("MaxFailedAccessAttempts")"
+                                ShowValidationMessage>
+                    <NumberBox @bind - Value="@settings.MaxFailedAccessAttempts"/>
+                    <SLabel Text="@D("MaxFailedAccessAttempts")"/>
+                </FormLayoutItem>
+            </SFormLayout>
+            <SDivider/>
+            </Body>
+        };
+
+        string T(string field)
+        {
+            return L[$"DisplayName:Abp.Identity.Lockout.{field}"];
+        }
+
+        string D(string field)
+        {
+            return L[$"Description:Abp.Identity.Lockout.{field}"];
+        }
+    }
+
+    protected RenderFragment? GenerateIdentitySignInSettings(IdentitySignInSettingsDto? settings)
+    {
+        if (settings is null) return null;
+
+        return __builder =>
+        {
+            <Header>
+                <STitle> @L["SignInSettings"] </STitle>
+            </Header>
+            <Body>
+            <SFormLayout EnableValidation ParentValidationForm>
+                <FormLayoutItem Title="@T("RequireConfirmedEmail")">
+                    <CheckBox @bind - Value="@settings.RequireConfirmedEmail"/>
+                    <SLabel Text="@D("RequireConfirmedEmail")"/>
+                </FormLayoutItem>
+                <FormLayoutItem Title="@T("EnablePhoneNumberConfirmation")">
+                    <CheckBox @bind - Value="@settings.EnablePhoneNumberConfirmation"/>
+                    <SLabel Text="@D("EnablePhoneNumberConfirmation")"/>
+                </FormLayoutItem>
+                <FormLayoutItem Title="@T("RequireConfirmedPhoneNumber")">
+                    <CheckBox @bind - Value="@settings.RequireConfirmedPhoneNumber"/>
+                    <SLabel Text="@D("RequireConfirmedPhoneNumber")"/>
+                </FormLayoutItem>
+            </SFormLayout>
+            <SDivider/>
+            </Body>
+        };
+
+        string T(string field)
+        {
+            return L[$"DisplayName:Abp.Identity.SignIn.{field}"];
+        }
+
+        string D(string field)
+        {
+            return L[$"Description:Abp.Identity.SignIn.{field}"];
+        }
+    }
+
+    protected RenderFragment? GenerateIdentityUserSettings(IdentityUserSettingsDto? settings)
+    {
+        if (settings is null) return null;
+
+        return __builder =>
+        {
+            <Header>
+                <STitle> @L["UserSettings"] </STitle>
+            </Header>
+            <Body>
+            <SFormLayout EnableValidation ParentValidationForm>
+                <FormLayoutItem Title="@T("IsEmailUpdateEnabled")">
+                    <CheckBox @bind - Value="@settings.IsEmailUpdateEnabled"/>
+                    <SLabel Text="@D("IsEmailUpdateEnabled")"/>
+                </FormLayoutItem>
+                <FormLayoutItem Title="@T("IsUserNameUpdateEnabled")">
+                    <CheckBox @bind - Value="@settings.IsUserNameUpdateEnabled"/>
+                    <SLabel Text="@D("IsUserNameUpdateEnabled")"/>
+                </FormLayoutItem>
+            </SFormLayout>
+            <SDivider/>
+            </Body>
+        };
+
+        string T(string field)
+        {
+            return L[$"DisplayName:Abp.Identity.SignIn.{field}"];
+        }
+
+        string D(string field)
+        {
+            return L[$"Description:Abp.Identity.SignIn.{field}"];
+        }
+    }
+
+}

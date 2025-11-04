@@ -35,12 +35,8 @@
         </Body>
 
         <Footer>
-            <SButton Class="outline" Click="@CloseModalAsync">
-                <AddTemplate>@L["Cancel"]</AddTemplate>
-            </SButton>
-            <SButton Click="@SaveAsync">
-                <AddTemplate>@L["Save"]</AddTemplate>
-            </SButton>
+            <CancelButton Click="@CloseModalAsync"/>
+            <SubmitButton Click="@SaveAsync"/>
         </Footer>
     </SCard>
 </SPopup>
