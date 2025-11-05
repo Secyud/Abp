@@ -283,6 +283,17 @@ public abstract class AbpCrudPageBase<
         return Task.CompletedTask;
     }
 
+    protected virtual async Task ResetFilterAsync()
+    {
+        await ClearGetListInputAsync();
+        await SearchEntitiesAsync();
+    }
+
+    protected virtual Task ClearGetListInputAsync()
+    {
+        return Task.CompletedTask;
+    }
+
     protected virtual async Task SearchEntitiesAsync()
     {
         await RefreshEntitiesAsync(true);
