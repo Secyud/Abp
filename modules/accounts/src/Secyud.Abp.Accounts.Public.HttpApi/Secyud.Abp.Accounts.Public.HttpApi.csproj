@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props"/>
+  <ItemGroup>
+    <ProjectReference Include="..\Secyud.Abp.Accounts.Public.Application.Contracts\Secyud.Abp.Accounts.Public.Application.Contracts.csproj"/>
+    <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="$(AbpVersion)"/>
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="$(DotnetVersion)"/>
+    <PackageReference Include="Owl.reCAPTCHA" Version="8.0.0"/>
+  </ItemGroup>
+
+
+</Project>

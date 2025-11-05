@@ -1,0 +1,173 @@
+@using Microsoft.Extensions.Localization
+@using Localization.Resources.AbpUi
+@inherits Volo.Abp.AspNetCore.Components.AbpComponentBase
+@inject IStringLocalizer<AbpUiResource> UiL;
+
+@if (Options.Value.EnableDelegatedImpersonation)
+{
+    <li class="outer-menu-item">
+        <a class="lpx-menu-item-link dropdown-item">
+            <span class="lpx-menu-item-icon">
+                <i class="lpx-icon fa fa-users" aria-hidden="true"></i>
+            </span>
+            <span class="lpx-menu-item-text hidden-in-hover-trigger"
+                  @onclick="OpenModalAsync">@L["AuthorityDelegation"]</span>
+        </a>
+    </li>
+
+    <div class="account_authority_delegation_modals">
+
+        <SModal @ref="_modal">
+            <SCard>
+                <Header>
+                    <STitle>@L["AuthorityDelegation"]</STitle>
+                    <CloseButton Click="CloseModalAsync"/>
+                </Header>
+                <Body>
+                <STabContainer>
+                    <FixTab Key="delegated-users">
+                        <Tag>@L["DelegatedUsers"]</Tag>
+                        <Content>
+                            <div class="text-end mb-3">
+                                <Button Theme="Theme.Primary"
+                                        Click="OpenDelegateNewUserModalAsync">@L["DelegateNewUser"]</Button>
+                            </div>
+                            <SGrid TValue="UserDelegationDto">
+                                <EnableStaticSource Items="DelegatedUsers.Items"/>
+                                <EnableIteratorPager/>
+                                <GridColumn Caption="@UiL["Actions"]" Field="u => u.Id">
+                                    <ColumnTemplate>
+                                        <Button Theme="Theme.Primary"
+                                                Click="() => OpenDeleteConfirmationModalAsync(context.Id, context.UserName)">
+                                            @UiL["Delete"]
+                                        </Button>
+                                    </ColumnTemplate>
+                                </GridColumn>
+                                <GridColumn Caption="@L["Status"]" Field="u => u.Id">
+                                    <ColumnTemplate>
+                                        @{
+                                            var status = GetStatus(context);
+                                            var badge = GetStatusBadge(status);
+                                        }
+                                        <span class="badge bg-@badge">@L["Status" + status]</span>
+                                    </ColumnTemplate>
+                                </GridColumn>
+                                <GridColumn Field="u => u.UserName"
+                                            Caption="@L["UserName"]"/>
+                                <GridColumn Field="u => u.StartTime"
+                                            Caption="@L["StartTime"]"/>
+                                <GridColumn Field="u => u.EndTime"
+                                            Caption="@L["EndTime"]"/>
+                            </SGrid>
+                        </Content>
+                    </FixTab>
+                    <FixTab Key="my-delegated-users">
+                        <Tag>@L["MyDelegatedUsers"]</Tag>
+                        <Content>
+                            <SGrid TValue="UserDelegationDto">
+                                <EnableStaticSource Items="MyDelegatedUsers.Items"/>
+                                <EnableIteratorPager/>
+                                <GridColumn Field="u => u.Id" Caption="#">
+                                    <ColumnTemplate>
+                                        <DropdownBox>
+                                            <ChildContent>
+                                                @UiL["Actions"]
+                                            </ChildContent>
+                                            <DropdownContentTemplate>
+                                                <Button Disabled="@(!IsActive(context))"
+                                                        Click="() => DelegatedImpersonate(context)">
+                                                    @L["Login"]
+                                                </Button>
+                                            </DropdownContentTemplate>
+                                        </DropdownBox>
+                                    </ColumnTemplate>
+                                </GridColumn>
+                                <GridColumn  Caption="@L["Status"]" Field="u => u.Id">
+                                    <ColumnTemplate>
+                                        @{
+                                            var status = GetStatus(context);
+                                            var badge = GetStatusBadge(status);
+                                        }
+                                        <span class="badge bg-@badge">@L["Status" + status]</span>
+                                    </ColumnTemplate>
+                                </GridColumn>
+                                <GridColumn Field="u => u.UserName"
+                                            Caption="@L["UserName"]"/>
+                                <GridColumn Field="u => u.StartTime"
+                                            Caption="@L["StartTime"]"/>
+                                <GridColumn Field="u => u.EndTime"
+                                            Caption="@L["EndTime"]"/>
+                            </SGrid>
+                        </Content>
+                    </FixTab>
+                    <STabTagsView/>
+                    <STabContentsView RenderMode="TabRenderMode.LoadAll"/>
+                </STabContainer>
+                </Body>
+            </SCard>
+        </SModal>
+
+        <SModal @ref="_delegateNewUserModal">
+            <SCard>
+                <Header>
+                    <STitle>@L["DelegateNewUser"]</STitle>
+                    <CloseButton Click="CloseDelegateNewUserModal"/>
+                </Header>
+                <Body>
+                <SFormLayout>
+                    <FormLayoutItem Title="@($"{L["UserName"]} *")">
+
+                        @* <Autocomplete TItem="UserLookupDto" *@
+                        @*               TValue="Guid" *@
+                        @*               Data="@Users?.Items" *@
+                        @*               ReadData="@GetUserLookupAsync" *@
+                        @*               TextField="@((item) => item.UserName)" *@
+                        @*               ValueField="@((item) => item.Id)" *@
+                        @*               @bind-SelectedValue="@DelegateNewUserInput.TargetUserId"/> *@
+                    </FormLayoutItem>
+                    <FormLayoutItem Title="@L["DelegationDateRange"]">
+
+                        @* TODO <DateTimeBox TValue="DateTime?" *@
+                        @*             SelectionMode="DateInputSelectionMode.Range" *@
+                        @*             InputMode="DateInputMode.DateTime" *@
+                        @*             Placeholder="@string.Empty" *@
+                        @*             @bind-Dates="DelegateNewUserDataRange"/> *@
+                    </FormLayoutItem>
+                </SFormLayout>
+
+                </Body>
+                <Footer>
+                    <Button Theme="Theme.Secondary" Click="CloseDelegateNewUserModal">@L["Cancel"]</Button>
+                    <SubmitButton Click="@DelegateNewUserAsync"/>
+                </Footer>
+            </SCard>
+        </SModal>
+
+        <SModal @ref="_deleteConfirmationModal">
+            <SCard>
+                <Body>
+                <STitle Level="2">
+                    <SIcon IconName="@IconName.Question"/>
+                </STitle>
+                <p class="center">
+                    @DeleteConfirmationMessage
+                </p>
+                </Body>
+                <Footer>
+                    <Button Theme="Theme.Danger" Click="@CloseConfirmationModal">
+                        @UiL["Cancel"]
+                    </Button>
+                    <Button Theme="Theme.Primary"
+                            Click="@DeleteDelegatedUsersAsync">
+                        @UiL["Ok"]
+                    </Button>
+                </Footer>
+            </SCard>
+        </SModal>
+
+    </div>
+
+    <form method="post" action="Account/DelegatedImpersonate" id="DelegatedImpersonationForm" hidden>
+        <input type="hidden" id="UserDelegationId" name="UserDelegationId"/>
+    </form>
+}

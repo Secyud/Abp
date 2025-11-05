@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props"/>
+
+  <PropertyGroup>
+    <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../../identities/src/Secyud.Abp.Identities.Application.Contracts/Secyud.Abp.Identities.Application.Contracts.csproj"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="$(DotnetVersion)"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="**\Localization\**\*.json"/>
+    <None Remove="**\Localization\**\*.json"/>
+  </ItemGroup>
+</Project>

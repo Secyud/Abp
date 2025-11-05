@@ -16,13 +16,13 @@ public class IdentityUser : FullAuditedAggregateRoot<Guid>, IUser, IHasEntityVer
     /// <summary>
     /// Gets or sets the username for this user.
     /// </summary>
-    public string? UserName { get; protected internal set; }
+    public string UserName { get; protected internal set; } = null!;
 
     /// <summary>
     /// Gets or sets the normalized username for this user.
     /// </summary>
     [DisableAuditing]
-    public string? NormalizedUserName { get; protected internal set; }
+    public string NormalizedUserName { get; protected internal set; } = null!;
 
     /// <summary>
     /// Gets or sets the Name for the user.
@@ -37,13 +37,13 @@ public class IdentityUser : FullAuditedAggregateRoot<Guid>, IUser, IHasEntityVer
     /// <summary>
     /// Gets or sets the email address for this user.
     /// </summary>
-    public string? Email { get; protected internal set; }
+    public string Email { get; protected internal set; } = null!;
 
     /// <summary>
     /// Gets or sets the normalized email address for this user.
     /// </summary>
     [DisableAuditing]
-    public string? NormalizedEmail { get; protected internal set; }
+    public string NormalizedEmail { get; protected internal set; } = null!;
 
     /// <summary>
     /// Gets or sets a flag indicating if a user has confirmed their email address.

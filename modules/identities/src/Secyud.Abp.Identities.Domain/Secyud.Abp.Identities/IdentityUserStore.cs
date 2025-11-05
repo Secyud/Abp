@@ -78,13 +78,13 @@ public class IdentityUserStore(
     /// <param name="user">The user whose name should be retrieved.</param>
     /// <param name="cancellationToken">The <see cref="CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
     /// <returns>The <see cref="Task"/> that represents the asynchronous operation, containing the name for the specified <paramref name="user"/>.</returns>
-    public virtual Task<string?> GetUserNameAsync(IdentityUser user, CancellationToken cancellationToken = default)
+    public virtual async Task<string?> GetUserNameAsync(IdentityUser user, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
         Check.NotNull(user, nameof(user));
 
-        return Task.FromResult(user.UserName);
+        return await Task.FromResult(user.UserName);
     }
 
     /// <summary>
@@ -99,6 +99,7 @@ public class IdentityUserStore(
         cancellationToken.ThrowIfCancellationRequested();
 
         Check.NotNull(user, nameof(user));
+        Check.NotNull(userName, nameof(userName));
 
         user.UserName = userName;
 
@@ -111,13 +112,13 @@ public class IdentityUserStore(
     /// <param name="user">The user whose normalized name should be retrieved.</param>
     /// <param name="cancellationToken">The <see cref="CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
     /// <returns>The <see cref="Task"/> that represents the asynchronous operation, containing the normalized username for the specified <paramref name="user"/>.</returns>
-    public virtual Task<string?> GetNormalizedUserNameAsync(IdentityUser user, CancellationToken cancellationToken = default)
+    public virtual async Task<string?> GetNormalizedUserNameAsync(IdentityUser user, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
         Check.NotNull(user, nameof(user));
 
-        return Task.FromResult(user.NormalizedUserName);
+        return await Task.FromResult(user.NormalizedUserName);
     }
 
     /// <summary>
@@ -132,6 +133,7 @@ public class IdentityUserStore(
         cancellationToken.ThrowIfCancellationRequested();
 
         Check.NotNull(user, nameof(user));
+        Check.NotNull(normalizedName, nameof(normalizedName));
 
         user.NormalizedUserName = normalizedName;
 
@@ -602,13 +604,13 @@ public class IdentityUserStore(
     /// <param name="user">The user whose email should be returned.</param>
     /// <param name="cancellationToken">The <see cref="CancellationToken"/> used to propagate notifications that the operation should be canceled.</param>
     /// <returns>The task object containing the results of the asynchronous operation, the email address for the specified <paramref name="user"/>.</returns>
-    public virtual Task<string?> GetEmailAsync(IdentityUser user, CancellationToken cancellationToken = default)
+    public virtual async Task<string?> GetEmailAsync(IdentityUser user, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
         Check.NotNull(user, nameof(user));
 
-        return Task.FromResult(user.Email);
+        return await Task.FromResult(user.Email);
     }
 
     /// <summary>
@@ -619,13 +621,13 @@ public class IdentityUserStore(
     /// <returns>
     /// The task object containing the results of the asynchronous lookup operation, the normalized email address if any associated with the specified user.
     /// </returns>
-    public virtual Task<string?> GetNormalizedEmailAsync(IdentityUser user, CancellationToken cancellationToken = default)
+    public virtual async Task<string?> GetNormalizedEmailAsync(IdentityUser user, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
         Check.NotNull(user, nameof(user));
 
-        return Task.FromResult(user.NormalizedEmail);
+        return await Task.FromResult(user.NormalizedEmail);
     }
 
     /// <summary>
@@ -640,6 +642,7 @@ public class IdentityUserStore(
         cancellationToken.ThrowIfCancellationRequested();
 
         Check.NotNull(user, nameof(user));
+        Check.NotNull(normalizedEmail, nameof(normalizedEmail));
 
         user.NormalizedEmail = normalizedEmail;
 

@@ -6,9 +6,9 @@ namespace Secyud.Abp.Users;
 
 public interface IUser : IAggregateRoot<Guid>, IMultiTenant, IHasExtraProperties
 {
-    string? UserName { get; }
+    string UserName { get; }
 
-    string? Email { get; }
+    string Email { get; }
 
     string? Name { get; }
 

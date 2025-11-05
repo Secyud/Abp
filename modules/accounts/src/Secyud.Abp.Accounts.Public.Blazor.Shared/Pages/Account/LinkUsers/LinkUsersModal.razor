@@ -1,0 +1,129 @@
+@inherits Volo.Abp.AspNetCore.Components.AbpComponentBase
+
+<li class="outer-menu-item">
+    <a class="lpx-menu-item-link dropdown-item">
+        <span class="lpx-menu-item-icon">
+            <i class="lpx-icon fa fa-link" aria-hidden="true"></i>
+        </span>
+        <span class="lpx-menu-item-text hidden-in-hover-trigger" @onclick="OpenModalAsync">@L["LinkedAccounts"]</span>
+    </a>
+</li>
+
+<div class="account_link_users_modals">
+
+    <SModal @ref="_modal" RenderMode="ModalRenderMode.LazyReload" Closing="CloseModalAsync">
+        <SCard>
+            <Header>
+                <STitle>@L["LinkedAccounts"]</STitle>
+                <CloseButton Click="() => CloseSpecifyModalAsync(_modal)"/>
+            </Header>
+            <Body>
+            <div class="text-end mb-3">
+                <Button Color="Color.Primary" Click="() => NewLinkAccountAsync(false)">@L["NewLinkAccount"]</Button>
+            </div>
+
+            <form method="post" data-ajaxForm="false" action="@PostAction" id="linkUserLoginForm">
+                <input type="hidden" name="SourceLinkUserId" value="@CurrentUser.Id">
+                <input type="hidden" name="SourceLinkTenantId" value="@CurrentTenant.Id">
+                <input type="hidden" name="SourceLinkToken" value="@SourceLinkToken">
+                <input type="hidden" name="TargetLinkUserId" value="@TargetLinkUserId">
+                <input type="hidden" name="TargetLinkTenantId" value="@TargetLinkTenantId">
+                <input type="hidden" name="ReturnUrl" value="@ReturnUrl">
+            </form>
+
+            <div class="text-end">
+                <label>@L["Search"]</label>
+                <TextBox TValue="string" Value="@_customFilterValue" ValueChanged="@OnCustomFilterValueChanged"/>
+            </div>
+
+            <SGrid @ref="_linkUsersDataGrid" TValue="LinkUserDto">
+                <EnableStaticSource Items="LinkUsers.Items"/>
+                <GridColumn Caption="@L["Actions"]" Field="u=>u.TargetTenantId">
+                    <ColumnTemplate>
+                        <DropdownBox>
+                            <ChildContent>
+                                @L["Actions"]
+                            </ChildContent>
+                            <DropdownContentTemplate>
+                                <Button
+                                    Click="() => LoginAsThisAccountAsync(context.TargetTenantId, context.TargetUserId)">
+                                    @L["LoginAsThisAccount"]
+                                </Button>
+                                @if (context.DirectlyLinked)
+                                {
+                                    <Button
+                                        Click="() => OpenDeleteConfirmationModalAsync(context.TargetTenantId, context.TargetUserId, context.TargetUserName)">
+                                        @L["Delete"]
+                                    </Button>
+                                }
+                            </DropdownContentTemplate>
+                        </DropdownBox>
+                    </ColumnTemplate>
+                </GridColumn>
+                <GridColumn Caption="@L["TenantAndUserName"]" Field="u => u.TargetTenantName">
+                    <ColumnTemplate>
+                        @{
+                            var tenantAndUserName = context.TargetTenantName != null
+                                ? context.TargetTenantName + "\\" + context.TargetUserName
+                                : context.TargetUserName;
+                            @tenantAndUserName
+                        }
+                    </ColumnTemplate>
+                </GridColumn>
+                <GridColumn Caption="@L["DirectlyLinked"]" Field="u => u.TargetUserId">
+                    <ColumnTemplate>
+                        @if (context.DirectlyLinked)
+                        {
+                            <SIcon IconName="@IconName.Check"/>
+                        }
+                        else
+                        {
+                            <SIcon IconName="@IconName.Cross"/>
+                        }
+                    </ColumnTemplate>
+                </GridColumn>
+            </SGrid>
+            </Body>
+        </SCard>
+    </SModal>
+
+    <SModal @ref="_deleteConfirmationModal">
+        <SCard Centered="true">
+            <Body>
+            <STitle Level="2" Class="center">
+                <SIcon IconName="@IconName.Question"/>
+            </STitle>
+            <div class="center">
+                @DeleteConfirmationMessage
+            </div>
+            </Body>
+            <Footer>
+                <CancelButton Click="() => CloseSpecifyModalAsync(_deleteConfirmationModal)"/>
+                <Button Theme="Theme.Danger" Click="@DeleteUsersAsync">
+                    @L["Ok"]
+                </Button>
+            </Footer>
+        </SCard>
+    </SModal>
+
+    <SModal @ref="_newLinkUserConfirmationModal" RenderMode="ModalRenderMode.LazyReload"
+            Closing="CLoseNewLinkUserConfirmationModal">
+        <SCard Centered="true">
+            <Body>
+            <STitle Level="2" Class="center">
+                <SIcon IconName="@IconName.Question"/>
+            </STitle>
+            <div class="center">
+                @L["NewLinkAccountWarning"]
+            </div>
+            </Body>
+            <Footer>
+                <CancelButton Click="() => CloseSpecifyModalAsync(_newLinkUserConfirmationModal)"/>
+                <Button Theme="Theme.Danger" Click="@(() => NewLinkAccountAsync(true))">
+                    @L["Ok"]
+                </Button>
+            </Footer>
+        </SCard>
+    </SModal>
+
+</div>

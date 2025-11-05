@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props"/>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Secyud.Abp.Accounts.Shared.Application.Contracts\Secyud.Abp.Accounts.Shared.Application.Contracts.csproj"/>
+    <PackageReference Include="Volo.Abp.Emailing" Version="$(AbpVersion)"/>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Secyud\Abp\Accounts\Emailing\Templates\*.tpl"/>
+    <None Remove="Secyud\Abp\Accounts\Emailing\Templates\*.tpl"/>
+  </ItemGroup>
+
+</Project>

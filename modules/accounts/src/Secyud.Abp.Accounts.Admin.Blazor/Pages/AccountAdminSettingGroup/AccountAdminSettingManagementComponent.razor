@@ -1,0 +1,218 @@
+﻿@using Microsoft.Extensions.Localization
+@inherits AbpComponentBase
+@inject IStringLocalizerFactory LocalizerFactory
+
+@if (Settings?.AccountSettings != null)
+{
+    <STabContainer @bind-SelectedTab="@SelectedTab">
+        <FixTab Key="AccountSettingsGeneral">
+            <Tag>@L["AccountSettingsGeneral"]</Tag>
+            <Content>
+                <SFormLayout>
+                    <FormLayoutItem Title="@L["DisplayName:IsSelfRegistrationEnabled"]">
+                        <CheckBox @bind-Value="@Settings.AccountSettings.IsSelfRegistrationEnabled"/>
+                    </FormLayoutItem>
+                    <FormLayoutItem Title="@L["DisplayName:EnableLocalLogin"]">
+                        <STooltip Text="@L["Description:EnableLocalLogin"]">
+                            <CheckBox @bind-Value="@Settings.AccountSettings.EnableLocalLogin"/>
+                        </STooltip>
+                    </FormLayoutItem>
+                    <FormLayoutItem Title="@L["DisplayName:PreventEmailEnumeration"]">
+                        <STooltip Text="@L["Description:PreventEmailEnumeration"]">
+                            <CheckBox @bind-Value="@Settings.AccountSettings.PreventEmailEnumeration"/>
+                        </STooltip>
+                    </FormLayoutItem>
+                </SFormLayout>
+                <SubmitButton Click="@UpdateAccountSettings"/>
+            </Content>
+        </FixTab>
+        @if (Settings.AccountTwoFactorSettings != null)
+        {
+            <FixTab Key="AccountTwoFactorSettings">
+                <Tag>@L["AccountTwoFactorSettings"]</Tag>
+                <Content>
+                    <SFormLayout>
+                        <FormLayoutItem Title="@IdentityLocalizer["DisplayName:Abp.Identity.TwoFactorBehaviour"]">
+                            <EnumSelector @bind-Value="Settings.AccountTwoFactorSettings.TwoFactorBehaviour"/>
+                        </FormLayoutItem>
+                        <FormLayoutItem Title="@IdentityLocalizer["DisplayName:Abp.Identity.UsersCanChange"]">
+                            <CheckBox TValue="bool" @bind-Value="@Settings.AccountTwoFactorSettings.UsersCanChange"/>
+                        </FormLayoutItem>
+                        <FormLayoutItem Title="@L["DisplayName:IsRememberBrowserEnabled"]">
+                            <CheckBox @bind-Value="@Settings.AccountTwoFactorSettings.IsRememberBrowserEnabled"/>
+                        </FormLayoutItem>
+                    </SFormLayout>
+                    <SubmitButton Click="@UpdateTwoFactorSettings"/>
+                </Content>
+            </FixTab>
+        }
+        @if (ShouldShowCaptchaSettings())
+        {
+            <FixTab Key="AccountCaptchaSettings">
+                <Tag>@L["Captcha"]</Tag>
+                <Content>
+                    <STitle>
+                        <STooltip Text="@L["GoogleCaptchaDescription"]">
+                            @L["GoogleCaptcha"]
+                            <img src="_content/Secyud.Abp.Accounts.Admin.Blazor/images/recaptcha.png"
+                                 class="img-fluid" style="max-width: 85%;" alt="recaptcha">
+                        </STooltip>
+                    </STitle>
+                    <SFormLayout EnableValidation @ref="@AccountCaptchaSettingsValidations">
+                        @if (!CurrentTenant.IsAvailable)
+                        {
+                            <FormLayoutItem @Title="@L["DisplayName:VerificationUrl"]" ShowValidationMessage>
+                                <STooltip Text="@L["Description:VerificationUrl"]">
+                                    <TextBox @bind-Value="@Settings.AccountRecaptchaSettings.VerifyBaseUrl"/>
+                                </STooltip>
+                            </FormLayoutItem>
+                        }
+                        <FormLayoutItem @Title="@L["DisplayName:Version"]" ShowValidationMessage>
+                            <STooltip Text="@L["Description:Version"]">
+                                <NumberBox @bind-Value="@Settings.AccountRecaptchaSettings.Version"/>
+                            </STooltip>
+                        </FormLayoutItem>
+                        <FormLayoutItem @Title="@L["DisplayName:SiteKey"]" ShowValidationMessage>
+                            <STooltip Text="@L["Description:SiteKey"]">
+                                <TextBox @bind-Value="@Settings.AccountRecaptchaSettings.SiteKey"/>
+                            </STooltip>
+                        </FormLayoutItem>
+                        <FormLayoutItem @Title="@L["DisplayName:SiteSecret"]" ShowValidationMessage>
+                            <STooltip Text="@L["Description:SiteSecret"]">
+                                <TextBox @bind-Value="@Settings.AccountRecaptchaSettings.SiteSecret"/>
+                            </STooltip>
+                        </FormLayoutItem>
+                        <FormLayoutItem @Title="@L["DisplayName:Score"]" ShowValidationMessage>
+                            <STooltip Text="@L["Description:Score"]">
+                                <NumberBox @bind-Value="@Settings.AccountRecaptchaSettings.Score"/>
+                            </STooltip>
+                        </FormLayoutItem>
+
+                        @if (!CurrentTenant.IsAvailable)
+                        {
+                            <FormLayoutItem @Title="@L["DisplayName:UseCaptchaOnLogin"]"
+                                            ShowValidationMessage ColSpanMd="6">
+                                <CheckBox @bind-Value="@Settings.AccountRecaptchaSettings.UseCaptchaOnLogin"/>
+                            </FormLayoutItem>
+                            <FormLayoutItem @Title="@L["DisplayName:UseCaptchaOnRegistration"]"
+                                            ShowValidationMessage ColSpanMd="6">
+                                <CheckBox @bind-Value="@Settings.AccountRecaptchaSettings.UseCaptchaOnRegistration"/>
+                            </FormLayoutItem>
+                        }
+                    </SFormLayout>
+                    <SubmitButton Click="@UpdateCaptchaSettings"/>
+                </Content>
+            </FixTab>
+        }
+        @if (ShouldShowExternalProviderSettings())
+        {
+            <FixTab Key="AccountExternalProviderSettings">
+                <Tag>@L["AccountExternalProviderSettings"]</Tag>
+                <Content>
+                    <STitle>
+                        @L["SocialAccountSecurity"]
+                    </STitle>
+                    <SFormLayout>
+                        <FormLayoutItem Title="@L["DisplayName:VerifyPasswordDuringExternalLogin"]">
+                            <STooltip Text="@L["Description:VerifyPasswordDuringExternalLogin"]">
+                                <CheckBox
+                                    @bind-Value="@Settings.AccountExternalProviderSettings.VerifyPasswordDuringExternalLogin"/>
+                            </STooltip>
+                        </FormLayoutItem>
+                    </SFormLayout>
+
+                    @{
+                        var defaultLocalizer = LocalizerFactory.CreateDefaultOrNull();
+
+                        string LocalizeProvider(string providerName)
+                        {
+                            return ExternalLoginProviderLocalizationHelper
+                                .Localize(defaultLocalizer, $"ExternalProvider:{providerName}", providerName);
+                        }
+
+                        string LocalizeProperty(string providerName, string propertyName)
+                        {
+                            return ExternalLoginProviderLocalizationHelper
+                                .Localize(defaultLocalizer, $"ExternalProvider:{providerName}:{propertyName}", propertyName);
+                        }
+                    }
+                    @if (CurrentTenant.IsAvailable)
+                    {
+                        foreach (var provider in Settings.AccountExternalProviderSettings.ExternalProviders.Where(setting => setting.Enabled))
+                        {
+                            <STitle Level="4">
+                                @LocalizeProvider(provider.Name)
+                            </STitle>
+
+                            <SFormLayout>
+                                <FormLayoutItem Title="@L["ExternalProviderUseHostSettings"]">
+                                    <CheckBox Value="@ExternalProviderUseHostSettings[provider.Name]"
+                                              ValueChanged="(b) => OnExternalProviderUseHostSettingsChanged(provider, b)"/>
+                                </FormLayoutItem>
+
+                                @if (!ExternalProviderUseHostSettings[provider.Name])
+                                {
+                                    foreach (var property in provider.Properties)
+                                    {
+                                        <FormLayoutItem Title="@LocalizeProperty(provider.Name, property.Name)">
+                                            <TextBox @bind-Value="@property.Value"/>
+                                        </FormLayoutItem>
+                                    }
+
+                                    foreach (var property in provider.SecretProperties)
+                                    {
+                                        <FormLayoutItem Title="@LocalizeProperty(provider.Name, property.Name)">
+                                            <div class="s-input">
+                                                <input type="password" @bind="@property.Value"/>
+                                            </div>
+                                        </FormLayoutItem>
+                                    }
+                                }
+
+                            </SFormLayout>
+                        }
+                    }
+                    else
+                    {
+                        foreach (var provider in Settings.AccountExternalProviderSettings.ExternalProviders)
+                        {
+                            <STitle Level="4">
+                                @LocalizeProvider(provider.Name)
+                            </STitle>
+
+                            <SFormLayout>
+                                <FormLayoutItem Title="@L["ExternalProviderEnabled"]">
+                                    <CheckBox @bind-Value="@provider.Enabled"/>
+                                </FormLayoutItem>
+
+                                @if (provider.Enabled)
+                                {
+                                    foreach (var property in provider.Properties)
+                                    {
+                                        <FormLayoutItem Title="@LocalizeProperty(provider.Name, property.Name)">
+                                            <TextBox @bind-Value="@property.Value"/>
+                                        </FormLayoutItem>
+                                    }
+
+                                    foreach (var property in provider.SecretProperties)
+                                    {
+                                        <FormLayoutItem Title="@LocalizeProperty(provider.Name, property.Name)">
+                                            <div class="s-input">
+                                                <input type="password" @bind="@property.Value"/>
+                                            </div>
+                                        </FormLayoutItem>
+                                    }
+                                }
+
+                            </SFormLayout>
+                        }
+                    }
+                    <SubmitButton Click="@UpdateExternalProviderSettings"/>
+                </Content>
+            </FixTab>
+        }
+
+        <STabTagsView/>
+        <STabContentsView RenderMode="TabRenderMode.LoadAll"/>
+    </STabContainer>
+}

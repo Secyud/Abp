@@ -1,0 +1,26 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/admin/">
+    <Project Path="src\Secyud.Abp.Accounts.Admin.Application.Contracts\Secyud.Abp.Accounts.Admin.Application.Contracts.csproj" Type="Classic C#" />
+    <Project Path="src\Secyud.Abp.Accounts.Admin.Application\Secyud.Abp.Accounts.Admin.Application.csproj" Type="Classic C#" />
+    <Project Path="src\Secyud.Abp.Accounts.Admin.Blazor\Secyud.Abp.Accounts.Admin.Blazor.csproj" />
+    <Project Path="src\Secyud.Abp.Accounts.Admin.HttpApi.Client\Secyud.Abp.Accounts.Admin.HttpApi.Client.csproj" />
+    <Project Path="src\Secyud.Abp.Accounts.Admin.HttpApi\Secyud.Abp.Accounts.Admin.HttpApi.csproj" />
+  </Folder>
+  <Folder Name="/src/public/">
+    <Project Path="src\Secyud.Abp.Accounts.Public.Application.Contracts\Secyud.Abp.Accounts.Public.Application.Contracts.csproj" Type="Classic C#" />
+    <Project Path="src\Secyud.Abp.Accounts.Public.Application\Secyud.Abp.Accounts.Public.Application.csproj" Type="Classic C#" />
+    <Project Path="src\Secyud.Abp.Accounts.Public.Blazor.Shared\Secyud.Abp.Accounts.Public.Blazor.Shared.csproj" Type="Classic C#" />
+    <Project Path="src\Secyud.Abp.Accounts.Public.Blazor\Secyud.Abp.Accounts.Public.Blazor.csproj" Type="Classic C#" />
+    <Project Path="src\Secyud.Abp.Accounts.Public.HttpApi.Client\Secyud.Abp.Accounts.Public.HttpApi.Client.csproj" Type="Classic C#" />
+    <Project Path="src\Secyud.Abp.Accounts.Public.HttpApi\Secyud.Abp.Accounts.Public.HttpApi.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/src/shared/">
+    <Project Path="src/Secyud.Abp.Accounts.Installer/Secyud.Abp.Accounts.Installer.csproj" />
+    <Project Path="src\Secyud.Abp.Accounts.Shared.Application.Contracts\Secyud.Abp.Accounts.Shared.Application.Contracts.csproj" />
+    <Project Path="src\Secyud.Abp.Accounts.Shared.Application\Secyud.Abp.Accounts.Shared.Application.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/Secyud.Abp.Accounts.Application.Tests/Secyud.Abp.Accounts.Application.Tests.csproj" />
+  </Folder>
+</Solution>

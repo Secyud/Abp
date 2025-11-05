@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props"/>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Secyud.Abp.Accounts.Shared.Application.Contracts\Secyud.Abp.Accounts.Shared.Application.Contracts.csproj" />
+  </ItemGroup>
+  
+</Project>

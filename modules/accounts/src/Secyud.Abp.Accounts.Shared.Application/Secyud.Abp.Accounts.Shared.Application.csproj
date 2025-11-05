@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Emailing" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.Ddd.Application" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.UI.Navigation" Version="$(AbpVersion)" />
+    <ProjectReference Include="..\Secyud.Abp.Accounts.Shared.Application.Contracts\Secyud.Abp.Accounts.Shared.Application.Contracts.csproj" />
+    <ProjectReference Include="../../../identities/src/Secyud.Abp.Identities.Domain/Secyud.Abp.Identities.Domain.csproj" />
+    <ProjectReference Include="../../../settings/src/Secyud.Abp.Settings.Domain/Secyud.Abp.Settings.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

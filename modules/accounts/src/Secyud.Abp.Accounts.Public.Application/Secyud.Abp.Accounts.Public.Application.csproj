@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props"/>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Secyud.Abp.Accounts.Shared.Application\Secyud.Abp.Accounts.Shared.Application.csproj"/>
+    <ProjectReference Include="..\Secyud.Abp.Accounts.Public.Application.Contracts\Secyud.Abp.Accounts.Public.Application.Contracts.csproj"/>
+    <PackageReference Include="Volo.Abp.Sms" Version="$(AbpVersion)"/>
+    <PackageReference Include="Volo.Abp.BlobStoring" Version="$(AbpVersion)"/>
+    <PackageReference Include="Volo.Abp.AutoMapper" Version="$(AbpVersion)"/>
+    <PackageReference Include="Volo.Abp.Imaging.ImageSharp" Version="$(AbpVersion)"/>
+    <PackageReference Include="Volo.Abp.Timing" Version="$(AbpVersion)"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.0"/>
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="$(DotnetVersion)"/>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <EmbeddedResource Include="Secyud\Abp\Accounts\ProfilePictures\avatar.jpg"/>
+  </ItemGroup>
+</Project>

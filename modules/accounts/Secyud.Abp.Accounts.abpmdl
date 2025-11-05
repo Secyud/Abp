@@ -1,0 +1,50 @@
+{
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {}
+    }
+  },
+  "packages": {
+    "Secyud.Abp.Accounts.Application.Contracts": {
+      "path": "src/Secyud.Abp.Accounts.Application.Contracts/Secyud.Abp.Accounts.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Accounts.Application": {
+      "path": "src/Secyud.Abp.Accounts.Application/Secyud.Abp.Accounts.Application.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Accounts.EntityFrameworkCore": {
+      "path": "src/Secyud.Abp.Accounts.EntityFrameworkCore/Secyud.Abp.Accounts.EntityFrameworkCore.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Accounts.HttpApi": {
+      "path": "src/Secyud.Abp.Accounts.HttpApi/Secyud.Abp.Accounts.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Accounts.HttpApi.Client": {
+      "path": "src/Secyud.Abp.Accounts.HttpApi.Client/Secyud.Abp.Accounts.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Accounts.Blazor": {
+      "path": "src/Secyud.Abp.Accounts.Blazor/Secyud.Abp.Accounts.Blazor.abppkg",
+      "folder": "src"
+    },
+    "Secyud.Abp.Accounts.TestBase": {
+      "path": "test/Secyud.Abp.Accounts.TestBase/Secyud.Abp.Accounts.TestBase.abppkg",
+      "folder": "test"
+    },
+    "Secyud.Abp.Accounts.EntityFrameworkCore.Tests": {
+      "path": "test/Secyud.Abp.Accounts.EntityFrameworkCore.Tests/Secyud.Abp.Accounts.EntityFrameworkCore.Tests.abppkg",
+      "folder": "test"
+    },
+    "Secyud.Abp.Accounts.Application.Tests": {
+      "path": "test/Secyud.Abp.Accounts.Application.Tests/Secyud.Abp.Accounts.Application.Tests.abppkg",
+      "folder": "test"
+    },
+    "Secyud.Abp.Accounts.Installer": {
+       "path": "src/Secyud.Abp.Accounts.Installer/Secyud.Abp.Accounts.Installer.abppkg",
+       "folder": "src"
+    }
+  }
+}

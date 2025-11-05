@@ -1,0 +1,9 @@
+{
+  "id": "b99f109f-e09c-43c8-8d42-4420c5adc3de",
+  "template": "empty",
+  "modules": {
+    "Secyud.Abp.Accounts": {
+      "path": "Secyud.Abp.Accounts.abpmdl"
+    }
+  }
+}

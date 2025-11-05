@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <Import Project="..\..\common.props"/>
+
+  <PropertyGroup>
+    <RootNamespace>Secyud.Abp.Accounts</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\framework\src\Secyud.Abp.AspNetCore.Components.Web.Theming\Secyud.Abp.AspNetCore.Components.Web.Theming.csproj"/>
+    <ProjectReference Include="..\Secyud.Abp.Accounts.Public.Application.Contracts\Secyud.Abp.Accounts.Public.Application.Contracts.csproj"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Http.Client" Version="$(AbpVersion)"/>
+    <PackageReference Include="Zxcvbn-netstandard" Version="1.0.2"/>
+  </ItemGroup>
+
+</Project>

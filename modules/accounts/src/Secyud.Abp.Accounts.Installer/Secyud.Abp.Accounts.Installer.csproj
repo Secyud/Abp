@@ -1,0 +1,59 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props"/>
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+    <RootNamespace>Secyud.Abp.Accounts</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.VirtualFileSystem" Version="9.3.4"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="..\..\Secyud.Abp.Accounts.abpmdl"/>
+    <Content Include="..\..\Secyud.Abp.Accounts.abpmdl">
+      <Pack>true</Pack>
+      <PackagePath>content\</PackagePath>
+    </Content>
+    <None Remove="..\..\**\*.abppkg*" />
+    <Content Include="..\..\**\*.abppkg*">
+      <Pack>true</Pack>
+      <PackagePath>content\</PackagePath>
+    </Content>
+    <Content Update="..\Secyud.Abp.Accounts.Shared.Application\Secyud.Abp.Accounts.Application.abppkg">
+      <Link>src\Secyud.Abp.Accounts.Application\Secyud.Abp.Accounts.Application.abppkg</Link>
+    </Content>
+    <Content Update="..\Secyud.Abp.Accounts.Shared.Application\Secyud.Abp.Accounts.Application.abppkg.analyze.json">
+      <Link>src\Secyud.Abp.Accounts.Application\Secyud.Abp.Accounts.Application.abppkg.analyze.json</Link>
+    </Content>
+    <Content Update="..\Secyud.Abp.Accounts.Shared.Application.Contracts\Secyud.Abp.Accounts.Application.Contracts.abppkg">
+      <Link>src\Secyud.Abp.Accounts.Application.Contracts\Secyud.Abp.Accounts.Application.Contracts.abppkg</Link>
+    </Content>
+    <Content Update="..\Secyud.Abp.Accounts.Shared.Application.Contracts\Secyud.Abp.Accounts.Application.Contracts.abppkg.analyze.json">
+      <Link>src\Secyud.Abp.Accounts.Application.Contracts\Secyud.Abp.Accounts.Application.Contracts.abppkg.analyze.json</Link>
+    </Content>
+    <Content Update="..\Secyud.Abp.Accounts.Admin.HttpApi\Secyud.Abp.Accounts.HttpApi.abppkg">
+      <Link>src\Secyud.Abp.Accounts.HttpApi\Secyud.Abp.Accounts.HttpApi.abppkg</Link>
+    </Content>
+    <Content Update="..\Secyud.Abp.Accounts.Admin.HttpApi\Secyud.Abp.Accounts.HttpApi.abppkg.analyze.json">
+      <Link>src\Secyud.Abp.Accounts.HttpApi\Secyud.Abp.Accounts.HttpApi.abppkg.analyze.json</Link>
+    </Content>
+    <Content Update="..\Secyud.Abp.Accounts.Admin.HttpApi.Client\Secyud.Abp.Accounts.HttpApi.Client.abppkg">
+      <Link>src\Secyud.Abp.Accounts.HttpApi.Client\Secyud.Abp.Accounts.HttpApi.Client.abppkg</Link>
+    </Content>
+    <Content Update="..\Secyud.Abp.Accounts.Admin.HttpApi.Client\Secyud.Abp.Accounts.HttpApi.Client.abppkg.analyze.json">
+      <Link>src\Secyud.Abp.Accounts.HttpApi.Client\Secyud.Abp.Accounts.HttpApi.Client.abppkg.analyze.json</Link>
+    </Content>
+    <Content Update="..\Secyud.Abp.Accounts.Admin.Blazor\Secyud.Abp.Accounts.Blazor.abppkg">
+      <Link>src\Secyud.Abp.Accounts.Blazor\Secyud.Abp.Accounts.Blazor.abppkg</Link>
+    </Content>
+    <Content Update="..\Secyud.Abp.Accounts.Admin.Blazor\Secyud.Abp.Accounts.Blazor.abppkg.analyze.json">
+      <Link>src\Secyud.Abp.Accounts.Blazor\Secyud.Abp.Accounts.Blazor.abppkg.analyze.json</Link>
+    </Content>
+  </ItemGroup>
+
+</Project>

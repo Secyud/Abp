@@ -1,0 +1,102 @@
+﻿
+@using Secyud.Abp.Account.Localization
+@using Secyud.Abp.Accounts.Components
+@using Secyud.Abp.ObjectExtending
+@using Volo.Abp.ObjectExtending
+@inherits AccountManageBase
+<STabContainer>
+    @if (ChangePasswordModel != null)
+    {
+        <FixTab Key="Password">
+            <Tag>@L["ProfileTab:Password"]</Tag>
+            <Content>
+                <SFormLayout>
+                    <FormLayoutItem Title="@L["DisplayName:CurrentPassword"]">
+                        <div class="s-input">
+                            <input type="password" @bind="@ChangePasswordModel.CurrentPassword"/>
+                        </div>
+                    </FormLayoutItem>
+                    <FormLayoutItem Title="@L["DisplayName:NewPassword"]">
+                        <PasswordEdit @bind-Password="@ChangePasswordModel.NewPassword"
+                                      ShowPasswordIcon="true"
+                                      ShowPasswordStrength="true">
+                        </PasswordEdit>
+                    </FormLayoutItem>
+                    <FormLayoutItem Title="@L["DisplayName:NewPasswordConfirm"]">
+                        <div class="s-input">
+                            <input type="password" @bind="@ChangePasswordModel.NewPasswordConfirm"/>
+                        </div>
+                    </FormLayoutItem>
+                </SFormLayout>
+                <SubmitButton Click="@ChangePasswordAsync"/>
+
+            </Content>
+        </FixTab>
+    }
+    @if (PersonalInfoModel != null)
+    {
+        <FixTab Key="PersonalInfo">
+            <Tag>@L["ProfileTab:PersonalInfo"]</Tag>
+            <Content>
+                <SFormLayout>
+                    <FormLayoutItem Title="@L["DisplayName:UserName"]">
+                        <TextBox @bind-Value="@PersonalInfoModel.UserName"/>
+                    </FormLayoutItem>
+                    <FormLayoutItem Title="@L["DisplayName:Name"]">
+                        <TextBox @bind-Value="@PersonalInfoModel.Name"/>
+                    </FormLayoutItem>
+                    <FormLayoutItem Title="@L["DisplayName:Surname"]">
+                        <TextBox @bind-Value="@PersonalInfoModel.Surname"/>
+                    </FormLayoutItem>
+                    <FormLayoutItem Title="@L["DisplayName:Email"]">
+                        <TextBox @bind-Value="@PersonalInfoModel.Email"/>
+                    </FormLayoutItem>
+                    <FormLayoutItem Title="@L["DisplayName:PhoneNumber"]">
+                        <TextBox @bind-Value="@PersonalInfoModel.PhoneNumber"/>
+                    </FormLayoutItem>
+
+                    @* TODO: Move this logic to 'ExtensionProperties' component. *@
+                    @foreach (var propertyInfo in ObjectExtensionManager.Instance.GetProperties<PersonalInfoModel>())
+                    {
+                        var isAllowed = propertyInfo.Configuration
+                            .GetOrDefault(IdentityModuleExtensionConsts.ConfigurationNames.AllowUserToEdit);
+
+                        if (isAllowed == null || !isAllowed.Equals(true))
+                        {
+                            continue;
+                        }
+
+                        if (!propertyInfo.Name.EndsWith("_Text"))
+                        {
+                            if (propertyInfo.Type.IsEnum)
+                            {
+                                @* <SelectExtensionProperty PropertyInfo="@propertyInfo" Entity="@PersonalInfoModel" *@
+                                @*                          TEntity="PersonalInfoModel" TResourceType="AccountResource" *@
+                                @*                          LH="@LH"/> *@
+                            }
+                            else if (!propertyInfo.Lookup.Url.IsNullOrEmpty())
+                            {
+                                @* <LookupExtensionProperty PropertyInfo="@propertyInfo" Entity="@PersonalInfoModel" *@
+                                @*                          TEntity="PersonalInfoModel" TResourceType="AccountResource" *@
+                                @*                          LH="@LH"/> *@
+                            }
+                            else
+                            {
+                                // TODO
+                                // var inputType = propertyInfo.GetInputType();
+                                // __builder.OpenComponent(0, inputType.MakeGenericType(new[] { typeof(PersonalInfoModel), typeof(AbpAccountsResource) }));
+                                // __builder.AddAttribute(1, "PropertyInfo", propertyInfo);
+                                // __builder.AddAttribute(2, "Entity", PersonalInfoModel);
+                                // __builder.CloseComponent();
+                            }
+                        }
+                    }
+
+                </SFormLayout>
+                <SubmitButton Click="@UpdatePersonalInfoAsync"/>
+            </Content>
+        </FixTab>
+    }
+    <STabTagsView/>
+    <STabContentsView RenderMode="TabRenderMode.LoadAll"/>
+</STabContainer>

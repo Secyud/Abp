@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <Import Project="..\..\common.props"/>
+
+  <PropertyGroup>
+    <RootNamespace>Secyud.Abp.Accounts</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\settings\src\Secyud.Abp.Settings.Blazor\Secyud.Abp.Settings.Blazor.csproj" />
+    <ProjectReference Include="..\..\..\..\framework\src\Secyud.Abp.AspNetCore.Components.Web.Theming\Secyud.Abp.AspNetCore.Components.Web.Theming.csproj" />
+    <ProjectReference Include="..\Secyud.Abp.Accounts.Public.Application.Contracts\Secyud.Abp.Accounts.Public.Application.Contracts.csproj" />
+    <ProjectReference Include="..\Secyud.Abp.Accounts.Public.Blazor.Shared\Secyud.Abp.Accounts.Public.Blazor.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
