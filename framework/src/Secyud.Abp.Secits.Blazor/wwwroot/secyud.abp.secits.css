@@ -1,11 +1,11 @@
 
 .ui-page-progress {
     width: 100%;
-    z-index: 6;
+    z-index: 8;
 }
 
 .s-floater.ui-message {
-    z-index: 6;
+    z-index: 8;
     --width: 24rem;
     --height: 16rem;
 
@@ -81,7 +81,7 @@
 .s-floater.ui-notify {
     --width: 0;
     --height: 0;
-    z-index: 6;
+    z-index: 8;
     overflow: visible;
     position: absolute;
     right: 3rem;
@@ -97,7 +97,7 @@
         display: grid;
         flex-direction: row;
         grid-template-columns: auto 3rem;
-        grid-template-rows: 1rem auto;
+        grid-template-rows: auto auto;
         padding-left: 1rem;
 
 

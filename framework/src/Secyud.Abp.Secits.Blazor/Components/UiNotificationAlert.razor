@@ -8,9 +8,12 @@
 {
     RenderFragment GenerateNotificationCard(UiNotification notify) =>
         @<SCard @key="notify.Index" Theme="notify.Theme">
-            <Header>
-                @notify.Title
-            </Header>
+            @if (!notify.Title.IsNullOrEmpty())
+            {
+                <Header>
+                    @notify.Title
+                </Header>
+            }
             <Body>
             @notify.Message
             </Body>

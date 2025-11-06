@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Secyud.Secits.Blazor;
 using Volo.Abp.AspNetCore.Components.Notifications;
 using Volo.Abp.Localization;
+using Timer = System.Timers.Timer;
 
 namespace Secyud.Abp.Secits.Blazor.Components;
 
@@ -69,7 +70,12 @@ public partial class UiNotificationAlert : ComponentBase, IDisposable
             };
 
             Notifications.Add(notification);
-            
+
+            notification.Timer = new(5000);
+            notification.Timer.Elapsed += (o, e)
+                => CloseNotificationAsync(notification).ConfigureAwait(false);
+            notification.Timer.Start();
+
             await InvokeAsync(StateHasChanged);
         }
         catch (Exception e)
@@ -81,6 +87,13 @@ public partial class UiNotificationAlert : ComponentBase, IDisposable
     protected async Task CloseNotificationAsync(UiNotification notify)
     {
         Notifications.Remove(notify);
+        if (notify.Timer is { } timer)
+        {
+            timer.Stop();
+            timer.Dispose();
+            notify.Timer = null;
+        }
+
         await InvokeAsync(StateHasChanged);
     }
 
