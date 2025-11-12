@@ -16,7 +16,7 @@
                 </TagTemplate>
                 <ContentTemplate>
                     <SList TValue="PermissionGrantInfoModel">
-                        <StaticDataSource Items="context.Permissions"/>
+                        <EnableStaticSource Items="context.Permissions"/>
                         <EnableIteratorTreePager TValue="PermissionGrantInfoModel"
                                                  Children="CheckPermissionChildrenAsync"/>
                         <ListColumn Context="listItem">

@@ -20,7 +20,7 @@
     <Body>
     @* ************************* DATA GRID ************************* *@
     <SGrid TValue="TenantDto">
-        <DynamicDataSource Items="GetEntitiesAsync"/>
+        <EnableDynamicSource Items="GetEntitiesAsync"/>
         <EnableIteratorPager/>
 
         <GridColumn Field="u => u.Id" Caption="@L["Actions"]">

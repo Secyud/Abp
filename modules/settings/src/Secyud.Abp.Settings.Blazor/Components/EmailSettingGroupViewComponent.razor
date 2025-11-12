@@ -6,61 +6,34 @@
     <ValidationForm @ref="@EmailSettingValidation">
         <SFormLayout EnableValidation>
             <FormLayoutItem ColSpanMd="12" Title="@($"{L["DefaultFromDisplayName"]} *")" ShowValidationMessage>
-                <SInput TValue="string">
-                    <InputTextTemplate/>
-                    <EnableValueInput @bind-Value="EmailSettings.DefaultFromDisplayName"/>
-                </SInput>
+                <TextBox @bind-Value="EmailSettings.DefaultFromDisplayName"/>
             </FormLayoutItem>
             <FormLayoutItem ColSpanMd="12" Title="@($"{L["DefaultFromAddress"]} *")" ShowValidationMessage>
-                <SInput TValue="string">
-                    <InputTextTemplate/>
-                    <EnableValueInput @bind-Value="EmailSettings.DefaultFromAddress"/>
-                </SInput>
+                <TextBox @bind-Value="EmailSettings.DefaultFromAddress"/>
             </FormLayoutItem>
             <FormLayoutItem ColSpanMd="12" Title="@($"{L["SmtpHost"]} *")" ShowValidationMessage>
-                <SInput TValue="string">
-                    <InputTextTemplate/>
-                    <EnableValueInput @bind-Value="EmailSettings.SmtpHost"/>
-                </SInput>
+                <TextBox @bind-Value="EmailSettings.SmtpHost"/>
             </FormLayoutItem>
             <FormLayoutItem ColSpanMd="12" Title="@($"{L["SmtpPort"]}")" EnableValidation="false">
-                <SInput TValue="int">
-                    <InputTextTemplate/>
-                    <EnableValueInput @bind-Value="EmailSettings.SmtpPort"/>
-                </SInput>
+                <NumberBox @bind-Value="EmailSettings.SmtpPort"/>
             </FormLayoutItem>
             <FormLayoutItem ColSpanMd="12" Title="@($"{L["SmtpEnableSsl"]}")" EnableValidation="false">
-                <SInput TValue="bool">
-                    <InputCheckTemplate/>
-                    <EnableValueInput @bind-Value="EmailSettings.SmtpEnableSsl"/>
-                </SInput>
+                <CheckBox @bind-Value="EmailSettings.SmtpEnableSsl"/>
             </FormLayoutItem>
             <FormLayoutItem ColSpanMd="12" Title="@($"{L["SmtpUseDefaultCredentials"]}")" EnableValidation="false">
-                <SInput TValue="bool">
-                    <InputCheckTemplate/>
-                    <EnableValueInput @bind-Value="EmailSettings.SmtpUseDefaultCredentials"/>
-                </SInput>
+                <CheckBox @bind-Value="EmailSettings.SmtpUseDefaultCredentials"/>
             </FormLayoutItem>
 
             @if (!EmailSettings.SmtpUseDefaultCredentials)
             {
                 <FormLayoutItem ColSpanMd="12" Title="@($"{L["SmtpDomain"]}")" ShowValidationMessage>
-                    <SInput TValue="string">
-                        <InputTextTemplate/>
-                        <EnableValueInput @bind-Value="EmailSettings.SmtpDomain"/>
-                    </SInput>
+                    <TextBox @bind-Value="EmailSettings.SmtpDomain"/>
                 </FormLayoutItem>
                 <FormLayoutItem ColSpanMd="12" Title="@($"{L["SmtpUserName"]}")" ShowValidationMessage>
-                    <SInput TValue="string">
-                        <InputTextTemplate/>
-                        <EnableValueInput @bind-Value="EmailSettings.SmtpUserName"/>
-                    </SInput>
+                    <TextBox @bind-Value="EmailSettings.SmtpUserName"/>
                 </FormLayoutItem>
                 <FormLayoutItem ColSpanMd="12" Title="@($"{L["SmtpPassword"]}")" ShowValidationMessage>
-                    <SInput TValue="string">
-                        <InputTextTemplate/>
-                        <EnableValueInput @bind-Value="EmailSettings.SmtpPassword"/>
-                    </SInput>
+                    <TextBox @bind-Value="EmailSettings.SmtpPassword"/>
                 </FormLayoutItem>
             }
         </SFormLayout>
@@ -87,28 +60,16 @@
                 <Body>
                 <SFormLayout EnableValidation>
                     <FormLayoutItem Title="@L["SenderEmailAddress"]" ShowValidationMessage>
-                        <SInput TValue="string">
-                            <InputTextTemplate/>
-                            <EnableValueInput @bind-Value="SendTestEmailInput.SenderEmailAddress"/>
-                        </SInput>
+                        <TextBox @bind-Value="SendTestEmailInput.SenderEmailAddress"/>
                     </FormLayoutItem>
                     <FormLayoutItem Title="@L["TargetEmailAddress"]" ShowValidationMessage>
-                        <SInput TValue="string">
-                            <InputTextTemplate/>
-                            <EnableValueInput @bind-Value="SendTestEmailInput.TargetEmailAddress"/>
-                        </SInput>
+                        <TextBox @bind-Value="SendTestEmailInput.TargetEmailAddress"/>
                     </FormLayoutItem>
                     <FormLayoutItem Title="@L["Subject"]" ShowValidationMessage>
-                        <SInput TValue="string">
-                            <InputTextTemplate/>
-                            <EnableValueInput @bind-Value="SendTestEmailInput.Subject"/>
-                        </SInput>
+                        <TextBox @bind-Value="SendTestEmailInput.Subject"/>
                     </FormLayoutItem>
                     <FormLayoutItem Title="@L["Body"]" ShowValidationMessage>
-                        <SInput TValue="string">
-                            <InputTextTemplate/>
-                            <EnableValueInput @bind-Value="SendTestEmailInput.Body"/>
-                        </SInput>
+                        <TextBox @bind-Value="SendTestEmailInput.Body"/>
                     </FormLayoutItem>
                 </SFormLayout>
                 </Body>

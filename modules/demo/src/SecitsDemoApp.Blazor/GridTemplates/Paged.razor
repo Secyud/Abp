@@ -8,7 +8,7 @@
 <SCard Theme="Theme" Size="Size">
     <Body>
     <SGrid TValue="ListDemoItem" Class="outline" DisableFooter>
-        <DynamicDataSource Items="GetItem"/>
+        <EnableDynamicSource Items="GetItem"/>
         <EnableIteratorPager/>
         <EnableColumnResize/>
         <GridColumn Caption="@L[nameof(ListDemoItem.Name)]" Width="200"
