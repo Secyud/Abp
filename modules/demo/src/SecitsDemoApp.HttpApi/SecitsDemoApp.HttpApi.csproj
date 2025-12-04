@@ -1,19 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-  </PropertyGroup>
-  <Import Project="..\..\common.props" />
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <RootNamespace>SecitsDemoApp</RootNamespace>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="$(AbpVersion)" />
-    <ProjectReference Include="..\SecitsDemoApp.Application.Contracts\SecitsDemoApp.Application.Contracts.csproj" />
-    <ProjectReference Include="../../../permissions/src/Secyud.Abp.Permissions.HttpApi/Secyud.Abp.Permissions.HttpApi.csproj" />
-    <ProjectReference Include="../../../settings/src/Secyud.Abp.Settings.HttpApi/Secyud.Abp.Settings.HttpApi.csproj" />
-    <ProjectReference Include="../../../features/src/Secyud.Abp.Features.HttpApi/Secyud.Abp.Features.HttpApi.csproj" />
-    <ProjectReference Include="../../../tenants/src/Secyud.Abp.Tenants.HttpApi/Secyud.Abp.Tenants.HttpApi.csproj" />
-  </ItemGroup>
+
+    <PropertyGroup>
+        <IsApp>true</IsApp>
+    </PropertyGroup>
+  
+    <Import Project="..\..\common.props"/>
+
+    <ItemGroup>
+        <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="$(AbpVersion)"/>
+        <ProjectReference Include="..\SecitsDemoApp.Application.Contracts\SecitsDemoApp.Application.Contracts.csproj"/>
+        <ProjectReference Include="../../../permissions/src/Secyud.Abp.Permissions.HttpApi/Secyud.Abp.Permissions.HttpApi.csproj"/>
+        <ProjectReference Include="../../../settings/src/Secyud.Abp.Settings.HttpApi/Secyud.Abp.Settings.HttpApi.csproj"/>
+        <ProjectReference Include="../../../features/src/Secyud.Abp.Features.HttpApi/Secyud.Abp.Features.HttpApi.csproj"/>
+        <ProjectReference Include="../../../tenants/src/Secyud.Abp.Tenants.HttpApi/Secyud.Abp.Tenants.HttpApi.csproj"/>
+    </ItemGroup>
 </Project>

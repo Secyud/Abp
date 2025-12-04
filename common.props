@@ -5,26 +5,40 @@
         <PackageOutputPath>../../../../$(PackageOutputPath)</PackageOutputPath>
         <RootNamespace/>
         <NoWarn>$(NoWarn);CS1591</NoWarn>
-        <Version>9.0.0</Version>
-        <TargetFramework>net9.0</TargetFramework>
         <ReferenceType>Package</ReferenceType>
         <ReferenceType>Project</ReferenceType>
     </PropertyGroup>
 
-    <Import Project=".\version.props"/>
+    <PropertyGroup Condition="'$(TargetFramework)' == 'net9.0'">
+        <Version>9.0.0</Version>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(TargetFramework)' == 'net10.0'">
+        <Version>10.0.0</Version>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(IsApp)' == ''">
+        <TargetFrameworks>net9.0;net10.0</TargetFrameworks>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(IsApp)' == 'true'">
+        <TargetFramework>net10.0</TargetFramework>
+    </PropertyGroup>
+    
+    <Import Project="..\version.props"/>
 
     <Target Name="NoWarnOnRazorViewImportedTypeConflicts" BeforeTargets="RazorCoreCompile">
         <PropertyGroup>
             <NoWarn>$(NoWarn);0436</NoWarn>
         </PropertyGroup>
     </Target>
-    
+
     <ItemGroup>
-        <Content Remove="$(UserProfile)\.nuget\packages\*\*\contentFiles\any\*\*.abppkg*" />
+        <Content Remove="$(UserProfile)\.nuget\packages\*\*\contentFiles\any\*\*.abppkg*"/>
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
-        <PackageReference Include="ConfigureAwait.Fody" PrivateAssets="All" />
+        <PackageReference Include="ConfigureAwait.Fody" PrivateAssets="All"/>
         <PackageReference Include="Fody">
             <PrivateAssets>All</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
@@ -32,8 +46,8 @@
     </ItemGroup>
 
     <ItemGroup Condition="$(AssemblyName.EndsWith('HttpApi.Client'))">
-        <EmbeddedResource Include="**\*generate-proxy.json" />
-        <Content Remove="**\*generate-proxy.json" />
+        <EmbeddedResource Include="**\*generate-proxy.json"/>
+        <Content Remove="**\*generate-proxy.json"/>
     </ItemGroup>
 
 </Project>

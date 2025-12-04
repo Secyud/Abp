@@ -1,27 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-  </PropertyGroup>
-  <Import Project="..\..\common.props" />
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <RootNamespace>SecitsDemoApp</RootNamespace>
-    <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Volo.Abp.Ddd.Domain.Shared" Version="$(AbpVersion)" />
-    <PackageReference Include="Volo.Abp.Validation" Version="$(AbpVersion)" />
-    <ProjectReference Include="../../../permissions/src/Secyud.Abp.Permissions.Domain.Shared/Secyud.Abp.Permissions.Domain.Shared.csproj" />
-    <ProjectReference Include="../../../settings/src/Secyud.Abp.Settings.Domain.Shared/Secyud.Abp.Settings.Domain.Shared.csproj" />
-    <ProjectReference Include="../../../features/src/Secyud.Abp.Features.Domain.Shared/Secyud.Abp.Features.Domain.Shared.csproj" />
-    <ProjectReference Include="../../../tenants/src/Secyud.Abp.Tenants.Domain.Shared/Secyud.Abp.Tenants.Domain.Shared.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="$(DotnetVersion)" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Localization\SecitsDemoApp\*.json" />
-    <Content Remove="Localization\SecitsDemoApp\*.json" />
-  </ItemGroup>
+
+    <PropertyGroup>
+        <IsApp>true</IsApp>
+    </PropertyGroup>
+    <Import Project="..\..\common.props"/>
+    <PropertyGroup>
+        <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Volo.Abp.Ddd.Domain.Shared" Version="$(AbpVersion)"/>
+        <PackageReference Include="Volo.Abp.Validation" Version="$(AbpVersion)"/>
+        <ProjectReference Include="../../../permissions/src/Secyud.Abp.Permissions.Domain.Shared/Secyud.Abp.Permissions.Domain.Shared.csproj"/>
+        <ProjectReference Include="../../../settings/src/Secyud.Abp.Settings.Domain.Shared/Secyud.Abp.Settings.Domain.Shared.csproj"/>
+        <ProjectReference Include="../../../features/src/Secyud.Abp.Features.Domain.Shared/Secyud.Abp.Features.Domain.Shared.csproj"/>
+        <ProjectReference Include="../../../tenants/src/Secyud.Abp.Tenants.Domain.Shared/Secyud.Abp.Tenants.Domain.Shared.csproj"/>
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="$(DotnetVersion)"/>
+    </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Include="Localization\SecitsDemoApp\*.json"/>
+        <Content Remove="Localization\SecitsDemoApp\*.json"/>
+    </ItemGroup>
 </Project>

@@ -1,16 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\common.props" />
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <RootNamespace>SecitsDemoApp</RootNamespace>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Volo.Abp.EntityFrameworkCore" Version="$(AbpVersion)" />
-    <ProjectReference Include="..\SecitsDemoApp.Domain\SecitsDemoApp.Domain.csproj" />
-    <ProjectReference Include="../../../permissions/src/Secyud.Abp.Permissions.EntityFrameworkCore/Secyud.Abp.Permissions.EntityFrameworkCore.csproj" />
-    <ProjectReference Include="../../../settings/src/Secyud.Abp.Settings.EntityFrameworkCore/Secyud.Abp.Settings.EntityFrameworkCore.csproj" />
-    <ProjectReference Include="../../../features/src/Secyud.Abp.Features.EntityFrameworkCore/Secyud.Abp.Features.EntityFrameworkCore.csproj" />
-    <ProjectReference Include="../../../tenants/src/Secyud.Abp.Tenants.EntityFrameworkCore/Secyud.Abp.Tenants.EntityFrameworkCore.csproj" />
-  </ItemGroup>
+
+    <PropertyGroup>
+        <IsApp>true</IsApp>
+    </PropertyGroup>
+    <Import Project="..\..\common.props"/>
+  
+    <ItemGroup>
+        <PackageReference Include="Volo.Abp.EntityFrameworkCore" Version="$(AbpVersion)"/>
+        <ProjectReference Include="..\SecitsDemoApp.Domain\SecitsDemoApp.Domain.csproj"/>
+        <ProjectReference Include="../../../permissions/src/Secyud.Abp.Permissions.EntityFrameworkCore/Secyud.Abp.Permissions.EntityFrameworkCore.csproj"/>
+        <ProjectReference Include="../../../settings/src/Secyud.Abp.Settings.EntityFrameworkCore/Secyud.Abp.Settings.EntityFrameworkCore.csproj"/>
+        <ProjectReference Include="../../../features/src/Secyud.Abp.Features.EntityFrameworkCore/Secyud.Abp.Features.EntityFrameworkCore.csproj"/>
+        <ProjectReference Include="../../../tenants/src/Secyud.Abp.Tenants.EntityFrameworkCore/Secyud.Abp.Tenants.EntityFrameworkCore.csproj"/>
+    </ItemGroup>
 </Project>

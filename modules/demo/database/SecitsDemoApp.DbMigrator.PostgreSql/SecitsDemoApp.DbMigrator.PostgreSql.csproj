@@ -1,4 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <IsApp>true</IsApp>
+    </PropertyGroup>
+    
     <Import Project="..\..\common.props"/>
 
     <ItemGroup>

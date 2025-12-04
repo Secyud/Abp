@@ -1,13 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\common.props" />
-  <ItemGroup>
-    <PackageReference Include="Volo.Abp.AutoMapper" Version="$(AbpVersion)" />
-    <PackageReference Include="Volo.Abp.Ddd.Application" Version="$(AbpVersion)" />
-    <ProjectReference Include="..\SecitsDemoApp.Application.Contracts\SecitsDemoApp.Application.Contracts.csproj" />
-    <ProjectReference Include="..\SecitsDemoApp.Domain\SecitsDemoApp.Domain.csproj" />
-    <ProjectReference Include="../../../permissions/src/Secyud.Abp.Permissions.Application/Secyud.Abp.Permissions.Application.csproj" />
-    <ProjectReference Include="../../../settings/src/Secyud.Abp.Settings.Application/Secyud.Abp.Settings.Application.csproj" />
-    <ProjectReference Include="../../../features/src/Secyud.Abp.Features.Application/Secyud.Abp.Features.Application.csproj" />
-    <ProjectReference Include="../../../tenants/src/Secyud.Abp.Tenants.Application/Secyud.Abp.Tenants.Application.csproj" />
-  </ItemGroup>
+
+    <PropertyGroup>
+        <IsApp>true</IsApp>
+    </PropertyGroup>
+
+    <Import Project="..\..\common.props"/>
+
+    <ItemGroup>
+        <PackageReference Include="Volo.Abp.AutoMapper" Version="$(AbpVersion)"/>
+        <PackageReference Include="Volo.Abp.Ddd.Application" Version="$(AbpVersion)"/>
+        <ProjectReference Include="..\SecitsDemoApp.Application.Contracts\SecitsDemoApp.Application.Contracts.csproj"/>
+        <ProjectReference Include="..\SecitsDemoApp.Domain\SecitsDemoApp.Domain.csproj"/>
+        <ProjectReference Include="../../../permissions/src/Secyud.Abp.Permissions.Application/Secyud.Abp.Permissions.Application.csproj"/>
+        <ProjectReference Include="../../../settings/src/Secyud.Abp.Settings.Application/Secyud.Abp.Settings.Application.csproj"/>
+        <ProjectReference Include="../../../features/src/Secyud.Abp.Features.Application/Secyud.Abp.Features.Application.csproj"/>
+        <ProjectReference Include="../../../tenants/src/Secyud.Abp.Tenants.Application/Secyud.Abp.Tenants.Application.csproj"/>
+    </ItemGroup>
+    
 </Project>

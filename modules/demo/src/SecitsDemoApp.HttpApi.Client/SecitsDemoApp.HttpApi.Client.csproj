@@ -1,23 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-  </PropertyGroup>
-  <Import Project="..\..\common.props" />
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <RootNamespace>SecitsDemoApp</RootNamespace>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Volo.Abp.Http.Client" Version="$(AbpVersion)" />
-    <ProjectReference Include="..\SecitsDemoApp.Application.Contracts\SecitsDemoApp.Application.Contracts.csproj" />
-    <ProjectReference Include="../../../permissions/src/Secyud.Abp.Permissions.HttpApi.Client/Secyud.Abp.Permissions.HttpApi.Client.csproj" />
-    <ProjectReference Include="../../../settings/src/Secyud.Abp.Settings.HttpApi.Client/Secyud.Abp.Settings.HttpApi.Client.csproj" />
-    <ProjectReference Include="../../../features/src/Secyud.Abp.Features.HttpApi.Client/Secyud.Abp.Features.HttpApi.Client.csproj" />
-    <ProjectReference Include="../../../tenants/src/Secyud.Abp.Tenants.HttpApi.Client/Secyud.Abp.Tenants.HttpApi.Client.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="**\*generate-proxy.json" />
-    <Content Remove="**\*generate-proxy.json" />
-  </ItemGroup>
+
+    <PropertyGroup>
+        <IsApp>true</IsApp>
+    </PropertyGroup>
+  
+    <Import Project="..\..\common.props"/>
+
+    <ItemGroup>
+        <PackageReference Include="Volo.Abp.Http.Client" Version="$(AbpVersion)"/>
+        <ProjectReference Include="..\SecitsDemoApp.Application.Contracts\SecitsDemoApp.Application.Contracts.csproj"/>
+        <ProjectReference Include="../../../permissions/src/Secyud.Abp.Permissions.HttpApi.Client/Secyud.Abp.Permissions.HttpApi.Client.csproj"/>
+        <ProjectReference Include="../../../settings/src/Secyud.Abp.Settings.HttpApi.Client/Secyud.Abp.Settings.HttpApi.Client.csproj"/>
+        <ProjectReference Include="../../../features/src/Secyud.Abp.Features.HttpApi.Client/Secyud.Abp.Features.HttpApi.Client.csproj"/>
+        <ProjectReference Include="../../../tenants/src/Secyud.Abp.Tenants.HttpApi.Client/Secyud.Abp.Tenants.HttpApi.Client.csproj"/>
+    </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Include="**\*generate-proxy.json"/>
+        <Content Remove="**\*generate-proxy.json"/>
+    </ItemGroup>
 </Project>

@@ -1,8 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <IsApp>true</IsApp>
+    </PropertyGroup>
+    
     <Import Project="..\..\common.props"/>
 
     <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
         <OutputType>Exe</OutputType>
         <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
         <DatabaseProviderType>PostgreSql</DatabaseProviderType>

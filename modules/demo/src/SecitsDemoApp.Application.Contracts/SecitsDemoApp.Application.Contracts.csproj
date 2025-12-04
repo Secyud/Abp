@@ -1,20 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-  </PropertyGroup>
-  <Import Project="..\..\common.props" />
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <RootNamespace>SecitsDemoApp</RootNamespace>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Volo.Abp.Ddd.Application.Contracts" Version="$(AbpVersion)" />
-    <PackageReference Include="Volo.Abp.Authorization" Version="$(AbpVersion)" />
-    <ProjectReference Include="..\SecitsDemoApp.Domain.Shared\SecitsDemoApp.Domain.Shared.csproj" />
-    <ProjectReference Include="../../../permissions/src/Secyud.Abp.Permissions.Application.Contracts/Secyud.Abp.Permissions.Application.Contracts.csproj" />
-    <ProjectReference Include="../../../settings/src/Secyud.Abp.Settings.Application.Contracts/Secyud.Abp.Settings.Application.Contracts.csproj" />
-    <ProjectReference Include="../../../features/src/Secyud.Abp.Features.Application.Contracts/Secyud.Abp.Features.Application.Contracts.csproj" />
-    <ProjectReference Include="../../../tenants/src/Secyud.Abp.Tenants.Application.Contracts/Secyud.Abp.Tenants.Application.Contracts.csproj" />
-  </ItemGroup>
+
+    <PropertyGroup>
+        <IsApp>true</IsApp>
+    </PropertyGroup>
+
+    <Import Project="..\..\common.props"/>
+
+    <ItemGroup>
+        <PackageReference Include="Volo.Abp.Ddd.Application.Contracts" Version="$(AbpVersion)"/>
+        <PackageReference Include="Volo.Abp.Authorization" Version="$(AbpVersion)"/>
+        <ProjectReference Include="..\SecitsDemoApp.Domain.Shared\SecitsDemoApp.Domain.Shared.csproj"/>
+        <ProjectReference Include="../../../permissions/src/Secyud.Abp.Permissions.Application.Contracts/Secyud.Abp.Permissions.Application.Contracts.csproj"/>
+        <ProjectReference Include="../../../settings/src/Secyud.Abp.Settings.Application.Contracts/Secyud.Abp.Settings.Application.Contracts.csproj"/>
+        <ProjectReference Include="../../../features/src/Secyud.Abp.Features.Application.Contracts/Secyud.Abp.Features.Application.Contracts.csproj"/>
+        <ProjectReference Include="../../../tenants/src/Secyud.Abp.Tenants.Application.Contracts/Secyud.Abp.Tenants.Application.Contracts.csproj"/>
+    </ItemGroup>
 </Project>

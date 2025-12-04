@@ -1,10 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
+
     <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
+        <IsApp>true</IsApp>
     </PropertyGroup>
 
     <Import Project="..\..\common.props"/>
-    
+
     <ItemGroup Condition="'$(ReferenceType)' == 'Package'">
         <PackageReference Include="Secyud.Secits.Blazor.Icons.FontAwesome" Version="$(SecitVersion)"/>
         <PackageReference Include="Secyud.DemoUtils"/>
@@ -19,10 +20,10 @@
         <PackageReference Include="Volo.Abp.AutoMapper" Version="$(AbpVersion)"/>
         <ProjectReference Include="..\SecitsDemoApp.HttpApi.Client\SecitsDemoApp.HttpApi.Client.csproj"/>
         <ProjectReference Include="..\..\..\secits-theme\src\Secyud.Abp.AspNetCore.Components.Web.SecitsTheme\Secyud.Abp.AspNetCore.Components.Web.SecitsTheme.csproj"/>
-        <ProjectReference Include="../../../permissions/src/Secyud.Abp.Permissions.Blazor/Secyud.Abp.Permissions.Blazor.csproj" />
-        <ProjectReference Include="../../../settings/src/Secyud.Abp.Settings.Blazor/Secyud.Abp.Settings.Blazor.csproj" />
-        <ProjectReference Include="../../../features/src/Secyud.Abp.Features.Blazor/Secyud.Abp.Features.Blazor.csproj" />
-        <ProjectReference Include="../../../tenants/src/Secyud.Abp.Tenants.Blazor/Secyud.Abp.Tenants.Blazor.csproj" />
+        <ProjectReference Include="../../../permissions/src/Secyud.Abp.Permissions.Blazor/Secyud.Abp.Permissions.Blazor.csproj"/>
+        <ProjectReference Include="../../../settings/src/Secyud.Abp.Settings.Blazor/Secyud.Abp.Settings.Blazor.csproj"/>
+        <ProjectReference Include="../../../features/src/Secyud.Abp.Features.Blazor/Secyud.Abp.Features.Blazor.csproj"/>
+        <ProjectReference Include="../../../tenants/src/Secyud.Abp.Tenants.Blazor/Secyud.Abp.Tenants.Blazor.csproj"/>
     </ItemGroup>
 
 </Project>
