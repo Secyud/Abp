@@ -1,23 +1,19 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
-using Secyud.Secits.Blazor.Options;
+﻿using Microsoft.Extensions.Options;
 using Volo.Abp.DependencyInjection;
 
 namespace Secyud.Abp.AspNetCore.Styles;
 
-[Dependency(ReplaceServices = true)]
-public class SecitsStyleProvider(
-    IHttpContextAccessor httpContextAccessor,
+public class DefaultSecitsStyleProvider(
     IOptions<SecitsThemeOptions> secitsThemeOption)
-    : ISecitsStyleProvider, ITransientDependency
+    : ISecitsStyleProvider, ISingletonDependency
 {
-    protected const string SecitsStyleCookieName = SecitsStylesOptions.CookieName;
+    private readonly string _styleName = null!;
 
     protected SecitsThemeOptions SecitsThemeOption { get; } = secitsThemeOption.Value;
 
     public virtual Task<string> GetCurrentStyleAsync()
     {
-        var styleName = httpContextAccessor.HttpContext?.Request.Cookies[SecitsStyleCookieName];
+        var styleName = _styleName;
 
         if (string.IsNullOrWhiteSpace(styleName) || !SecitsThemeOption.Styles.ContainsKey(styleName))
         {

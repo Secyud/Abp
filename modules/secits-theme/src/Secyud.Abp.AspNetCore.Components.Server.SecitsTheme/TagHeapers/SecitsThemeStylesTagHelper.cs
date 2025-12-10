@@ -15,9 +15,7 @@ namespace Secyud.Abp.AspNetCore.TagHeapers;
 [HtmlTargetElement("secits-theme-style", TagStructure = TagStructure.NormalOrSelfClosing)]
 public class SecitsThemeStylesTagHelper : AbpTagHelper
 {
-    [HtmlAttributeNotBound]
-    [ViewContext]
-    public ViewContext ViewContext { get; set; } = null!;
+    [HtmlAttributeNotBound] [ViewContext] public ViewContext ViewContext { get; set; } = null!;
 
     public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
     {
@@ -29,11 +27,11 @@ public class SecitsThemeStylesTagHelper : AbpTagHelper
         var selectedStyle = await leptonXStyleProvider.GetCurrentStyleAsync();
         var options = ViewContext.HttpContext.RequestServices.GetRequiredService<IOptions<SecitsThemeOptions>>().Value;
 
-        var option = new SecitsThemeParam();
-        options.Styles.GetValueOrDefault(selectedStyle)?.MapTo(option);
-        option.IsRtl = CultureHelper.IsRtl;
+        var option = options.GenerateThemeInput(selectedStyle);
 
-        var styleOptions = ViewContext.HttpContext.RequestServices.GetRequiredService<IOptions<SecitsStylesOptions>>().Value;
+        var styleOptions = ViewContext.HttpContext.RequestServices
+            .GetRequiredService<IOptions<SecitsStylesOptions>>()
+            .Value;
 
         var resources = styleOptions.Get(option);
         foreach (var resource in resources)
@@ -45,6 +43,7 @@ public class SecitsThemeStylesTagHelper : AbpTagHelper
     private static string GetLinkHtml(IUrlHelper urlHelper, SecitsStyleFile resource)
     {
         var url = urlHelper.Content($"~/{resource.Path}");
-        return $"""<link href="{url}" type="text/css" rel="stylesheet" theme="secits" id="{resource.Id}"/>{Environment.NewLine}""";
+        return
+            $"""<link href="{url}" type="text/css" rel="stylesheet" theme="secits" id="{resource.Id}"/>{Environment.NewLine}""";
     }
 }

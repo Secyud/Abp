@@ -2,7 +2,7 @@
 @using Secyud.Abp.AspNetCore.Toolbars
 @using Secyud.Abp.Secits.Blazor.Components
 <div Class="sc-body">
-    <LayoutMenu Class="sc-pin-menu left">
+    <LayoutMenu Class="sc-pin-menu left" Name="Left">
         @GenerateLayoutLftMenu()
     </LayoutMenu>
 
@@ -23,7 +23,7 @@
         </ErrorContent>
     </ErrorBoundary>
 
-    <LayoutMenu Class="sc-pin-menu right">
+    <LayoutMenu Class="sc-pin-menu right" Name="Right">
         @GenerateLayoutRhtMenu()
     </LayoutMenu>
 
@@ -45,6 +45,6 @@
         {
             <MainToolbar/>
         };
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter] public RenderFragment? ChildContent { get; set; }
 }

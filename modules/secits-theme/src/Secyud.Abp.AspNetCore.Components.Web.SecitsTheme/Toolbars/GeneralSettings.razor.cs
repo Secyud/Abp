@@ -12,26 +12,19 @@ namespace Secyud.Abp.AspNetCore.Toolbars;
 
 public partial class GeneralSettings
 {
-    [Inject]
-    protected IOptions<SecitsThemeOptions> ThemeOptions { get; set; } = null!;
+    [Inject] protected IOptions<SecitsThemeOptions> ThemeOptions { get; set; } = null!;
 
-    [Inject]
-    protected ISecitsStyleProvider StyleProvider { get; set; } = null!;
+    [Inject] protected ISecitsStyleProvider StyleProvider { get; set; } = null!;
 
-    [Inject]
-    protected ILanguagePlatformManager LanguagePlatformManager { get; set; } = null!;
+    [Inject] protected ILanguagePlatformManager LanguagePlatformManager { get; set; } = null!;
 
-    [Inject]
-    protected IStringLocalizer<SecitsResource> L { get; set; } = null!;
+    [Inject] protected IStringLocalizer<SecitsResource> L { get; set; } = null!;
 
-    [Inject]
-    protected ILanguageProvider LanguageProvider { get; set; } = null!;
+    [Inject] protected ILanguageProvider LanguageProvider { get; set; } = null!;
 
-    [Inject]
-    protected ISecitsService SecitsService { get; set; } = null!;
+    [Inject] protected ISecitsService SecitsService { get; set; } = null!;
 
-    [Inject]
-    protected IStringLocalizerFactory LocalizerFactory { get; set; } = null!;
+    [Inject] protected IStringLocalizerFactory LocalizerFactory { get; set; } = null!;
 
     protected IReadOnlyList<LanguageInfo> Languages { get; set; } = new List<LanguageInfo>();
     protected LanguageInfo? CurrentLanguage { get; set; }
@@ -40,6 +33,9 @@ public partial class GeneralSettings
     protected bool ContextMenuVisible { get; set; }
     protected bool LanguageMenuVisible { get; set; } = true;
     protected bool StyleMenuVisible { get; set; } = true;
+
+    protected List<KeyValuePair<string, SecitsThemeStyle>> Styles => field ??= ThemeOptions.Value.Styles
+        .OrderBy(u => u.Value.Order).ToList();
 
     protected override async Task OnInitializedAsync()
     {
@@ -60,14 +56,11 @@ public partial class GeneralSettings
         await LanguagePlatformManager.ChangeAsync(language);
     }
 
-    protected virtual async Task ChangeThemeAsync(string style)
+    protected virtual async Task ChangeThemeAsync(string styleName)
     {
-        CurrentStyle = style;
-
-        var options = ThemeOptions.Value;
-        var option = new SecitsThemeParam();
-        options.Styles.GetValueOrDefault(style)?.MapTo(option);
-        await SecitsService.SetCurrentStyle(style, option);
+        CurrentStyle = styleName;
+        var option = ThemeOptions.Value.GenerateThemeInput(styleName);
+        await SecitsService.SetCurrentStyle(styleName, option);
     }
 
     private Task StyleMenuIconClick()

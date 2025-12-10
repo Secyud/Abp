@@ -5,6 +5,7 @@ using Secyud.Abp.AspNetCore.Localization;
 using Secyud.Abp.AspNetCore.Styles;
 using Secyud.Abp.AspNetCore.Toolbars;
 using Secyud.Secits.Blazor;
+using Secyud.Secits.Blazor.Options;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 using Volo.Abp.VirtualFileSystem;
@@ -54,20 +55,27 @@ public class AbpAspNetCoreComponentsWebSecitsThemeModule : AbpModule
     {
         Configure<SecitsThemeOptions>(o =>
         {
-            o.Styles[SecitsStyleNames.Light] =
-                new SecitsThemeStyle(L("Theme:" + SecitsStyleNames.Light), "theme-icon-light");
+            o.Styles[SecitsStyleNames.System] =
+                new SecitsThemeStyle(L("Theme:" + SecitsStyleNames.System), "theme-icon-system")
+                {
+                    Order = -2
+                };
 
-            // o.Styles[SecitsStyleNames.Default] =
-            //     new SecitsThemeStyle(L("Theme:" + SecitsStyleNames.Default), "theme-icon-default");
+            o.Styles[SecitsStyleNames.Light] =
+                new SecitsThemeStyle(L("Theme:" + SecitsStyleNames.Light), "theme-icon-light")
+                {
+                    Order = -1
+                };
 
             o.Styles[SecitsStyleNames.Dark] =
                 new SecitsThemeStyle(L("Theme:" + SecitsStyleNames.Dark), "theme-icon-dark")
                 {
-                    ThemeColor = UiThemeColor.Dark
+                    Order = -1,
+                    Parameters =
+                    {
+                        [SecitsStylesOptions.Color] = "dark"
+                    }
                 };
-
-            o.Styles[SecitsStyleNames.System] =
-                new SecitsThemeStyle(L("Theme:" + SecitsStyleNames.System), "theme-icon-system");
         });
     }
 

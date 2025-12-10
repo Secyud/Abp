@@ -56,9 +56,9 @@
 			</div>
 
 			<div class="s-menu inner @(StyleMenuVisible ? "" : "collapsed")">
-				@foreach (var style in ThemeOptions.Value.Styles)
+				@foreach (var (styleName, style) in Styles)
 				{
-					@GenerateStyleSelection(style)
+					@GenerateStyleSelection(styleName, style)
 				}
 			</div>
 		};
@@ -86,16 +86,16 @@
 	}
 
 
-	protected RenderFragment GenerateStyleSelection(KeyValuePair<string, SecitsThemeStyle> style)
+	protected RenderFragment GenerateStyleSelection(string styleName, SecitsThemeStyle style)
 	{
-		var selected = CurrentStyle == style.Key;
+		var selected = CurrentStyle == styleName;
 
 		return
 			@<div class="menu-item @(selected ? "selected" : "")"
-			      @onclick="@(() => ChangeThemeAsync(style.Key))">
-				<SIcon IconName="@style.Value.Icon"/>
+			      @onclick="@(() => ChangeThemeAsync(styleName))">
+				<SIcon IconName="@style.Icon"/>
 				<span class="menu-item-text ">
-					@style.Value.DisplayName.Localize(LocalizerFactory).Value
+					@style.DisplayName.Localize(LocalizerFactory).Value
 				</span>
 			</div>;
 	}

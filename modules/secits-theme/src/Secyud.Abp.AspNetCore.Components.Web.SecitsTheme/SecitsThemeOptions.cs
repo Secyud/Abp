@@ -1,5 +1,7 @@
 ﻿using Secyud.Abp.AspNetCore.Components;
 using Secyud.Abp.AspNetCore.Styles;
+using Secyud.Secits.Blazor;
+using Volo.Abp.Localization;
 
 namespace Secyud.Abp.AspNetCore;
 
@@ -22,5 +24,17 @@ public class SecitsThemeOptions
         }
 
         return style;
+    }
+
+    public SecitsThemeInput GenerateThemeInput(string styleName)
+    {
+        var option = new SecitsThemeInput();
+
+        if (Styles.GetValueOrDefault(styleName) is { } style)
+            foreach (var (key, value) in style.Parameters)
+                option.Parameters[key] = value;
+        
+        option.IsRtl = CultureHelper.IsRtl;
+        return option;
     }
 }

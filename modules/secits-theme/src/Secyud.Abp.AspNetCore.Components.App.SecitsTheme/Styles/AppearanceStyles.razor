@@ -1,8 +1,6 @@
 ﻿@using Microsoft.Extensions.Options
-@using Secyud.Abp.AspNetCore.Styles
 @using Secyud.Secits.Blazor
 @using Secyud.Secits.Blazor.Options
-@using Volo.Abp.Localization
 @inject ISecitsStyleProvider SecitsStyleProvider
 @inject IOptions<SecitsThemeOptions> ThemeOptions
 @inject IOptions<SecitsStylesOptions> StylesOptions
@@ -19,9 +17,7 @@
     protected override async Task OnInitializedAsync()
     {
         var selectedStyle = await SecitsStyleProvider.GetCurrentStyleAsync();
-        var option = new SecitsThemeParam();
-        ThemeOptions.Value.Styles.GetValueOrDefault(selectedStyle)?.MapTo(option);
-        option.IsRtl = CultureHelper.IsRtl;
+        var option = ThemeOptions.Value.GenerateThemeInput(selectedStyle);
         _styles.Clear();
         _styles.AddRange(StylesOptions.Value.Get(option));
     }
