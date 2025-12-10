@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using Secyud.Abp.AspNetCore.Localization;
 using Secyud.Abp.AspNetCore.Styles;
 using Secyud.Secits.Blazor;
+using Secyud.Secits.Blazor.Element;
 using Secyud.Secits.Blazor.Services;
 using Volo.Abp.Localization;
 
@@ -63,7 +64,7 @@ public partial class GeneralSettings
         await SecitsService.SetCurrentStyle(styleName, option);
     }
 
-    private Task StyleMenuIconClick()
+    private async Task StyleMenuIconClick()
     {
         if (ContextMenuVisible && StyleMenuVisible)
         {
@@ -75,10 +76,10 @@ public partial class GeneralSettings
             StyleMenuVisible = true;
         }
 
-        return Task.CompletedTask;
+        await Task.CompletedTask;
     }
 
-    private Task LanguageMenuIconClick()
+    private async Task LanguageMenuIconClick()
     {
         if (ContextMenuVisible && LanguageMenuVisible)
         {
@@ -87,10 +88,10 @@ public partial class GeneralSettings
         else
         {
             ContextMenuVisible = true;
-            StyleMenuVisible = true;
+            LanguageMenuVisible = true;
         }
 
-        return Task.CompletedTask;
+        await Task.CompletedTask;
     }
 
     private async Task StyleMenuClick()

@@ -15,7 +15,9 @@
 	@if (Languages.Count > 1)
 	{
 		<div class="setting-icon" id="language">
-			<span class="s-icon anim" @onclick="LanguageMenuIconClick">
+			<span class="s-icon anim"
+			      @onclick="LanguageMenuIconClick"
+			      @onclick:stopPropagation>
 				@CurrentLanguageTwoLetters
 			</span>
 		</div>

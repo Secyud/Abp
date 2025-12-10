@@ -1,7 +1,14 @@
 ﻿@using Secyud.Abp.AspNetCore.Navigation
 @using Secyud.Abp.AspNetCore.Toolbars
 @using Secyud.Abp.Secits.Blazor.Components
-<div Class="sc-body">
+@using Secyud.Secits.Blazor.JSInterop
+@inject IAppDocument Document
+<div class="sc-body"
+     @onclick="Document.ClickAsync"
+     @onmousemove="Document.MoveAsync"
+     @onmouseleave="Document.LeaveAsync"
+     @onmouseup="Document.UpAsync"
+     @onmousedown="Document.DownAsync">
     <LayoutMenu Class="sc-pin-menu left" Name="Left">
         @GenerateLayoutLftMenu()
     </LayoutMenu>
