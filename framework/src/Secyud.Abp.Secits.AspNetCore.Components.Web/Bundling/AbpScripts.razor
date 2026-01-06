@@ -1,0 +1,49 @@
+@using System.Collections.Immutable
+@using Volo.Abp.AspNetCore.Bundling
+@implements IDisposable
+@inject IBundleManager BundleManager
+@inject PersistentComponentState ApplicationState
+@if (ScriptFiles != null)
+{
+    foreach (var file in ScriptFiles)
+    {
+        <script src="@file"></script>
+    }
+}
+
+@code {
+
+    private const string PrerenderedKey = "abp_script_prerendered";
+
+    [Parameter] public string? BundleName { get; set; }
+
+    private IReadOnlyList<string>? ScriptFiles { get; set; }
+
+    private PersistingComponentStateSubscription _persistingSubscription;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _persistingSubscription = ApplicationState.RegisterOnPersisting(Callback);
+        if (ApplicationState.TryTakeFromJson<List<string>>(PrerenderedKey, out var files))
+        {
+            ScriptFiles = files?.ToImmutableList();
+        }
+        else
+        {
+            // We are in prerendering mode
+            if (!BundleName.IsNullOrWhiteSpace())
+            {
+                var bundleFiles = await BundleManager.GetStyleBundleFilesAsync(BundleName);
+                ScriptFiles = bundleFiles.Select(u => u.FileName).ToImmutableList();
+            }
+        }
+    }
+
+    private Task Callback()
+    {
+        ApplicationState.PersistAsJson(PrerenderedKey, PrerenderedKey);
+        return Task.CompletedTask;
+    }
+
+    public void Dispose() => _persistingSubscription.Dispose();
+}

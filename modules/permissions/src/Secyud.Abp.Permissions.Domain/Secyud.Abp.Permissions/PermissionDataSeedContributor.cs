@@ -1,4 +1,4 @@
-﻿using Volo.Abp.Authorization.Permissions;
+﻿using Secyud.Abp.Authorization.Permissions;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.MultiTenancy;
@@ -20,15 +20,15 @@ public class PermissionDataSeedContributor(
         var multiTenancySide = CurrentTenant.GetMultiTenancySide();
         var permissionNames = (await PermissionDefinitionManager.GetPermissionsAsync())
             .Where(p => p.MultiTenancySide.HasFlag(multiTenancySide))
-            .Where(p => !p.Providers.Any() || p.Providers.Contains(RolePermissionValueProvider.ProviderName))
+            .Where(p => !p.Providers.Any() || p.Providers.Contains(PermissionProviderNames.Role))
             .Select(p => p.Name)
             .ToArray();
 
         await PermissionDataSeeder.SeedAsync(
-            RolePermissionValueProvider.ProviderName,
+            PermissionProviderNames.Role,
             "admin",
             permissionNames,
-            context?.TenantId
+            context.TenantId
         );
     }
 }

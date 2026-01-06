@@ -1,3 +1,0 @@
-<component name="DependencyValidationManager">
-  <scope name="abp" pattern="file:*/wwwroot//*||file:wwwroot//*" />
-</component>

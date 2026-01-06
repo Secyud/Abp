@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <IsApp>true</IsApp>
+        <ProjectInfo>App</ProjectInfo>
     </PropertyGroup>
     <Import Project="..\..\common.props"/>
   

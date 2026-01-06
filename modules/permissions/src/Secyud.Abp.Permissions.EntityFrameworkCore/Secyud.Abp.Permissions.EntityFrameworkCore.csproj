@@ -3,7 +3,7 @@
   <Import Project="..\..\common.props" />
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.EntityFrameworkCore" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.EntityFrameworkCore" />
     <ProjectReference Include="..\Secyud.Abp.Permissions.Domain\Secyud.Abp.Permissions.Domain.csproj" />
   </ItemGroup>
 

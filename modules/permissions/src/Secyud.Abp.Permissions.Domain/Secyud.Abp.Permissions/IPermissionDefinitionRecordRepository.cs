@@ -7,4 +7,8 @@ public interface IPermissionDefinitionRecordRepository : IRepository<PermissionD
     Task<PermissionDefinitionRecord?> FindByNameAsync(
         string name,
         CancellationToken cancellationToken = default);
+
+    Task<List<PermissionDefinitionRecord>> GetListAsync(
+        string prefix,
+        CancellationToken cancellationToken = default);
 }

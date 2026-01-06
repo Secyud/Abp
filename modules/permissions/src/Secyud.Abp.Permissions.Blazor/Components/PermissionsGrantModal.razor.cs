@@ -14,14 +14,16 @@ public partial class PermissionsGrantModal
         LocalizationResource = typeof(AbpPermissionsResource);
     }
 
-    [Inject]
-    protected IIconProvider IconProvider { get; set; } = null!;
+    [Inject] protected IIconProvider IconProvider { get; set; } = null!;
+
+    [Inject] protected IPermissionAppService PermissionAppService { get; set; } = null!;
 
     [Inject]
-    protected IPermissionAppService PermissionAppService { get; set; } = null!;
-
-    [Inject]
-    protected ICurrentApplicationConfigurationCacheResetService CurrentApplicationConfigurationCacheResetService { get; set; } = null!;
+    protected ICurrentApplicationConfigurationCacheResetService CurrentApplicationConfigurationCacheResetService
+    {
+        get;
+        set;
+    } = null!;
 
 
     private string? _crossIcon;

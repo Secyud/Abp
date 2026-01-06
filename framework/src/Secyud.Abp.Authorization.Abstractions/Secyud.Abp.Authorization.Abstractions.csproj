@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <Import Project="..\..\..\common.props"/>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Authorization"/>
+        <PackageReference Include="Volo.Abp.MultiTenancy.Abstractions"/>
+    </ItemGroup>
+
+</Project>

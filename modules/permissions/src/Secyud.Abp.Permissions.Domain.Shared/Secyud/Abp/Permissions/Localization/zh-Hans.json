@@ -1,0 +1,7 @@
+{
+  "culture": "zh-Hans",
+  "texts": {
+    "Secyud.Abp.Permissions:010001": "未找到赋权类型！({value})",
+    "Secyud.Abp.Permissions:010002": "赋权缓存失败！(pn:{providerName},pk:{providerKey},n:{name})"
+  }
+}

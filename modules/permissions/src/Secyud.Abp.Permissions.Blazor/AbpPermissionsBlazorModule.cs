@@ -1,6 +1,6 @@
 ﻿using Localization.Resources.AbpUi;
-using Secyud.Abp.AspNetCore.Components;
 using Secyud.Abp.Permissions.Localization;
+using Secyud.Abp.Secits.AspNetCore.Components;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
@@ -8,7 +8,7 @@ using Volo.Abp.Modularity;
 namespace Secyud.Abp.Permissions;
 
 [DependsOn(
-    typeof(AbpAspNetCoreComponentsWebThemingModule),
+    typeof(AbpSecitsAspNetCoreComponentsWebModule),
     typeof(AbpAutoMapperModule),
     typeof(AbpPermissionsApplicationContractsModule)
 )]

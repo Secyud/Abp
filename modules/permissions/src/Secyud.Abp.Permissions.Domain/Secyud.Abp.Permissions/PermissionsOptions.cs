@@ -6,4 +6,6 @@ public class PermissionsOptions
     /// Default: true.
     /// </summary>
     public bool SaveStaticPermissionsToDatabase { get; set; } = true;
+
+    public List<string> UpdatePermissionsPrefixes { get; } = [];
 }

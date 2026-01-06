@@ -1,8 +1,0 @@
-﻿@namespace Secyud.Abp.AspNetCore.Components.Components
-@if (LayoutHookViewModel.Hooks.Any())
-{
-    foreach (var hook in LayoutHookViewModel.Hooks)
-    {
-        <DynamicComponent Type="@hook.ComponentType"/>
-    }
-}

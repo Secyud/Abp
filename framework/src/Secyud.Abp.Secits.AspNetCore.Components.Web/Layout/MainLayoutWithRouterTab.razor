@@ -1,0 +1,21 @@
+﻿@using Secyud.Secits.Blazor.PageRoutes
+@inherits PageRouteTabsLayout
+<LayoutContainer>
+    @((RenderFragment)base.BuildRenderTree)
+</LayoutContainer>
+
+@code
+{
+    protected override RenderFragment GenerateContent(PageRouteItem context) =>
+        __builder =>
+        {
+            <LayoutHook Name="@Volo.Abp.Ui.LayoutHooks.LayoutHooks.Body.First"
+                        Layout="@StandardLayouts.Application"/>
+            @base.GenerateContent(context)
+            <LayoutHook Name="@Volo.Abp.Ui.LayoutHooks.LayoutHooks.Body.Last"
+                        Layout="@StandardLayouts.Application"/>
+            <DynamicLayoutComponent/>
+
+            <MainLayoutFooter/>
+        };
+}

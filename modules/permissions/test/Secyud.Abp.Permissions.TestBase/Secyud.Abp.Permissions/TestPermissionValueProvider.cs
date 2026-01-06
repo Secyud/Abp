@@ -1,23 +1,21 @@
-﻿using Volo.Abp.Authorization.Permissions;
+﻿using Secyud.Abp.Authorization.Permissions;
 
 namespace Secyud.Abp.Permissions;
 
-public class TestPermissionValueProvider(IPermissionStore permissionStore) : PermissionValueProvider(permissionStore)
+public class TestPermissionValueProvider(IPermissionStore permissionStore) : IPermissionGrantProvider
 {
-    public override async Task<PermissionGrantResult> CheckAsync(PermissionValueCheckContext context)
+    public string Name => "Test";
+    
+    public async Task<PermissionGrantResult> CheckAsync(PermissionGrantCheckContext context)
     {
-        if (await PermissionStore.IsGrantedAsync(context.Permission.Name, Name, "Test"))
-            return PermissionGrantResult.Granted;
-        return PermissionGrantResult.Undefined;
+        return await permissionStore.IsGrantedAsync(context.Permission.Name, Name, "Test");
     }
 
-    public override async Task<MultiplePermissionGrantResult> CheckAsync(PermissionValuesCheckContext context)
+    public async Task<MultiplePermissionGrantResult> CheckAsync(PermissionValuesCheckContext context)
     {
-        var result = await PermissionStore
+        var result = await permissionStore
             .IsGrantedAsync(context.Permissions.Select(u => u.Name).ToArray(), Name, "Test");
         
         return result;
     }
-
-    public override string Name => "Test";
 }

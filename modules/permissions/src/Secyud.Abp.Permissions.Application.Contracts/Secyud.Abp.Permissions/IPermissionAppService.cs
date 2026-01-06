@@ -1,10 +1,11 @@
-﻿using Volo.Abp.Application.Services;
+﻿using Volo.Abp.Application.Dtos;
+using Volo.Abp.Application.Services;
 
 namespace Secyud.Abp.Permissions;
 
 public interface IPermissionAppService : IApplicationService
 {
-    Task<List<PermissionGrantInfoDto>> GetListAsync(string? groupName, string providerName, string providerKey);
-    Task<List<PermissionGroupInfoDto>> GetGroupsAsync();
+    Task<PagedResultDto<PermissionGrantInfoDto>> GetListAsync(PermissionGrantInfoRequestInput input);
+
     Task UpdateAsync(string providerName, string providerKey, UpdatePermissionsDto input);
 }

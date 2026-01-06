@@ -1,3 +1,4 @@
+using System.Linq.Dynamic.Core;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -12,8 +13,15 @@ public class EfCorePermissionDefinitionRecordRepository(IDbContextProvider<IPerm
         string name,
         CancellationToken cancellationToken = default)
     {
+        return await (await GetDbSetAsync()).FirstOrDefaultAsync(
+            r => r.Name == name, cancellationToken);
+    }
+
+    public async Task<List<PermissionDefinitionRecord>> GetListAsync(string prefix,
+        CancellationToken cancellationToken = default)
+    {
         return await (await GetDbSetAsync())
-            .OrderBy(x => x.Id)
-            .FirstOrDefaultAsync(r => r.Name == name, cancellationToken);
+            .Where(u => u.Name.StartsWith(prefix))
+            .ToListAsync(cancellationToken: cancellationToken);
     }
 }

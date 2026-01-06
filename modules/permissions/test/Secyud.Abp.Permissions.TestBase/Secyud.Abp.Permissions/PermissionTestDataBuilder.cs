@@ -1,5 +1,4 @@
-﻿using Volo.Abp.Authorization.Permissions;
-using Volo.Abp.DependencyInjection;
+﻿using Volo.Abp.DependencyInjection;
 using Volo.Abp.Guids;
 
 namespace Secyud.Abp.Permissions;

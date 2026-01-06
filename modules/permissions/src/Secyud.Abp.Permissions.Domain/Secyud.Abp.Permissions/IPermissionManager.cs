@@ -10,10 +10,8 @@ public interface IPermissionManager : IDomainService
     Task<List<PermissionGrantInfo>> GetAsync(string[] names,
         string providerName, string providerKey);
 
-    Task<List<PermissionGrantInfo>> GetListAsync(string? groupName,
+    Task<List<PermissionGrantInfo>> GetListAsync(
         string providerName, string providerKey);
-
-    Task<List<PermissionGroupInfo>> GetGroupsAsync();
 
     Task UpdateAsync(string providerName, string providerKey,
         string[] grantedPermissions, string[] deniedPermissions);

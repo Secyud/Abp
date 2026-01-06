@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="..\..\common.props" />
-  <Import Project="..\..\..\..\common.test.props" />
+  <Import Project="..\..\common.props"/>
+  <Import Project="..\..\..\..\common.test.props"/>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="$(DotnetVersion)" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="$(DotnetVersion)" />
-    <PackageReference Include="Volo.Abp.EntityFrameworkCore.Sqlite" Version="$(AbpVersion)"/>
-    <ProjectReference Include="..\..\src\Secyud.Abp.Permissions.EntityFrameworkCore\Secyud.Abp.Permissions.EntityFrameworkCore.csproj" />
-    <ProjectReference Include="..\Secyud.Abp.Permissions.Application.Tests\Secyud.Abp.Permissions.Application.Tests.csproj" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies"/>
+    <PackageReference Include="Volo.Abp.EntityFrameworkCore.Sqlite"/>
+    <ProjectReference Include="..\..\src\Secyud.Abp.Permissions.EntityFrameworkCore\Secyud.Abp.Permissions.EntityFrameworkCore.csproj"/>
+    <ProjectReference Include="..\Secyud.Abp.Permissions.Application.Tests\Secyud.Abp.Permissions.Application.Tests.csproj"/>
   </ItemGroup>
 
 </Project>

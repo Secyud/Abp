@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <Import Project="..\..\..\common.props"/>
+
+    <PropertyGroup>
+        <RootNamespace>Secyud.Abp.Secits.AspNetCore.Components</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Volo.Abp.AspNetCore.Bundling"/>
+        
+        <ProjectReference Include="..\Secyud.Abp.Secits.Blazor\Secyud.Abp.Secits.Blazor.csproj"/>
+        <ProjectReference Include="..\Secyud.Abp.UI.Navigation\Secyud.Abp.UI.Navigation.csproj"/>
+    </ItemGroup>
+
+</Project>

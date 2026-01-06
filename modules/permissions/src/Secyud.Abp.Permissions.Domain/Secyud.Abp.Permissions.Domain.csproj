@@ -1,17 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="..\..\common.props" />
+  <Import Project="..\..\common.props"/>
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.Ddd.Domain" Version="$(AbpVersion)"/>
-    <PackageReference Include="Volo.Abp.Authorization" Version="$(AbpVersion)" />
-    <PackageReference Include="Volo.Abp.Caching" Version="$(AbpVersion)" />
-    <PackageReference Include="Volo.Abp.Json" Version="$(AbpVersion)" />
-    <ProjectReference Include="..\Secyud.Abp.Permissions.Domain.Shared\Secyud.Abp.Permissions.Domain.Shared.csproj" />
+    <PackageReference Include="Volo.Abp.Ddd.Domain"/>
+    <PackageReference Include="Volo.Abp.Caching"/>
+    <PackageReference Include="Volo.Abp.Json"/>
+    <ProjectReference Include="..\..\..\..\framework\src\Secyud.Abp.Authorization\Secyud.Abp.Authorization.csproj"/>
+    <ProjectReference Include="..\Secyud.Abp.Permissions.Domain.Shared\Secyud.Abp.Permissions.Domain.Shared.csproj"/>
   </ItemGroup>
-  
+
   <ItemGroup>
-    <PackageReference Include="Polly" Version="8.6.4"/>
+    <PackageReference Include="Polly"/>
   </ItemGroup>
 
 </Project>

@@ -7,7 +7,6 @@ namespace Secyud.Abp.Permissions.EntityFrameworkCore;
 [ConnectionStringName(AbpPermissionsDbProperties.ConnectionStringName)]
 public class PermissionsDbContext(DbContextOptions<PermissionsDbContext> options) : AbpDbContext<PermissionsDbContext>(options), IPermissionsDbContext
 {
-    public DbSet<PermissionGroupDefinitionRecord> PermissionGroups { get; set; }
     public DbSet<PermissionDefinitionRecord> Permissions { get; set; }
     public DbSet<PermissionGrant> PermissionGrants { get; set; }
 

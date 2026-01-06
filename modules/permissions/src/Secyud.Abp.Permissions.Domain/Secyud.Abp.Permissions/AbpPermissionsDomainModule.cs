@@ -3,6 +3,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Polly;
+using Secyud.Abp.Authorization;
 using Volo.Abp;
 using Volo.Abp.Authorization;
 using Volo.Abp.Caching;
@@ -15,11 +16,13 @@ using Volo.Abp.Threading;
 
 namespace Secyud.Abp.Permissions;
 
-[DependsOn(typeof(AbpAuthorizationModule))]
-[DependsOn(typeof(AbpDddDomainModule))]
-[DependsOn(typeof(AbpPermissionsDomainSharedModule))]
-[DependsOn(typeof(AbpCachingModule))]
-[DependsOn(typeof(AbpJsonModule))]
+[DependsOn(
+    typeof(AbpPermissionsDomainSharedModule),
+    typeof(AbpDddDomainModule),
+    typeof(AbpAuthorizationModule),
+    typeof(AbpCachingModule),
+    typeof(AbpJsonModule)
+)]
 public class AbpPermissionsDomainModule : AbpModule
 {
     private readonly CancellationTokenSource _cancellationTokenSource = new();

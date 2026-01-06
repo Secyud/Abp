@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <Import Project="..\..\..\common.props"/>
+
+    <ItemGroup>
+        <PackageReference Include="Volo.Abp.MultiTenancy"/>
+        <PackageReference Include="Volo.Abp.Security"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Secyud.Abp.Authorization.Abstractions\Secyud.Abp.Authorization.Abstractions.csproj" />
+    </ItemGroup>
+
+</Project>

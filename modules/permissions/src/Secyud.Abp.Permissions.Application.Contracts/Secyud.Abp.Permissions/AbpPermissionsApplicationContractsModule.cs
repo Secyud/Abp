@@ -4,10 +4,10 @@ using Volo.Abp.Modularity;
 
 namespace Secyud.Abp.Permissions;
 
-[DependsOn(typeof(AbpDddApplicationContractsModule))]
-[DependsOn(typeof(AbpPermissionsDomainSharedModule))]
-[DependsOn(typeof(AbpPermissionsModule))]
-[DependsOn(typeof(AbpAuthorizationAbstractionsModule))]
+[DependsOn(
+    typeof(AbpDddApplicationContractsModule),
+    typeof(AbpPermissionsDomainSharedModule)
+    )]
 public class AbpPermissionsApplicationContractsModule : AbpModule
 {
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq.Dynamic.Core;
+using Microsoft.EntityFrameworkCore;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 
@@ -15,7 +16,6 @@ public class EfCorePermissionGrantRepository(IDbContextProvider<IPermissionsDbCo
         CancellationToken cancellationToken = default)
     {
         return await (await GetDbSetAsync())
-            .OrderBy(x => x.Id)
             .FirstOrDefaultAsync(s =>
                 s.Name == name &&
                 s.ProviderName == providerName &&
@@ -41,7 +41,7 @@ public class EfCorePermissionGrantRepository(IDbContextProvider<IPermissionsDbCo
     {
         return await (await GetDbSetAsync())
             .Where(s =>
-                names.Contains(s.Name) &&
+                ((IEnumerable<string>)names).Contains(s.Name) &&
                 s.ProviderName == providerName &&
                 s.ProviderKey == providerKey
             ).ToListAsync(GetCancellationToken(cancellationToken));

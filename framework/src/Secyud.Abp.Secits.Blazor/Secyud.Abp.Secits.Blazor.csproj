@@ -7,8 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup Condition="'$(ReferenceType)' == 'Package'">
-        <PackageReference Include="Secyud.Secits.Blazor" Version="$(SecitVersion)"/>
-        <PackageReference Include="Secyud.Secits.Blazor.Preset" Version="$(SecitVersion)"/>
+        <PackageReference Include="Secyud.Secits.Blazor"/>
+        <PackageReference Include="Secyud.Secits.Blazor.Preset"/>
     </ItemGroup>
 
     <ItemGroup Condition="'$(ReferenceType)' == 'Project'">
@@ -17,16 +17,13 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(DotnetVersion)"/>
-        <PackageReference Include="Volo.Abp.AspNetCore.Components.Web" Version="$(AbpVersion)"/>
-        <PackageReference Include="Volo.Abp.Authorization" Version="$(AbpVersion)"/>
-        <PackageReference Include="Volo.Abp.Ddd.Application.Contracts" Version="$(AbpVersion)"/>
-        <PackageReference Include="Volo.Abp.Features" Version="$(AbpVersion)"/>
-        <PackageReference Include="Volo.Abp.GlobalFeatures" Version="$(AbpVersion)"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web"/>
+        <PackageReference Include="Volo.Abp.AspNetCore.Components.Web"/>
+        <PackageReference Include="Volo.Abp.Ddd.Application.Contracts"/>
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="wwwroot\"/>
+      <ProjectReference Include="..\Secyud.Abp.Authorization\Secyud.Abp.Authorization.csproj" />
     </ItemGroup>
 
 </Project>

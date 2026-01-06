@@ -6,6 +6,5 @@ public interface IPermissionDataSeeder
         string providerName,
         string providerKey,
         IEnumerable<string> grantedPermissions,
-        Guid? tenantId = null
-    );
+        Guid? tenantId = null);
 }

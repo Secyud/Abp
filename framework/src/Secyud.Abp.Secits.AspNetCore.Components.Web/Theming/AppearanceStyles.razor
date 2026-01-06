@@ -1,0 +1,31 @@
+﻿@using Secyud.Secits.Blazor.Options
+@inject ISecitsThemeManager SecitsThemeManager
+@inject IOptions<SecitsThemeOptions> ThemeOptions
+@inject IOptions<SecitsStylesOptions> StylesOptions
+
+@if (Styles is not null)
+{
+    foreach (var path in Styles)
+    {
+        <link href="@path.Path" id="@path.Id" type="text/css" rel="stylesheet" theme="secits"/>
+    }
+}
+
+@code {
+
+    private List<SecitsStyleFile>? Styles { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var selectedStyle = await SecitsThemeManager.GetCurrentThemeAsync();
+            var option = ThemeOptions.Value.GenerateThemeInput(selectedStyle);
+            Styles = StylesOptions.Value.Get(option);
+            await InvokeAsync(StateHasChanged);
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+}

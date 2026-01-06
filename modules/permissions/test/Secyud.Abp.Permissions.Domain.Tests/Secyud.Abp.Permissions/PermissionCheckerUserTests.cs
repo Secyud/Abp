@@ -1,6 +1,5 @@
 ﻿using System.Security.Claims;
 using Shouldly;
-using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Security.Claims;
 using Xunit;
 

@@ -1,6 +1,5 @@
 ﻿using Secyud.Abp.Permissions.Localization;
 using Shouldly;
-using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Data;
 using Volo.Abp.Features;
 using Volo.Abp.GlobalFeatures;

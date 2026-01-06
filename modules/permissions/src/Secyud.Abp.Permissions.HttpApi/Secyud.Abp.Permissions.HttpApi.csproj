@@ -1,10 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="..\..\common.props" />
+  <Import Project="..\..\common.props"/>
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="$(AbpVersion)"/>
-    <ProjectReference Include="..\Secyud.Abp.Permissions.Application.Contracts\Secyud.Abp.Permissions.Application.Contracts.csproj" />
+    <ProjectReference Include="..\Secyud.Abp.Permissions.Application.Contracts\Secyud.Abp.Permissions.Application.Contracts.csproj"/>
+
+    <ProjectReference Include="..\..\..\..\framework\src\Secyud.Abp.HttpApi\Secyud.Abp.HttpApi.csproj"/>
+
+    <ProjectReference Include="..\..\..\..\framework\src\Secyud.Abp.HttpApi.Generator\Secyud.Abp.HttpApi.Generator.csproj"
+                      OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
   </ItemGroup>
 
 </Project>

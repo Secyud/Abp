@@ -4,9 +4,9 @@
   <Import Project="..\..\..\..\common.test.props" />
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="$(DotnetVersion)" />
-    <PackageReference Include="Volo.Abp.Features" Version="$(AbpVersion)"/>
-    <PackageReference Include="Volo.Abp.GlobalFeatures" Version="$(AbpVersion)"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory"  />
+    <PackageReference Include="Volo.Abp.Features" />
+    <PackageReference Include="Volo.Abp.GlobalFeatures" />
   </ItemGroup>
 
   <ItemGroup>

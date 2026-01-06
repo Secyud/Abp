@@ -4,8 +4,10 @@ using Volo.Abp.Modularity;
 
 namespace Secyud.Abp.Permissions.EntityFrameworkCore;
 
-[DependsOn(typeof(AbpPermissionsDomainModule))]
-[DependsOn(typeof(AbpEntityFrameworkCoreModule))]
+[DependsOn(
+    typeof(AbpPermissionsDomainModule),
+    typeof(AbpEntityFrameworkCoreModule)
+)]
 public class AbpPermissionsEntityFrameworkCoreModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
@@ -14,7 +16,6 @@ public class AbpPermissionsEntityFrameworkCoreModule : AbpModule
         {
             options.AddDefaultRepositories<IPermissionsDbContext>();
 
-            options.AddRepository<PermissionGroupDefinitionRecord, EfCorePermissionGroupDefinitionRecordRepository>();
             options.AddRepository<PermissionDefinitionRecord, EfCorePermissionDefinitionRecordRepository>();
             options.AddRepository<PermissionGrant, EfCorePermissionGrantRepository>();
         });

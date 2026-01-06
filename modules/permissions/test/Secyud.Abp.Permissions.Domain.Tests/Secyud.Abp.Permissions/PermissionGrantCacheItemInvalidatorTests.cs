@@ -1,5 +1,4 @@
 ﻿using Shouldly;
-using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Caching;
 using Xunit;
 

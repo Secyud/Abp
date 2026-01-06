@@ -1,11 +1,11 @@
-﻿using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Localization.Resources.AbpUi;
+﻿using Localization.Resources.AbpUi;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Secyud.Secits.Blazor;
 using Secyud.Secits.Blazor.Element;
+using Volo.Abp.Application.Dtos;
+using Volo.Abp.Application.Services;
 using Volo.Abp.AspNetCore.Components;
 using Volo.Abp.Authorization;
 using Volo.Abp.Localization;
@@ -163,14 +163,11 @@ public abstract class AbpCrudPageBase<
     where TCreateViewModel : class, new()
     where TUpdateViewModel : class, new()
 {
-    [Inject]
-    protected TAppService AppService { get; set; } = default!;
+    [Inject] protected TAppService AppService { get; set; } = default!;
 
-    [Inject]
-    protected IStringLocalizer<AbpUiResource> UiLocalizer { get; set; } = null!;
+    [Inject] protected IStringLocalizer<AbpUiResource> UiLocalizer { get; set; } = null!;
 
-    [Inject]
-    public IAbpEnumLocalizer AbpEnumLocalizer { get; set; } = null!;
+    [Inject] public IAbpEnumLocalizer AbpEnumLocalizer { get; set; } = null!;
 
     protected TGetListInput GetListInput { get; set; } = new();
     protected TCreateViewModel CreateEntity { get; set; } = new();
@@ -305,8 +302,6 @@ public abstract class AbpCrudPageBase<
     {
         try
         {
-            await CheckCreatePolicyAsync();
-
             CreateEntity = new TCreateViewModel();
             if (CreateModal != null)
                 await CreateModal.ShowAsync();
@@ -342,8 +337,6 @@ public abstract class AbpCrudPageBase<
     {
         try
         {
-            await CheckUpdatePolicyAsync();
-
             var entityDto = await AppService.GetAsync(entity.Id);
 
             UpdateEntityId = entity.Id;
@@ -391,8 +384,6 @@ public abstract class AbpCrudPageBase<
             if (validate)
             {
                 await OnCreatingEntityAsync();
-
-                await CheckCreatePolicyAsync();
                 var createInput = MapToCreateInput(CreateEntity);
                 await AppService.CreateAsync(createInput);
 
@@ -432,8 +423,6 @@ public abstract class AbpCrudPageBase<
             if (validate)
             {
                 await OnUpdatingEntityAsync();
-
-                await CheckUpdatePolicyAsync();
                 var updateInput = MapToUpdateInput(UpdateEntity);
                 await AppService.UpdateAsync(UpdateEntityId, updateInput);
 
@@ -468,7 +457,6 @@ public abstract class AbpCrudPageBase<
     {
         try
         {
-            await CheckDeletePolicyAsync();
             await OnDeletingEntityAsync();
             await AppService.DeleteAsync(entity.Id);
             await OnDeletedEntityAsync();
@@ -499,37 +487,5 @@ public abstract class AbpCrudPageBase<
     protected virtual string GetDeleteConfirmationMessage(TListViewModel entity)
     {
         return UiLocalizer["ItemWillBeDeletedMessage"];
-    }
-
-    protected virtual async Task CheckCreatePolicyAsync()
-    {
-        await CheckPolicyAsync(CreatePolicyName);
-    }
-
-    protected virtual async Task CheckUpdatePolicyAsync()
-    {
-        await CheckPolicyAsync(UpdatePolicyName);
-    }
-
-    protected virtual async Task CheckDeletePolicyAsync()
-    {
-        await CheckPolicyAsync(DeletePolicyName);
-    }
-
-    /// <summary>
-    /// Calls IAuthorizationService.CheckAsync for the given <paramref name="policyName"/>.
-    /// Throws <see cref="AbpAuthorizationException"/> if given policy was not granted for the current user.
-    ///
-    /// Does nothing if <paramref name="policyName"/> is null or empty.
-    /// </summary>
-    /// <param name="policyName">A policy name to check</param>
-    protected virtual async Task CheckPolicyAsync(string? policyName)
-    {
-        if (string.IsNullOrEmpty(policyName))
-        {
-            return;
-        }
-
-        await AuthorizationService.CheckAsync(policyName);
     }
 }

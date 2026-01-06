@@ -1,5 +1,6 @@
 ﻿using Localization.Resources.AbpUi;
 using Microsoft.Extensions.DependencyInjection;
+using Secyud.Abp.HttpApi;
 using Secyud.Abp.Permissions.Localization;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Localization;
@@ -9,7 +10,7 @@ namespace Secyud.Abp.Permissions;
 
 [DependsOn(
     typeof(AbpPermissionsApplicationContractsModule),
-    typeof(AbpAspNetCoreMvcModule)
+    typeof(AbpHttpApiModule)
     )]
 public class AbpPermissionsHttpApiModule : AbpModule
 {

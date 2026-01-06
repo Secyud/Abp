@@ -8,24 +8,15 @@ using Volo.Abp.DependencyInjection;
 namespace Secyud.Abp.Secits.Blazor;
 
 [Dependency(ReplaceServices = true)]
-public class SecitsUiMessageService : IUiMessageService, IScopedDependency
+public class SecitsUiMessageService(IStringLocalizer<AbpUiResource> localizer)
+    : IUiMessageService, IScopedDependency
 {
     /// <summary>
     /// An event raised after the message is received. Used to notify the message dialog.
     /// </summary>
     public event EventHandler<UiMessageEventArgs>? MessageReceived ;
 
-    private readonly IStringLocalizer<AbpUiResource> _localizer;
-
-    public ILogger<SecitsUiMessageService> Logger { get; set; }
-
-    public SecitsUiMessageService(
-        IStringLocalizer<AbpUiResource> localizer)
-    {
-        this._localizer = localizer;
-
-        Logger = NullLogger<SecitsUiMessageService>.Instance;
-    }
+    public ILogger<SecitsUiMessageService> Logger { get; set; } = NullLogger<SecitsUiMessageService>.Instance;
 
     public Task Info(string message, string? title = null, Action<UiMessageOptions>? options = null)
     {
@@ -85,9 +76,9 @@ public class SecitsUiMessageService : IUiMessageService, IScopedDependency
         {
             CenterMessage = true,
             ShowMessageIcon = true,
-            OkButtonText = _localizer["Ok"],
-            CancelButtonText = _localizer["Cancel"],
-            ConfirmButtonText = _localizer["Yes"],
+            OkButtonText = localizer["Ok"],
+            CancelButtonText = localizer["Cancel"],
+            ConfirmButtonText = localizer["Yes"],
         };
     }
 }

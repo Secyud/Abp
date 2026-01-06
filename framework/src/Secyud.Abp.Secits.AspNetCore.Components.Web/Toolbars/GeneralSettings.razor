@@ -1,0 +1,115 @@
+﻿<div class="sc-general-setting" @onclick:stopPropagation>
+
+	@if (ThemeOptions.Value.Styles.Count > 1)
+	{
+		<div class="setting-icon" id="style">
+			<SIcon Class="anim" IconName="IconName.Laptop"
+			       Click="StyleMenuIconClick"/>
+		</div>
+	}
+
+	@if (Languages.Count > 1)
+	{
+		<div class="setting-icon" id="language">
+			<span class="s-icon anim"
+			      @onclick="LanguageMenuIconClick"
+			      @onclick:stopPropagation>
+				@CurrentLanguageTwoLetters
+			</span>
+		</div>
+	}
+
+	@GenerateContextMenu()
+
+</div>
+
+@code
+{
+	protected RenderFragment GenerateContextMenu()
+	{
+		return
+			@<SContextMenu @bind-Visible="ContextMenuVisible" Class="sc-menu" HideMode>
+				@if (ThemeOptions.Value.Styles.Count > 1)
+				{
+					@GenerateStyleMenu()
+				}
+
+				@if (Languages.Count > 1)
+				{
+					@GenerateLanguageMenu()
+				}
+			</SContextMenu>;
+	}
+
+	protected RenderFragment GenerateStyleMenu()
+	{
+		return __builder =>
+		{
+			<div class="s-menu outer">
+				<div class="menu-item" @onclick="StyleMenuClick">
+					<SIcon IconName="@IconName.Palette"/>
+					<span class="menu-item-text">@L["Appearance"]</span>
+					<SIcon IconName="@(StyleMenuVisible ? IconName.DownAngle : IconName.UpAngle)"/>
+				</div>
+			</div>
+
+			<div class="s-menu inner @(StyleMenuVisible ? "" : "collapsed")">
+				@foreach (var (styleName, style) in Styles)
+				{
+					@GenerateStyleSelection(styleName, style)
+				}
+			</div>
+		};
+	}
+
+	protected RenderFragment GenerateLanguageMenu()
+	{
+		return __builder =>
+		{
+			<div class="s-menu">
+				<div class="menu-item" @onclick="LanguageMenuClick">
+					<SIcon IconName="@IconName.Globe"/>
+					<span class="menu-item-text">@L["Language"]</span>
+					<SIcon IconName="@(LanguageMenuVisible ? IconName.DownAngle : IconName.UpAngle)"/>
+				</div>
+			</div>
+
+			<div class="s-menu inner @(LanguageMenuVisible ? "" : "collapsed")">
+				@foreach (var language in Languages)
+				{
+					@GenerateLanguageSelection(language)
+				}
+			</div>
+		};
+	}
+
+
+	protected RenderFragment GenerateStyleSelection(string styleName, SecitsThemeStyle style)
+	{
+		var selected = CurrentTheme == styleName;
+
+		return
+			@<div class="menu-item @(selected ? "selected" : "")"
+			      @onclick="@(() => ChangeThemeAsync(styleName))">
+				<SIcon IconName="@style.Icon"/>
+				<span class="menu-item-text ">
+					@style.DisplayName.Localize(LocalizerFactory).Value
+				</span>
+			</div>;
+	}
+
+	protected RenderFragment GenerateLanguageSelection(LanguageInfo language)
+	{
+		var selected = CurrentLanguage == language;
+		var culture = new CultureInfo(language.CultureName);
+		var languageName = $"{language.DisplayName} / {culture.TwoLetterISOLanguageName.ToUpper()}";
+
+		return
+			@<div class="menu-item @(selected ? "selected" : "")"
+			      @onclick="@(() => ChangeLanguageAsync(language))">
+				<span class="menu-item-text ">
+					@languageName
+				</span>
+			</div>;
+	}
+}

@@ -6,10 +6,9 @@ public class PermissionGrantInfoModel : PermissionGrantInfoDto, ITreeItem<Permis
 {
     public int Index { get; set; }
     public int Depth { get; set; }
-
     public bool IsExpended { get; set; }
     public bool IsChecked { get; set; }
-    public PermissionGroupInfoModel? Group { get; set; }
+    public PermissionGrantInfoModel? Group { get; set; }
     public PermissionGrantInfoModel? Parent { get; set; }
     public List<PermissionGrantInfoModel>? Children { get; set; }
 }

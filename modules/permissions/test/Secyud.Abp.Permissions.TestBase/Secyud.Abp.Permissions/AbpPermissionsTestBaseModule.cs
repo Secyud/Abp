@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Secyud.Abp.Authorization.Permissions;
 using Volo.Abp;
-using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Autofac;
 using Volo.Abp.Modularity;
 using Volo.Abp.Threading;
@@ -16,7 +16,7 @@ public class AbpPermissionsTestBaseModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        context.Services.Configure<AbpPermissionOptions>(options => { options.ValueProviders.Add<TestPermissionValueProvider>(); });
+        context.Services.Configure<AbpPermissionOptions>(options => { options.GrantProviders.Add<TestPermissionValueProvider>(); });
     }
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)

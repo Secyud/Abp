@@ -1,5 +1,4 @@
 ﻿using Shouldly;
-using Volo.Abp.Authorization.Permissions;
 using Xunit;
 
 namespace Secyud.Abp.Permissions;

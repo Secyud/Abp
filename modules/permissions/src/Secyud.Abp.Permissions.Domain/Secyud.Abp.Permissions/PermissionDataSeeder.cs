@@ -22,19 +22,15 @@ public class PermissionDataSeeder(
         IEnumerable<string> grantedPermissions,
         Guid? tenantId = null)
     {
-        using (CurrentTenant.Change(tenantId))
+        using var change = CurrentTenant.Change(tenantId);
+        using var tracking = PermissionGrantRepository.DisableTracking();
+        var names = grantedPermissions.ToArray();
+        var existsPermissionGrants = (await PermissionGrantRepository.GetListAsync(names, providerName, providerKey)).Select(x => x.Name).ToList();
+        var permissions = names.Except(existsPermissionGrants).Select(permissionName => new PermissionGrant(GuidGenerator.Create(), permissionName, providerName, providerKey, tenantId)).ToList();
+        if (permissions.Count == 0)
         {
-            using (PermissionGrantRepository.DisableTracking())
-            {
-                var names = grantedPermissions.ToArray();
-                var existsPermissionGrants = (await PermissionGrantRepository.GetListAsync(names, providerName, providerKey)).Select(x => x.Name).ToList();
-                var permissions = names.Except(existsPermissionGrants).Select(permissionName => new PermissionGrant(GuidGenerator.Create(), permissionName, providerName, providerKey, tenantId)).ToList();
-                if (!permissions.Any())
-                {
-                    return;
-                }
-                await PermissionGrantRepository.InsertManyAsync(permissions);
-            }
+            return;
         }
+        await PermissionGrantRepository.InsertManyAsync(permissions);
     }
 }

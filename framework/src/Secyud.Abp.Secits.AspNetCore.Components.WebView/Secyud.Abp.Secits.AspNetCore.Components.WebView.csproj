@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <Import Project="..\..\..\common.props"/>
+
+    <PropertyGroup>
+        <RootNamespace>Secyud.Abp.Secits.AspNetCore.Components</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Secyud.Abp.Secits.AspNetCore.Components.Web\Secyud.Abp.Secits.AspNetCore.Components.Web.csproj" />
+    </ItemGroup>
+
+</Project>

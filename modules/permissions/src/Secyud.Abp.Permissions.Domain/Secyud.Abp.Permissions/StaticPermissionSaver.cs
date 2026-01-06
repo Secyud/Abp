@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Options;
+using Secyud.Abp.Authorization.Permissions;
 using Volo.Abp;
-using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Caching;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.DistributedLocking;
@@ -10,45 +10,39 @@ using Volo.Abp.Uow;
 namespace Secyud.Abp.Permissions;
 
 public class StaticPermissionSaver(
-    IStaticPermissionDefinitionStore staticStore,
-    IPermissionGroupDefinitionRecordRepository permissionGroupRepository,
-    IPermissionDefinitionRecordRepository permissionRepository,
-    IPermissionGrantRepository grantRepository,
+    IPermissionDefinitionStore store,
+    IPermissionDefinitionRecordRepository permissionDefinitionRecordRepository,
+    IPermissionGrantRepository permissionGrantRepository,
     IPermissionDefinitionSerializer permissionSerializer,
     IOptions<AbpDistributedCacheOptions> cacheOptions,
     IApplicationInfoAccessor applicationInfoAccessor,
     IAbpDistributedLock distributedLock,
-    IOptions<AbpPermissionOptions> permissionOptions,
+    IOptions<PermissionsOptions> permissionsOptions,
     IUnitOfWorkManager unitOfWorkManager,
     IDistributedEventBus distributedEventBus)
     : IStaticPermissionSaver, ITransientDependency
 {
-    protected IStaticPermissionDefinitionStore StaticStore { get; } = staticStore;
-    protected IPermissionGroupDefinitionRecordRepository PermissionGroupRepository { get; } = permissionGroupRepository;
-    protected IPermissionDefinitionRecordRepository PermissionRepository { get; } = permissionRepository;
+    protected IPermissionDefinitionStore Store { get; } = store;
+    protected IPermissionDefinitionRecordRepository PermissionDefinitionRecordRepository { get; } = permissionDefinitionRecordRepository;
+    protected IPermissionGrantRepository PermissionGrantRepository { get; } = permissionGrantRepository;
     protected IPermissionDefinitionSerializer PermissionSerializer { get; } = permissionSerializer;
     protected IApplicationInfoAccessor ApplicationInfoAccessor { get; } = applicationInfoAccessor;
     protected IAbpDistributedLock DistributedLock { get; } = distributedLock;
-    protected AbpPermissionOptions PermissionOptions { get; } = permissionOptions.Value;
+    protected PermissionsOptions PermissionsOptions { get; } = permissionsOptions.Value;
     protected AbpDistributedCacheOptions CacheOptions { get; } = cacheOptions.Value;
     protected IUnitOfWorkManager UnitOfWorkManager { get; } = unitOfWorkManager;
     protected IDistributedEventBus DistributedEventBus { get; } = distributedEventBus;
 
     public async Task SaveAsync()
     {
-        await using var applicationLockHandle = await DistributedLock.TryAcquireAsync(
-            GetApplicationDistributedLockKey()
-        );
+        await using var applicationLockHandle = await DistributedLock
+            .TryAcquireAsync(GetApplicationDistributedLockKey());
 
         if (applicationLockHandle == null)
         {
             /* Another application instance is already doing it */
             return;
         }
-
-        var (permissionGroupRecords, permissionRecords) = await PermissionSerializer.SerializeAsync(
-            await StaticStore.GetGroupsAsync()
-        );
 
         await using var commonLockHandle = await DistributedLock.TryAcquireAsync(
             GetCommonDistributedLockKey(),
@@ -63,8 +57,7 @@ public class StaticPermissionSaver(
         using var unitOfWork = UnitOfWorkManager.Begin(requiresNew: true, isTransactional: true);
         try
         {
-            await UpdateChangedPermissionGroupsAsync(permissionGroupRecords);
-            await UpdateChangedPermissionsAsync(permissionRecords);
+            await UpdateChangedPermissionsAsync();
         }
         catch
         {
@@ -83,123 +76,72 @@ public class StaticPermissionSaver(
         await unitOfWork.CompleteAsync();
     }
 
-    private async Task UpdateChangedPermissionGroupsAsync(IEnumerable<PermissionGroupDefinitionRecord> groups)
+
+    private async Task UpdateChangedPermissionsAsync()
     {
-        var createRecords = new HashSet<PermissionGroupDefinitionRecord>();
-        var updateRecords = new HashSet<PermissionGroupDefinitionRecord>();
+        var permissions = await Store.GetPermissionsAsync();
 
-
-        var databaseGroupDict = (await PermissionGroupRepository.GetListAsync())
-            .ToDictionary(group => group.Name);
-        var deleteGroupKeys = PermissionOptions.DeletedPermissionGroups;
-
-        foreach (var group in groups)
-        {
-            var groupInDatabase = databaseGroupDict.GetOrDefault(group.Name);
-            if (groupInDatabase is null)
-            {
-                if (!deleteGroupKeys.Contains(group.Name))
-                    createRecords.Add(group);
-                continue;
-            }
-
-            if (group.HasSameData(groupInDatabase))
-            {
-                /* Not changed */
-                continue;
-            }
-
-            /* Changed */
-            groupInDatabase.Patch(group);
-            updateRecords.Add(groupInDatabase);
-        }
-
-        /* Deleted */
-        var deleteRecords = PermissionOptions.DeletedPermissionGroups.Count != 0
-            ? databaseGroupDict.Values.Where(x =>
-                    PermissionOptions.DeletedPermissionGroups.Contains(x.Name))
-                .ToList()
-            : [];
-
-        if (createRecords.Count != 0)
-        {
-            await PermissionGroupRepository.InsertManyAsync(createRecords);
-        }
-
-        if (updateRecords.Count != 0)
-        {
-            await PermissionGroupRepository.UpdateManyAsync(updateRecords);
-        }
-
-        if (deleteRecords.Count != 0)
-        {
-            await PermissionGroupRepository.DeleteManyAsync(deleteRecords);
-        }
-    }
-
-    private async Task UpdateChangedPermissionsAsync(IEnumerable<PermissionDefinitionRecord> permissions)
-    {
         var createRecords = new List<PermissionDefinitionRecord>();
         var updateRecords = new List<PermissionDefinitionRecord>();
+        var deleteRecords = new List<PermissionDefinitionRecord>();
 
-        var permissionsInDatabase = (await PermissionRepository.GetListAsync())
-            .ToDictionary(x => x.Name);
+        var permissionsInDatabase = new Dictionary<string, PermissionDefinitionRecord>();
+
+        foreach (var permission in permissions.Where(u => u.ParentName is null))
+        {
+            var list = await PermissionDefinitionRecordRepository.GetListAsync(permission.Name);
+            foreach (var record in list)
+            {
+                permissionsInDatabase[record.Name] = record;
+            }
+        }
 
         foreach (var permission in permissions)
         {
-            var permissionInDatabase = permissionsInDatabase.GetOrDefault(permission.Name);
-            if (permissionInDatabase == null)
+            var record = await PermissionSerializer.SerializeAsync(permission);
+            var permissionInDatabase = permissionsInDatabase.GetOrDefault(record.Name);
+            if (permissionInDatabase is null)
             {
                 /* New permission */
-                createRecords.Add(permission);
+                createRecords.Add(record);
                 continue;
             }
 
-            if (permission.HasSameData(permissionInDatabase))
+            if (record.HasSameData(permissionInDatabase))
             {
                 /* Not changed */
                 continue;
             }
 
             /* Changed */
-            permissionInDatabase.Patch(permission);
+            permissionInDatabase.Patch(record);
             updateRecords.Add(permissionInDatabase);
+            permissionsInDatabase.Remove(record.Name);
         }
 
-        /* Deleted */
-        var deleteRecords = new List<PermissionDefinitionRecord>();
-        var deleteGroupKeys = PermissionOptions.DeletedPermissionGroups;
-        var deletePermissionKeys = PermissionOptions.DeletedPermissions;
 
-        if (PermissionOptions.DeletedPermissions.Count != 0)
+        if (PermissionsOptions.UpdatePermissionsPrefixes is { Count: > 0 } prefixes)
         {
             deleteRecords.AddRange(permissionsInDatabase.Values
-                .Where(x => deletePermissionKeys.Contains(x.Name))
-            );
-        }
-
-        if (PermissionOptions.DeletedPermissionGroups.Count != 0)
-        {
-            deleteRecords.AddIfNotContains(permissionsInDatabase.Values
-                .Where(x => deleteGroupKeys.Contains(x.GroupName))
+                .Where(x => prefixes.Any(u => x.Name.StartsWith(u)))
             );
         }
 
         if (createRecords.Count != 0)
         {
-            await PermissionRepository.InsertManyAsync(createRecords);
+            await PermissionDefinitionRecordRepository.InsertManyAsync(createRecords);
         }
 
         if (updateRecords.Count != 0)
         {
-            await PermissionRepository.UpdateManyAsync(updateRecords);
+            await PermissionDefinitionRecordRepository.UpdateManyAsync(updateRecords);
         }
 
         if (deleteRecords.Count != 0)
         {
-            await PermissionRepository.DeleteManyAsync(deleteRecords);
+            await PermissionDefinitionRecordRepository.DeleteManyAsync(deleteRecords);
             var deletedPermissionNames = deleteRecords.Select(u => u.Name).ToList();
-            await grantRepository.DeleteDirectAsync(u => deletedPermissionNames.Contains(u.Name));
+            await PermissionGrantRepository.DeleteDirectAsync(u => deletedPermissionNames.Contains(u.Name));
         }
 
         if (createRecords.Count != 0 || updateRecords.Count != 0 || deleteRecords.Count != 0)

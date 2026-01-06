@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.Options;
+using Secyud.Abp.Authorization.Permissions;
 using Volo.Abp;
-using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Caching;
+using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.Uow;
 
@@ -11,19 +12,21 @@ namespace Secyud.Abp.Permissions;
 public class PermissionManager(
     IPermissionDefinitionRecordRepository permissionRepository,
     IPermissionGrantRepository grantRepository,
-    IPermissionGroupDefinitionRecordRepository groupRepository,
     IUnitOfWorkManager uowManager,
     IOptions<AbpPermissionOptions> options,
-    IDistributedCache<PermissionGrantCacheItem, PermissionGrantCacheKey> cache,
-    IServiceProvider serviceProvider) : DomainService, IPermissionManager
+    IDistributedCache<PermissionGrantCacheItem, PermissionGrantCacheKey> cache) : DomainService, IPermissionManager
 {
-    public IDistributedCache<PermissionGrantCacheItem, PermissionGrantCacheKey> Cache { get; } = cache;
+    protected IPermissionDefinitionRecordRepository PermissionRepository { get; } = permissionRepository;
+    protected IPermissionGrantRepository GrantRepository { get; } = grantRepository;
+    protected IUnitOfWorkManager UowManager { get; } = uowManager;
+    protected IDistributedCache<PermissionGrantCacheItem, PermissionGrantCacheKey> Cache { get; } = cache;
     protected AbpPermissionOptions Options { get; } = options.Value;
     protected List<string>? TotalProviders { get; set; }
 
-
     public virtual async Task<PermissionGrantInfo> GetAsync(string name, string providerName, string providerKey)
     {
+        using var tracing = PermissionRepository.DisableTracking();
+
         var query = await GetPermissionWithGrantQueryableAsync(providerName, providerKey,
             q => q
                 .Where(p => p.Name == name)
@@ -44,40 +47,30 @@ public class PermissionManager(
 
     public async Task<List<PermissionGrantInfo>> GetAsync(string[] names, string providerName, string providerKey)
     {
+        using var tracing = PermissionRepository.DisableTracking();
+
         var query = await GetPermissionWithGrantQueryableAsync(providerName, providerKey,
             q => q
-                .Where(p => names.Contains(p.Name))
+                .Where(p => ((IEnumerable<string>)names).Contains(p.Name))
         );
         var result = query.AsEnumerable().Select(MapToPermissionGrantInfo).ToList();
 
         return result;
     }
 
-    public virtual async Task<List<PermissionGrantInfo>> GetListAsync(string? groupName, string providerName, string providerKey)
+    public virtual async Task<List<PermissionGrantInfo>> GetListAsync(string providerName, string providerKey)
     {
-        var query = await GetPermissionWithGrantQueryableAsync(providerName, providerKey,
-            q => q
-                .WhereIf(!groupName.IsNullOrEmpty(), p => p.GroupName == groupName)
-        );
+        using var tracing = PermissionRepository.DisableTracking();
+
+        var query = await GetPermissionWithGrantQueryableAsync(providerName, providerKey);
 
         var result = query.AsEnumerable().Select(MapToPermissionGrantInfo).ToList();
 
         return result;
     }
 
-    public virtual async Task<List<PermissionGroupInfo>> GetGroupsAsync()
-    {
-        var groupQuery = await groupRepository.GetQueryableAsync();
-
-        var result = groupQuery.Select(u => new PermissionGroupInfo(u.Name)
-        {
-            DisplayName = u.DisplayName
-        }).ToList();
-
-        return result;
-    }
-
-    public virtual async Task UpdateAsync(string providerName, string providerKey, string[] grantedPermissions, string[] deniedPermissions)
+    public virtual async Task UpdateAsync(string providerName, string providerKey, string[] grantedPermissions,
+        string[] deniedPermissions)
     {
         CheckIfProviderExist(providerName);
 
@@ -117,11 +110,11 @@ public class PermissionManager(
                 totalGrants.Add(grant);
         }
 
-        await grantRepository.InsertManyAsync(insertGrants);
-        await grantRepository.DeleteManyAsync(deleteGrants);
+        await GrantRepository.InsertManyAsync(insertGrants);
+        await GrantRepository.DeleteManyAsync(deleteGrants);
 
-        if (uowManager.Current is not null)
-            await uowManager.Current.SaveChangesAsync();
+        if (UowManager.Current is not null)
+            await UowManager.Current.SaveChangesAsync();
 
         await ClearCacheAsync(totalGrants);
     }
@@ -129,7 +122,7 @@ public class PermissionManager(
     public virtual async Task DeleteAsync(string providerName, string providerKey)
     {
         CheckIfProviderExist(providerName);
-        await grantRepository.DeleteDirectAsync(u
+        await GrantRepository.DeleteDirectAsync(u
             => u.ProviderKey == providerKey && u.ProviderName == providerName);
     }
 
@@ -145,7 +138,7 @@ public class PermissionManager(
         var providers = GetTotalProviders();
         if (!providers.Contains(providerName))
         {
-            throw new BusinessException(AbpPermissionsErrorCodes.PermissionValueProviderNotFound,
+            throw new BusinessException(AbpPermissionsErrorCodes.PermissionProviderNotFound,
                     $"Unknown permission value provider: {providerName}")
                 .WithData("value", providerName);
         }
@@ -153,9 +146,9 @@ public class PermissionManager(
 
     protected List<string> GetTotalProviders()
     {
-        TotalProviders ??= Options.ValueProviders
-            .Select(serviceProvider.GetService)
-            .Cast<IPermissionValueProvider?>()
+        TotalProviders ??= Options.GrantProviders
+            .Select(t => LazyServiceProvider.GetService(t, (object)null!))
+            .Cast<IPermissionGrantProvider?>()
             .Where(u => u is not null)
             .Select(u => u!.Name).ToList();
 
@@ -178,40 +171,32 @@ public class PermissionManager(
         var permission = pwg.Permission;
         return new PermissionGrantInfo(pwg.Permission.Name, pwg.Grant is not null)
         {
-            IsEnabled = permission.IsEnabled,
-            GroupName = permission.GroupName,
             DisplayName = permission.DisplayName,
             ParentName = permission.ParentName,
             Providers = DeserializeProviders(permission.Providers)
         };
     }
 
-    private async Task<IQueryable<PermissionWithGrant>> GetPermissionWithGrantQueryableAsync(string providerName, string providerKey,
-        Func<IQueryable<PermissionDefinitionRecord>, IQueryable<PermissionDefinitionRecord>>? queryFunc)
+    private async Task<IQueryable<PermissionWithGrant>> GetPermissionWithGrantQueryableAsync(
+        string providerName, string providerKey,
+        Func<IQueryable<PermissionDefinitionRecord>, IQueryable<PermissionDefinitionRecord>>? queryFunc = null)
     {
-        var permissionQuery = await permissionRepository.GetQueryableAsync();
-        var grantQuery = await grantRepository.GetQueryableAsync();
-
-        permissionQuery = permissionQuery
-                .Where(p => p.IsDynamic)
-            ;
+        var permissionQuery = await PermissionRepository.GetQueryableAsync();
+        var grantQuery = await GrantRepository.GetQueryableAsync();
 
         if (queryFunc is not null)
             permissionQuery = queryFunc(permissionQuery);
 
         var query = from permission in permissionQuery
             join g in grantQuery on
-                new { permission.Name, ProviderName = providerName, ProviderKey = providerKey, TenantId = CurrentTenant.Id } equals
+                new
+                {
+                    permission.Name, ProviderName = providerName, ProviderKey = providerKey, TenantId = CurrentTenant.Id
+                } equals
                 new { g.Name, g.ProviderName, g.ProviderKey, g.TenantId } into grantGroup
             from grant in grantGroup.DefaultIfEmpty()
             select new PermissionWithGrant(permission, grant);
 
         return query;
-    }
-
-    private class PermissionWithGrant(PermissionDefinitionRecord permission, PermissionGrant? grant)
-    {
-        public PermissionDefinitionRecord Permission { get; set; } = permission;
-        public PermissionGrant? Grant { get; set; } = grant;
     }
 }

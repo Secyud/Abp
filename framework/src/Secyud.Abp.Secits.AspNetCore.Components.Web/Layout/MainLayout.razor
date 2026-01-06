@@ -1,0 +1,14 @@
+﻿@inherits LayoutComponentBase
+
+<LayoutContainer>
+    <div class="sc-container scrollable">
+        <LayoutHook Name="@Volo.Abp.Ui.LayoutHooks.LayoutHooks.Body.First"
+                    Layout="@StandardLayouts.Application" />
+        @Body
+        <LayoutHook Name="@Volo.Abp.Ui.LayoutHooks.LayoutHooks.Body.Last"
+                    Layout="@StandardLayouts.Application" />
+        <DynamicLayoutComponent />
+
+        <MainLayoutFooter />
+    </div>
+</LayoutContainer>

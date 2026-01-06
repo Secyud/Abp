@@ -3,7 +3,7 @@
   <Import Project="..\..\common.props" />
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.Http.Client" Version="$(AbpVersion)"/>
+    <PackageReference Include="Volo.Abp.Http.Client" />
     <ProjectReference Include="..\Secyud.Abp.Permissions.Application.Contracts\Secyud.Abp.Permissions.Application.Contracts.csproj" />
   </ItemGroup>
   

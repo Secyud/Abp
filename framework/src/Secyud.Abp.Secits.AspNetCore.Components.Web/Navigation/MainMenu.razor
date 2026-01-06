@@ -1,0 +1,100 @@
+﻿@inherits AbpComponentBase
+
+<div class="sc-menu" id="main-menu">
+    @if (Menu is not null)
+    {
+        @foreach (var menuItem in Menu.Items)
+        {
+            @GenerateMenuItemTree(menuItem)
+        }
+    }
+</div>
+
+
+@code{
+
+    protected virtual RenderFragment GenerateMenuItemTree(MenuItemViewModel model, bool outer = false)
+    {
+        var cssClass = "s-menu";
+        if (outer)
+        {
+            cssClass += " outer";
+        }
+        else
+        {
+            cssClass += " inner";
+            if (!model.IsOpen)
+                cssClass += "collapsed";
+        }
+
+        if (!model.CssClass.IsNullOrWhiteSpace())
+        {
+            cssClass += " " + model.CssClass;
+        }
+
+        return
+            @<div class="@cssClass" id="@model.ElementId">
+                @if (model.ComponentType is not null)
+                {
+                    if (!model.IsLeaf)
+                    {
+                        <DynamicComponent Type="@model.ComponentType"
+                                          @onclick="@(() => ToggleMenuAsync(model))"/>
+                    }
+
+                    if (typeof(ComponentBase).IsAssignableFrom(model.ComponentType))
+                    {
+                        <DynamicComponent Type="@model.ComponentType"/>
+                    }
+                }
+                else
+                {
+                    @GenerateMenuItem(model)
+                }
+
+                @if (!model.IsLeaf)
+                {
+                    @foreach (var child in model.Children)
+                    {
+                        @GenerateMenuItemTree(child)
+                    }
+                }
+            </div>;
+    }
+
+
+    protected virtual RenderFragment GenerateMenuItem(MenuItemViewModel model)
+    {
+        var cssClass = "menu-item";
+
+        if (model.IsActive) cssClass += " selected";
+        if (!model.CssClass.IsNullOrWhiteSpace())
+            cssClass += " " + model.CssClass;
+
+        var url = model.Url is null ? "#" : model.Url.TrimStart('/', '~');
+
+        if (model.IsLeaf)
+            return
+                @<a href="@url" target="@model.Target" id="@model.ElementId" class="@cssClass">
+                    @if (!model.Icon.IsNullOrEmpty())
+                    {
+                        <SIcon IconName="@model.Icon"/>
+                    }
+
+                    <div class="menu-item-text">@model.DisplayName</div>
+                </a>;
+
+        return
+            @<a id="@model.ElementId" class="@cssClass"
+                @onclick="@(() => ToggleMenuAsync(model))">
+                @if (!model.Icon.IsNullOrEmpty())
+                {
+                    <SIcon IconName="@model.Icon"/>
+                }
+
+                <div class="menu-item-text">@model.DisplayName</div>
+                <SIcon IconName="@(model.IsOpen ? IconName.DownAngle : IconName.UpAngle)"/>
+            </a>;
+    }
+
+}

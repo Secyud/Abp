@@ -1,11 +1,15 @@
-﻿using Volo.Abp.Authorization.Permissions;
+﻿using Secyud.Abp.Authorization.Permissions;
 using Volo.Abp.MultiTenancy;
 
 namespace Secyud.Abp.Permissions;
 
-public class TestPermissionDefinitionProvider : PermissionDefinitionProvider
+public class TestPermissionDefinitionProvider : IPermissionDefinitionProvider
 {
-    public override void Define(IPermissionDefinitionContext context)
+    public void PreDefine(PermissionDefinitionContext context)
+    {
+    }
+
+    public void Define(PermissionDefinitionContext context)
     {
         var testGroup = context.AddGroup("TestGroup");
 
@@ -17,7 +21,8 @@ public class TestPermissionDefinitionProvider : PermissionDefinitionProvider
 
         testGroup.AddPermission("MyPermission3", multiTenancySide: MultiTenancySides.Host);
 
-        testGroup.AddPermission("MyPermission4", multiTenancySide: MultiTenancySides.Host).WithProviders(UserPermissionValueProvider.ProviderName);
+        testGroup.AddPermission("MyPermission4", multiTenancySide: MultiTenancySides.Host)
+            .WithProviders(UserPermissionValueProvider.ProviderName);
 
         var myPermission5 = testGroup.AddPermission("MyPermission5");
         myPermission5.StateCheckers.Add(new TestRequireRolePermissionStateProvider("super-admin"));
@@ -35,5 +40,9 @@ public class TestPermissionDefinitionProvider : PermissionDefinitionProvider
         var testGroup2 = context.AddGroup("TestGroup2");
         testGroup2.AddPermission("MyPermission7");
         testGroup2.AddPermission("MyPermission8");
+    }
+
+    public void PostDefine(PermissionDefinitionContext context)
+    {
     }
 }

@@ -5,14 +5,14 @@
   <PropertyGroup>
     <RootNamespace>Secyud.Abp.Permissions</RootNamespace>
   </PropertyGroup>
-  
+
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.AutoMapper" Version="$(AbpVersion)" />    
+    <PackageReference Include="Volo.Abp.AutoMapper"/>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\framework\src\Secyud.Abp.AspNetCore.Components.Web.Theming\Secyud.Abp.AspNetCore.Components.Web.Theming.csproj" />
+    <ProjectReference Include="..\..\..\..\framework\src\Secyud.Abp.Secits.AspNetCore.Components.Web\Secyud.Abp.Secits.AspNetCore.Components.Web.csproj"/>
     <ProjectReference Include="..\Secyud.Abp.Permissions.Application.Contracts\Secyud.Abp.Permissions.Application.Contracts.csproj"/>
   </ItemGroup>
-  
+
 </Project>

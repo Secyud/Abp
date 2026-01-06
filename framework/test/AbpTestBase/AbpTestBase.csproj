@@ -1,11 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="..\..\..\common.props" />
-  <Import Project="..\..\..\common.test.props" />
-
-
-  <ItemGroup>
-      <PackageReference Include="coverlet.collector" Version="6.0.2"/>
-  </ItemGroup>
+    <PropertyGroup>
+        <ProjectInfo>App</ProjectInfo>
+    </PropertyGroup>
+    
+    <Import Project="..\..\..\common.props"/>
+    <Import Project="..\..\..\common.test.props"/>
 
 </Project>

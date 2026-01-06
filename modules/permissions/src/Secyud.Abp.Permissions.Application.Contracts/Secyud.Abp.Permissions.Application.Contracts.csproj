@@ -3,10 +3,8 @@
   <Import Project="..\..\common.props" />
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.Ddd.Application.Contracts" Version="$(AbpVersion)" />
-    <PackageReference Include="Volo.Abp.Authorization" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.Ddd.Application.Contracts"/>
     <ProjectReference Include="..\Secyud.Abp.Permissions.Domain.Shared\Secyud.Abp.Permissions.Domain.Shared.csproj" />
-    <ProjectReference Include="..\..\..\..\framework\src\Secyud.Abp.Permissions\Secyud.Abp.Permissions.csproj" />
   </ItemGroup>
 
 </Project>
