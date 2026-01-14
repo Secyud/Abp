@@ -15,8 +15,4 @@
         <ProjectReference Include="..\Secyud.Abp.Secits.AspNetCore.Components.Web\Secyud.Abp.Secits.AspNetCore.Components.Web.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Theming\" />
-    </ItemGroup>
-
 </Project>

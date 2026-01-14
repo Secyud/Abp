@@ -1,5 +1,6 @@
 ﻿using Secyud.Abp.Authorization;
 using Volo.Abp;
+using Volo.Abp.Authorization;
 
 namespace Microsoft.AspNetCore.Authorization;
 
@@ -44,8 +45,7 @@ public static class AbpAuthorizationServiceExtensions
             );
         }
 
-        public async Task<AuthorizationResult> AuthorizeAsync(object resource,
-            IEnumerable<IAuthorizationRequirement> requirements)
+        public async Task<AuthorizationResult> AuthorizeAsync(object resource, IEnumerable<IAuthorizationRequirement> requirements)
         {
             return await authorizationService.AuthorizeAsync(
                 authorizationService.AsAbpAuthorizationService().CurrentPrincipal,
@@ -108,10 +108,101 @@ public static class AbpAuthorizationServiceExtensions
             return (await authorizationService.AuthorizeAsync(resource, policyName)).Succeeded;
         }
 
+        /// <summary>
+        /// Checks if CurrentPrincipal meets a specific authorization policy, throwing an <see cref="AbpAuthorizationException"/> if not.
+        /// </summary>
+        /// <param name="policyName">The name of the policy to evaluate.</param>
+        public async Task CheckAsync(string policyName)
+        {
+            if (!await authorizationService.IsGrantedAsync(policyName))
+            {
+                throw new AbpAuthorizationException(code:
+                        AbpAuthorizationErrorCodes.GivenPolicyHasNotGrantedWithPolicyName)
+                    .WithData("PolicyName", policyName);
+            }
+        }
+
+        /// <summary>
+        /// Checks if CurrentPrincipal meets a specific requirement for the specified resource, throwing an <see cref="AbpAuthorizationException"/> if not.
+        /// </summary>
+        /// <param name="resource">The resource to evaluate the policy against.</param>
+        /// <param name="requirement">The requirement to evaluate the policy against.</param>
+        public async Task CheckAsync(object resource, IAuthorizationRequirement requirement)
+        {
+            if (!await authorizationService.IsGrantedAsync(resource, requirement))
+            {
+                throw new AbpAuthorizationException(code:
+                        AbpAuthorizationErrorCodes.GivenRequirementHasNotGrantedForGivenResource)
+                    .WithData("ResourceName", resource);
+            }
+        }
+
+        /// <summary>
+        /// Checks if CurrentPrincipal meets a specific authorization policy against the specified resource, throwing an <see cref="AbpAuthorizationException"/> if not.
+        /// </summary>
+        /// <param name="resource">The resource to evaluate the policy against.</param>
+        /// <param name="policy">The policy to evaluate.</param>
+        public async Task CheckAsync(object resource, AuthorizationPolicy policy)
+        {
+            if (!await authorizationService.IsGrantedAsync(resource, policy))
+            {
+                throw new AbpAuthorizationException(code: 
+                        AbpAuthorizationErrorCodes.GivenPolicyHasNotGrantedForGivenResource)
+                    .WithData("ResourceName", resource);
+            }
+        }
+
+        /// <summary>
+        /// Checks if CurrentPrincipal meets a specific authorization policy, throwing an <see cref="AbpAuthorizationException"/> if not.
+        /// </summary>
+        /// <param name="policy">The policy to evaluate.</param>
+        public async Task CheckAsync(AuthorizationPolicy policy)
+        {
+            if (!await authorizationService.IsGrantedAsync(policy))
+            {
+                throw new AbpAuthorizationException(code: 
+                    AbpAuthorizationErrorCodes.GivenPolicyHasNotGranted);
+            }
+        }
+
+        /// <summary>
+        /// Checks if CurrentPrincipal meets a specific authorization policy against the specified resource, throwing an <see cref="AbpAuthorizationException"/> if not.
+        /// </summary>
+        /// <param name="resource">The resource to evaluate the policy against.</param>
+        /// <param name="requirements">The requirements to evaluate the policy against.</param>
+        public async Task CheckAsync(object resource, IEnumerable<IAuthorizationRequirement> requirements)
+        {
+            if (!await authorizationService.IsGrantedAsync(resource, requirements))
+            {
+                throw new AbpAuthorizationException(code: 
+                        AbpAuthorizationErrorCodes.GivenRequirementsHasNotGrantedForGivenResource)
+                    .WithData("ResourceName", resource);
+            }
+        }
+
+        /// <summary>
+        /// Checks if CurrentPrincipal meets a specific authorization policy against the specified resource, throwing an <see cref="AbpAuthorizationException"/> if not.
+        /// </summary>
+        /// <param name="resource">The resource to evaluate the policy against.</param>
+        /// <param name="policyName">The name of the policy to evaluate.</param>
+        public async Task CheckAsync(object resource, string policyName)
+        {
+            if (!await authorizationService.IsGrantedAsync(resource, policyName))
+            {
+                throw new AbpAuthorizationException(code: 
+                        AbpAuthorizationErrorCodes.GivenPolicyHasNotGrantedForGivenResource)
+                    .WithData("ResourceName", resource);
+            }
+        }
+
         private IAbpAuthorizationService AsAbpAuthorizationService()
         {
-            return authorizationService as IAbpAuthorizationService ?? throw new AbpException(
-                $"{nameof(authorizationService)} should implement {typeof(IAbpAuthorizationService).FullName}");
+            if (!(authorizationService is IAbpAuthorizationService abpAuthorizationService))
+            {
+                throw new AbpException($"{nameof(authorizationService)} should implement {typeof(IAbpAuthorizationService).FullName}");
+            }
+
+            return abpAuthorizationService;
         }
     }
 }

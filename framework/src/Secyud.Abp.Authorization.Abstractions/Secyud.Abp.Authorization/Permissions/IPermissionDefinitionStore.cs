@@ -2,8 +2,7 @@
 
 public interface IPermissionDefinitionStore
 {
-    Task<IPermissionDefinition?> GetOrNullAsync(string name);
-
-    Task<IReadOnlyList<IPermissionDefinition>> GetPermissionsAsync();
-    Task<IReadOnlyList<IPermissionDefinition>> GetGroupsAsync();
+    Task<PermissionDefinition?> GetOrNullAsync(string name);
+    Task<IReadOnlyList<PermissionDefinition>> GetPermissionsAsync();
+    Task<IReadOnlyList<PermissionGroupDefinition>> GetGroupsAsync();
 }

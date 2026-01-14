@@ -8,11 +8,11 @@ namespace Secyud.Abp.Authorization.Permissions;
 
 public class PermissionDefinitionStore : IPermissionDefinitionStore, ISingletonDependency
 {
-    protected IDictionary<string, IPermissionDefinition> PermissionGroupDefinitions => _lazyPermissionGroupDefinitions.Value;
-    private readonly Lazy<Dictionary<string, IPermissionDefinition>> _lazyPermissionGroupDefinitions;
+    protected IDictionary<string, PermissionGroupDefinition> PermissionGroupDefinitions => _lazyPermissionGroupDefinitions.Value;
+    private readonly Lazy<Dictionary<string, PermissionGroupDefinition>> _lazyPermissionGroupDefinitions;
 
-    protected IDictionary<string, IPermissionDefinition> PermissionDefinitions => _lazyPermissionDefinitions.Value;
-    private readonly Lazy<Dictionary<string, IPermissionDefinition>> _lazyPermissionDefinitions;
+    protected IDictionary<string, PermissionDefinition> PermissionDefinitions => _lazyPermissionDefinitions.Value;
+    private readonly Lazy<Dictionary<string, PermissionDefinition>> _lazyPermissionDefinitions;
 
     protected AbpPermissionOptions Options { get; }
 
@@ -25,24 +25,24 @@ public class PermissionDefinitionStore : IPermissionDefinitionStore, ISingletonD
         _serviceProvider = serviceProvider;
         Options = options.Value;
 
-        _lazyPermissionDefinitions = new Lazy<Dictionary<string, IPermissionDefinition>>(
+        _lazyPermissionDefinitions = new Lazy<Dictionary<string, PermissionDefinition>>(
             CreatePermissionDefinitions,
             isThreadSafe: true
         );
 
-        _lazyPermissionGroupDefinitions = new Lazy<Dictionary<string, IPermissionDefinition>>(
+        _lazyPermissionGroupDefinitions = new Lazy<Dictionary<string, PermissionGroupDefinition>>(
             CreatePermissionGroupDefinitions,
             isThreadSafe: true
         );
     }
     
-    protected virtual Dictionary<string, IPermissionDefinition> CreatePermissionDefinitions()
+    protected virtual Dictionary<string, PermissionDefinition> CreatePermissionDefinitions()
     {
-        var permissions = new Dictionary<string, IPermissionDefinition>();
+        var permissions = new Dictionary<string, PermissionDefinition>();
 
         foreach (var groupDefinition in PermissionGroupDefinitions.Values)
         {
-            foreach (var permission in groupDefinition.Children)
+            foreach (var permission in groupDefinition.Permissions)
             {
                 AddPermissionToDictionaryRecursively(permissions, permission);
             }
@@ -52,8 +52,8 @@ public class PermissionDefinitionStore : IPermissionDefinitionStore, ISingletonD
     }
 
     protected virtual void AddPermissionToDictionaryRecursively(
-        Dictionary<string, IPermissionDefinition> permissions,
-        IPermissionDefinition permission)
+        Dictionary<string, PermissionDefinition> permissions,
+        PermissionDefinition permission)
     {
         if (!permissions.TryAdd(permission.Name, permission))
         {
@@ -66,7 +66,7 @@ public class PermissionDefinitionStore : IPermissionDefinitionStore, ISingletonD
         }
     }
 
-    protected virtual Dictionary<string, IPermissionDefinition> CreatePermissionGroupDefinitions()
+    protected virtual Dictionary<string, PermissionGroupDefinition> CreatePermissionGroupDefinitions()
     {
         using var scope = _serviceProvider.CreateScope();
         var context = new PermissionDefinitionContext(scope.ServiceProvider);
@@ -94,21 +94,21 @@ public class PermissionDefinitionStore : IPermissionDefinitionStore, ISingletonD
         return context.Groups;
     }
 
-    public virtual Task<IPermissionDefinition?> GetOrNullAsync(string name)
+    public virtual Task<PermissionDefinition?> GetOrNullAsync(string name)
     {
         return Task.FromResult(PermissionDefinitions.GetOrDefault(name));
     }
     
-    public virtual Task<IReadOnlyList<IPermissionDefinition>> GetPermissionsAsync()
+    public virtual Task<IReadOnlyList<PermissionDefinition>> GetPermissionsAsync()
     {
-        return Task.FromResult<IReadOnlyList<IPermissionDefinition>>(
+        return Task.FromResult<IReadOnlyList<PermissionDefinition>>(
             PermissionDefinitions.Values.ToImmutableList()
         );
     }
 
-    public virtual Task<IReadOnlyList<IPermissionDefinition>> GetGroupsAsync()
+    public virtual Task<IReadOnlyList<PermissionGroupDefinition>> GetGroupsAsync()
     {
-        return Task.FromResult<IReadOnlyList<IPermissionDefinition>>(
+        return Task.FromResult<IReadOnlyList<PermissionGroupDefinition>>(
             PermissionGroupDefinitions.Values.ToImmutableList()
         );
     }

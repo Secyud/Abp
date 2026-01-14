@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <Import Project="..\..\..\common.props"/>
+
+    <ItemGroup>
+        <PackageReference Include="Volo.Abp.Localization"/>
+        <PackageReference Include="Volo.Abp.MultiTenancy"/>
+        <PackageReference Include="Volo.Abp.Validation"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Secyud.Abp.Authorization.Abstractions\Secyud.Abp.Authorization.Abstractions.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="Secyud\Abp\Features\Localization\*.json" />
+        <EmbeddedResource Include="Secyud\Abp\Features\Localization\*.json" />
+    </ItemGroup>
+    
+</Project>

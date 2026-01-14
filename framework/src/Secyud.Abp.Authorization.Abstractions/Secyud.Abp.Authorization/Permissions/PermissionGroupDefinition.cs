@@ -1,32 +1,70 @@
 ﻿using System.Collections.Immutable;
 using Volo.Abp.Localization;
+using Volo.Abp.MultiTenancy;
 
 namespace Secyud.Abp.Authorization.Permissions;
 
-public class PermissionGroupDefinition<TResource>(
-    string name,
-    string? displayName) : IPermissionGroupDefinition
+public class PermissionGroupDefinition(string name) : IWithPermissions
 {
-    private readonly List<IPermissionDefinition> _permissions = [];
+    private readonly List<PermissionDefinition> _permissions = [];
 
     /// <summary>
     /// Unique name of the group.
     /// </summary>
     public string Name { get; } = name;
 
-    public ILocalizableString DisplayName =>
-        field ??= LocalizableString.Create<TResource>($"Permission:{displayName ?? Name}");
+    public required ILocalizableString DisplayName { get; set; }
 
-    public IReadOnlyList<IPermissionDefinition> Permissions => _permissions.ToImmutableList();
+    public IReadOnlyList<PermissionDefinition> Permissions => _permissions.ToImmutableList();
+
     public Dictionary<string, object?> Properties { get; } = [];
 
-    internal void AddPermission(PermissionDefinition<TResource> permission)
+    public object? this[string name]
     {
-        _permissions.Add(permission);
+        get => Properties.GetValueOrDefault(name);
+        set => Properties[name] = value;
     }
 
-    internal void RemovePermission(PermissionDefinition<TResource> permission)
+    public virtual PermissionGroupDefinition WithProperty(string key, object value)
     {
-        _permissions.Remove(permission);
+        Properties[key] = value;
+        return this;
+    }
+
+    public PermissionDefinition AddPermission(string permissionName, ILocalizableString? displayName = null,
+        MultiTenancySides multiTenancySide = MultiTenancySides.Both)
+    {
+        var permission = new PermissionDefinition(permissionName, this, null)
+        {
+            DisplayName = displayName ?? new FixedLocalizableString(
+                PermissionDefinitionExtensions.CreateLocalizableStringKey(permissionName)),
+            MultiTenancySide = multiTenancySide,
+        };
+        
+        _permissions.Add(permission);
+        return permission;
+    }
+
+    public bool RemovePermission(string permissionName, bool recurse)
+    {
+        var index = _permissions.FindIndex(u => u.Name == permissionName);
+        if (index >= 0)
+        {
+            _permissions.RemoveAt(index);
+            return true;
+        }
+
+        if (recurse)
+        {
+            foreach (var permission in _permissions)
+            {
+                if (permission.RemovePermission(permissionName, true))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

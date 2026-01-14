@@ -2,9 +2,12 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Secyud.Abp.Authorization.Permissions;
+using Volo.Abp.Localization;
+using Volo.Abp.Localization.ExceptionHandling;
 using Volo.Abp.Modularity;
 using Volo.Abp.MultiTenancy;
 using Volo.Abp.Security;
+using Volo.Abp.VirtualFileSystem;
 
 namespace Secyud.Abp.Authorization;
 
@@ -29,6 +32,30 @@ public class AbpAuthorizationModule : AbpModule
         context.Services.AddSingleton<IAuthorizationHandler, PermissionsRequirementHandler>();
 
         context.Services.TryAddTransient<DefaultAuthorizationPolicyProvider>();
+
+        Configure<AbpPermissionOptions>(options =>
+        {
+            options.ValueProviders.Add<UserPermissionValueProvider>();
+            options.ValueProviders.Add<RolePermissionValueProvider>();
+            options.ValueProviders.Add<ClientPermissionValueProvider>();
+        });
+
+        Configure<AbpVirtualFileSystemOptions>(options =>
+        {
+            options.FileSets.AddEmbedded<AbpAuthorizationResource>();
+        });
+
+        Configure<AbpLocalizationOptions>(options =>
+        {
+            options.Resources
+                .Add<AbpAuthorizationResource>("en")
+                .AddVirtualJson("/Secyud/Abp/Authorization/Localization");
+        });
+
+        Configure<AbpExceptionLocalizationOptions>(options =>
+        {
+            options.MapCodeNamespace("Secyud.Authorization", typeof(AbpAuthorizationResource));
+        });
     }
 
     private static void AutoAddDefinitionProviders(IServiceCollection services)

@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <Import Project="..\..\..\common.props"/>
+
+    <ItemGroup>
+        <PackageReference Include="Volo.Abp.Localization"/>
+        <PackageReference Include="Volo.Abp.VirtualFileSystem"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Secyud.Abp.Authorization.Abstractions\Secyud.Abp.Authorization.Abstractions.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="Secyud\Abp\GlobalFeatures\Localization\*.json" />
+        <EmbeddedResource Include="Secyud\Abp\GlobalFeatures\Localization\*.json" />
+    </ItemGroup>
+
+</Project>

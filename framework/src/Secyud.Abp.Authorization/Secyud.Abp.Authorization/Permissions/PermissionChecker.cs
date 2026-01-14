@@ -10,17 +10,17 @@ namespace Secyud.Abp.Authorization.Permissions;
 
 public class PermissionChecker(
     ICurrentPrincipalAccessor principalAccessor,
-    IPermissionDefinitionManager permissionDefinitionManager,
     ICurrentTenant currentTenant,
-    IPermissionGrantProviderManager permissionGrantProviderManager,
-    ISimpleStateCheckerManager<IPermissionDefinition> stateCheckerManager)
+    PermissionDefinitionManager permissionDefinitionManager,
+    IPermissionValueProviderManager permissionValueProviderManager,
+    ISimpleStateCheckerManager<PermissionDefinition> stateCheckerManager)
     : IPermissionChecker, ITransientDependency
 {
-    protected IPermissionDefinitionManager PermissionDefinitionManager { get; } = permissionDefinitionManager;
+    protected PermissionDefinitionManager PermissionDefinitionManager { get; } = permissionDefinitionManager;
     protected ICurrentPrincipalAccessor PrincipalAccessor { get; } = principalAccessor;
     protected ICurrentTenant CurrentTenant { get; } = currentTenant;
-    protected IPermissionGrantProviderManager PermissionGrantProviderManager { get; } = permissionGrantProviderManager;
-    protected ISimpleStateCheckerManager<IPermissionDefinition> StateCheckerManager { get; } = stateCheckerManager;
+    protected IPermissionValueProviderManager PermissionValueProviderManager { get; } = permissionValueProviderManager;
+    protected ISimpleStateCheckerManager<PermissionDefinition> StateCheckerManager { get; } = stateCheckerManager;
 
     public virtual async Task<PermissionGrantResult> IsGrantedAsync(string name)
     {
@@ -53,8 +53,8 @@ public class PermissionChecker(
         }
 
         var res = PermissionGrantResult.Unset;
-        var context = new PermissionGrantCheckContext(permission, claimsPrincipal);
-        foreach (var provider in PermissionGrantProviderManager.ValueProviders)
+        var context = new PermissionValueCheckContext(permission, claimsPrincipal);
+        foreach (var provider in PermissionValueProviderManager.ValueProviders)
         {
             if (context.Permission.Providers.Count != 0 &&
                 !context.Permission.Providers.Contains(provider.Name))
@@ -93,7 +93,7 @@ public class PermissionChecker(
         var multiTenancySide = claimsPrincipal?.GetMultiTenancySide() ??
                                CurrentTenant.GetMultiTenancySide();
 
-        var permissionDefinitions = new List<IPermissionDefinition>();
+        var permissionDefinitions = new List<PermissionDefinition>();
         foreach (var name in names)
         {
             var permission = await PermissionDefinitionManager.GetOrNullAsync(name);
@@ -112,7 +112,7 @@ public class PermissionChecker(
             }
         }
 
-        foreach (var provider in PermissionGrantProviderManager.ValueProviders)
+        foreach (var provider in PermissionValueProviderManager.ValueProviders)
         {
             var permissions = permissionDefinitions
                 .Where(x => !x.Providers.Any() || x.Providers.Contains(provider.Name))

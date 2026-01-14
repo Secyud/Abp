@@ -38,52 +38,24 @@ public static class ApplicationMenuExtensions
 
             return menu.Items.RemoveAll(item => item.Name == menuItemName) > 0;
         }
-
-        public ApplicationMenuItem AddItem(IStringLocalizer localizer, string name,
-            string? displayName = null, string? icon = null, int order = 1000)
-        {
-            var item = new ApplicationMenuItem(name,
-                localizer[$"Menu:{displayName ?? name}"], icon, order);
-            menu.Items.Add(item);
-            return item;
-        }
-
-        public ApplicationMenuLeafItem AddLeaf(IStringLocalizer localizer, string name, string url,
-            string? displayName = null, string? icon = null, int order = 1000)
-        {
-            var item = new ApplicationMenuLeafItem(name,
-                localizer[$"Menu:{displayName ?? name}"], url, icon, order);
-            menu.Items.Add(item);
-            return item;
-        }
     }
 
     public const string CustomDataComponentKey = "ApplicationMenu.CustomComponent";
 
+    extension(IWithMenuItems withMenuItems)
+    {
+        public ApplicationMenuItem AddLeaf(IStringLocalizer localizer, string name, string url,
+            string? displayName = null, string? icon = null, int order = 1000)
+        {
+            var item = withMenuItems.AddItem(localizer, name, displayName, icon, order);
+            item.IsLeaf = true;
+            item.Url = url;
+            return item;
+        }
+    }
+
     extension(ApplicationMenuItem menuItem)
     {
-        public ApplicationMenuItem AddItem(IStringLocalizer localizer, string name,
-            string? displayName = null, string? icon = null, int order = 1000)
-        {
-            var item = new ApplicationMenuItem(
-                $"{menuItem.Name}.{name}",
-                localizer[$"Menu:{displayName ?? name}"],
-                icon, order, menuItem);
-            menuItem.Items.Add(item);
-            return item;
-        }
-
-        public ApplicationMenuLeafItem AddLeaf(IStringLocalizer localizer, string name, string url,
-            string? displayName = null, string? icon = null, int order = 1000)
-        {
-            var item = new ApplicationMenuLeafItem(
-                $"{menuItem.Name}.{name}",
-                localizer[$"Menu:{displayName ?? name}"],
-                url, icon, order, menuItem);
-            menuItem.Items.Add(item);
-            return item;
-        }
-
         public ApplicationMenuItem UseComponent<TComponent>()
         {
             return menuItem.UseComponent(typeof(TComponent));

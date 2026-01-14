@@ -1,0 +1,54 @@
+﻿@using Secyud.Secits.Blazor.Icons
+@namespace Secyud.Abp.Permissions.Components
+@inherits AbpComponentBase
+@typeparam TPermissionAppService
+
+<SPopup @ref="Modal">
+    <SCard>
+        <Header>
+            @L["Permissions"] - @EntityDisplayName
+            <SIcon IconName="@IconName.Cross" Click="CloseModalAsync"></SIcon>
+        </Header>
+
+        <Body>
+        @GenerateBody()
+        </Body>
+
+        <Footer>
+            <CancelButton Click="@CloseModalAsync"/>
+            <SubmitButton Click="@SaveAsync"/>
+        </Footer>
+    </SCard>
+</SPopup>
+
+
+@code
+{
+    protected virtual RenderFragment? GenerateBody()
+    {
+        if (Groups is null) return null;
+
+        return @<STabContainer Class="abp-permission-grant-tab">
+                   <TabProvider Items="Groups" Options="SetGroupTab">
+                       <TagTemplate>
+                           <div>@context.DisplayName (@context.GrantPermissionCount/@context.TotalPermissionCount)</div>
+                       </TagTemplate>
+                       <ContentTemplate>
+                           <SList TValue="PermissionGrantInfoModel">
+                               <EnableStaticSource Items="context.Permissions"/>
+                               <EnableIteratorTreePager TValue="PermissionGrantInfoModel"
+                                                        Children="CheckPermissionChildrenAsync"/>
+                               <ListColumn Context="listItem">
+                                   <SCheck Checked="@listItem.IsChecked"
+                                           Click="() => OnPermissionInfoModelCheckClickAsync(listItem)"/>
+                                   @listItem.DisplayName
+                               </ListColumn>
+                           </SList>
+                       </ContentTemplate>
+                   </TabProvider>
+
+                   <STabTagsView/>
+                   <STabContentsView RenderMode="TabRenderMode.LazyLoad"/>
+               </STabContainer>;
+    }
+}

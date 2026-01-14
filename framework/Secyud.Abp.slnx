@@ -2,6 +2,9 @@
   <Folder Name="/src/">
     <Project Path="src/Secyud.Abp.Authorization.Abstractions/Secyud.Abp.Authorization.Abstractions.csproj" />
     <Project Path="src/Secyud.Abp.Authorization/Secyud.Abp.Authorization.csproj" />
+    <Project Path="src/Secyud.Abp.Ddd.Application/Secyud.Abp.Ddd.Application.csproj" />
+    <Project Path="src/Secyud.Abp.Features/Secyud.Abp.Features.csproj" />
+    <Project Path="src/Secyud.Abp.GlobalFeatures/Secyud.Abp.GlobalFeatures.csproj" />
     <Project Path="src/Secyud.Abp.HttpApi.Generator/Secyud.Abp.HttpApi.Generator.csproj" />
     <Project Path="src/Secyud.Abp.HttpApi/Secyud.Abp.HttpApi.csproj" />
     <Project Path="src/Secyud.Abp.Secits.AspNetCore.Components.Server/Secyud.Abp.Secits.AspNetCore.Components.Server.csproj" />

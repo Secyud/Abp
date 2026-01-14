@@ -86,7 +86,7 @@ public class MenuManager(
         return menu;
     }
 
-    protected virtual async Task CheckPermissionsAsync(IServiceProvider serviceProvider, IHasMenuItems menuWithItems)
+    protected virtual async Task CheckPermissionsAsync(IServiceProvider serviceProvider, IWithMenuItems menuWithItems)
     {
         var allMenuItems = new List<ApplicationMenuItem>();
         GetAllMenuItems(menuWithItems, allMenuItems);
@@ -109,7 +109,7 @@ public class MenuManager(
         }
     }
 
-    protected virtual void GetAllMenuItems(IHasMenuItems menuWithItems, List<ApplicationMenuItem> output)
+    protected virtual void GetAllMenuItems(IWithMenuItems menuWithItems, List<ApplicationMenuItem> output)
     {
         if (menuWithItems.Items is null) return;
         
@@ -120,7 +120,7 @@ public class MenuManager(
         }
     }
 
-    protected virtual void RemoveMenus(IHasMenuItems menuWithItems, HashSet<ApplicationMenuItem> toBeDeleted)
+    protected virtual void RemoveMenus(IWithMenuItems menuWithItems, HashSet<ApplicationMenuItem> toBeDeleted)
     {
         if (menuWithItems.Items is null) return;
         
@@ -132,7 +132,7 @@ public class MenuManager(
         }
     }
 
-    protected virtual void NormalizeMenu(IHasMenuItems menuWithItems)
+    protected virtual void NormalizeMenu(IWithMenuItems menuWithItems)
     {
         if (menuWithItems.Items is null) return;
 

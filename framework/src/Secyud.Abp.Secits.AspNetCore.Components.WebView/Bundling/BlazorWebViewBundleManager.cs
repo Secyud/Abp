@@ -15,7 +15,9 @@ public class BlazorWebViewBundleManager(
     IStyleBundler styleBundler,
     IServiceProvider serviceProvider,
     IDynamicFileProvider dynamicFileProvider,
-    IBundleCache bundleCache)
+    IBundleCache bundleCache,
+    IBundleFileProvider fileProvider
+    )
     : ComponentBundleManagerBase(options,
         contributorOptions,
         scriptBundler,
@@ -32,6 +34,6 @@ public class BlazorWebViewBundleManager(
 
     protected override IFileProvider GetFileProvider()
     {
-        return null!;
+        return fileProvider;
     }
 }

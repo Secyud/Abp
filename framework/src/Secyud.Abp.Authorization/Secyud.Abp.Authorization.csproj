@@ -8,7 +8,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Secyud.Abp.Authorization.Abstractions\Secyud.Abp.Authorization.Abstractions.csproj" />
+        <ProjectReference Include="..\Secyud.Abp.Authorization.Abstractions\Secyud.Abp.Authorization.Abstractions.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="Secyud\Abp\Authorization\Localization\*.json"/>
+        <EmbeddedResource Include="Secyud\Abp\Authorization\Localization\*.json"/>
     </ItemGroup>
 
 </Project>

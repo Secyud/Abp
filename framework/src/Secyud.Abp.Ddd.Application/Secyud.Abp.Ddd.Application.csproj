@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <Import Project="..\..\..\common.props"/>
+
+    <ItemGroup>
+        <PackageReference Include="Volo.Abp.Security"/>
+        <PackageReference Include="Volo.Abp.Ddd.Application.Contracts"/>
+        <PackageReference Include="Volo.Abp.Ddd.Domain"/>
+        <PackageReference Include="Volo.Abp.Http.Abstractions"/>
+        <PackageReference Include="Volo.Abp.ObjectMapping"/>
+        <PackageReference Include="Volo.Abp.Settings"/>
+        <PackageReference Include="Volo.Abp.Validation"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Secyud.Abp.Authorization\Secyud.Abp.Authorization.csproj"/>
+        <ProjectReference Include="..\Secyud.Abp.Features\Secyud.Abp.Features.csproj"/>
+        <ProjectReference Include="..\Secyud.Abp.GlobalFeatures\Secyud.Abp.GlobalFeatures.csproj"/>
+    </ItemGroup>
+
+</Project>

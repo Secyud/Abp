@@ -3,10 +3,10 @@
 namespace Secyud.Abp.Authorization.Permissions;
 
 public class PermissionValuesCheckContext(
-    List<IPermissionDefinition> permissions,
+    List<PermissionDefinition> permissions,
     ClaimsPrincipal? principal)
 {
-    public List<IPermissionDefinition> Permissions { get; } = permissions;
+    public List<PermissionDefinition> Permissions { get; } = permissions;
 
     public ClaimsPrincipal? Principal { get; } = principal;
 }

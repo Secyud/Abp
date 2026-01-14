@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Localization;
 using Volo.Abp.SimpleStateChecking;
 
 namespace Secyud.Abp.Ui.Navigation;
@@ -8,16 +9,28 @@ public class ApplicationMenuItem(
     string? icon = null,
     int order = 1000,
     ApplicationMenuItem? parent = null) :
-    IHasSimpleStateCheckers<ApplicationMenuItem>, IHasMenuItems
+    IHasSimpleStateCheckers<ApplicationMenuItem>, IWithMenuItems
 {
-    public virtual bool IsLeaf => false;
-    public virtual string? Url => null;
+    public bool IsLeaf { get; set; }
+    public string? Url { get; set; }
     public string Name { get; } = name;
     public string DisplayName { get; set; } = displayName;
     public string? Icon { get; set; } = icon;
     public int Order { get; set; } = order;
     public ApplicationMenuItem? Parent { get; } = parent;
     public ApplicationMenuItemList Items => field ??= [];
+
+    public ApplicationMenuItem AddItem(IStringLocalizer localizer, string name,
+        string? displayName = null, string? icon = null,
+        int order = 1000)
+    {
+        var item = new ApplicationMenuItem(name, 
+            localizer[$"Menu:{displayName ?? name}"],
+            icon, order, this);
+        Items.Add(item);
+        return item;
+    }
+
     public Dictionary<string, object> CustomData => field ??= [];
     public List<ISimpleStateChecker<ApplicationMenuItem>> StateCheckers { get; } = [];
 

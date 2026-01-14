@@ -2,10 +2,8 @@
 
 public interface IPermissionDefinitionManager
 {
-    Task<IPermissionDefinition> GetAsync(string name);
-
-    Task<IPermissionDefinition?> GetOrNullAsync(string name);
-
-    Task<IReadOnlyList<IPermissionDefinition>> GetPermissionsAsync();
-    Task<IReadOnlyList<IPermissionDefinition>> GetGroupsAsync();
+    Task<PermissionDefinition> GetAsync(string name);
+    Task<PermissionDefinition?> GetOrNullAsync(string name);
+    Task<IReadOnlyList<PermissionDefinition>> GetPermissionsAsync();
+    Task<IReadOnlyList<PermissionGroupDefinition>> GetGroupsAsync();
 }

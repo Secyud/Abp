@@ -5,53 +5,29 @@ using Volo.Abp.SimpleStateChecking;
 
 namespace Secyud.Abp.Authorization.Permissions;
 
-public class PermissionDefinition<TResource> : IPermissionDefinition
+public class PermissionDefinition
+    : IWithPermissions, IHasSimpleStateCheckers<PermissionDefinition>
 {
-    private readonly List<PermissionDefinition<TResource>> _children = [];
-    private readonly string _permissionName;
-    private readonly string? _displayName;
-    private readonly PermissionGroupDefinition<TResource> _group;
+    private readonly List<PermissionDefinition> _children = [];
+
+    internal PermissionDefinition(string name, PermissionGroupDefinition group, PermissionDefinition? parent)
+    {
+        Name = name;
+        Group = group;
+        Parent = parent;
+    }
+
+    public PermissionGroupDefinition Group { get; }
+    public PermissionDefinition? Parent { get; }
     public string Name { get; }
-    public string? ParentName => Parent?.Name;
-    public PermissionDefinition<TResource>? Parent { get; }
-
-    public MultiTenancySides MultiTenancySide { get; set; }
-
-    public ILocalizableString DisplayName =>
-        field ??= LocalizableString.Create<TResource>($"Permission:{_displayName ?? _permissionName}");
-
-    public IReadOnlyList<IPermissionDefinition> Children => _children.ToImmutableList();
-
+    public required ILocalizableString DisplayName { get; set; }
+    public required MultiTenancySides MultiTenancySide { get; set; }
+    public bool IsDisabled { get; set; }
     public List<string> Providers { get; } = [];
-
-    public List<ISimpleStateChecker<IPermissionDefinition>> StateCheckers { get; } = [];
+    public List<ISimpleStateChecker<PermissionDefinition>> StateCheckers { get; } = [];
+    public IReadOnlyList<PermissionDefinition> Children => _children.ToImmutableList();
 
     public Dictionary<string, object?> Properties { get; } = [];
-    public IPermissionGroupDefinition Group => _group;
-
-    public PermissionDefinition(string permissionName,
-        PermissionDefinition<TResource> parent,
-        string? displayName = null)
-    {
-        _permissionName = permissionName;
-        _displayName = displayName;
-        _group = parent._group;
-        Name = $"{parent.Name}.{permissionName}";
-        Parent = parent;
-        Parent._children.Add(this);
-    }
-
-    public PermissionDefinition(string permissionName,
-        PermissionGroupDefinition<TResource> group,
-        string? displayName = null)
-    {
-        _permissionName = permissionName;
-        _displayName = displayName;
-        _group = group;
-        _group.AddPermission(this);
-
-        Name = $"{group.Name}.{permissionName}";
-    }
 
     public object? this[string name]
     {
@@ -59,35 +35,82 @@ public class PermissionDefinition<TResource> : IPermissionDefinition
         set => Properties[name] = value;
     }
 
-    public virtual PermissionDefinition<TResource> WithProperty(string key, object value)
+    public virtual PermissionDefinition WithProperty(string key, object value)
     {
         Properties[key] = value;
         return this;
     }
 
-    public virtual PermissionDefinition<TResource> WithProvider(string providerName)
+    public virtual PermissionDefinition WithProvider(string providerName)
     {
         Providers.AddIfNotContains(providerName);
         return this;
     }
 
-    public void RemoveSelf()
+    public virtual PermissionDefinition WithProviders(params string[] providerNames)
     {
-        Parent?._children.Remove(this);
-        RemoveFromGroup();
-    }
-
-    private void RemoveFromGroup()
-    {
-        _group.RemovePermission(this);
-        foreach (var child in _children)
-        {
-            child.RemoveFromGroup();
-        }
+        Providers.AddIfNotContains(providerNames);
+        return this;
     }
 
     public override string ToString()
     {
-        return $"[{nameof(PermissionDefinition<>)} {Name}]";
+        return $"[{nameof(PermissionDefinition)} {Name}]";
+    }
+
+    public PermissionDefinition AddPermission(string permissionName, ILocalizableString? displayName = null,
+        MultiTenancySides multiTenancySide = MultiTenancySides.Both)
+    {
+        var permission = new PermissionDefinition(permissionName, Group, this)
+        {
+            DisplayName = displayName ?? new FixedLocalizableString(
+                PermissionDefinitionExtensions.CreateLocalizableStringKey(permissionName)),
+            MultiTenancySide = multiTenancySide,
+        };
+        _children.Add(permission);
+        return permission;
+    }
+
+    public bool RemovePermission(string permissionName, bool recurse)
+    {
+        if (!recurse)
+        {
+            var index = _children.FindIndex(x => x.Name == permissionName);
+            if (index < 0) return false;
+            _children.RemoveAt(index);
+            return true;
+        }
+        
+        
+        var queue = new Queue<List<PermissionDefinition>>();
+        queue.Enqueue(_children);
+
+        while (queue.Count > 0)
+        {
+            var list = queue.Dequeue();
+
+            for (var i = 0; i < list.Count; i++)
+            {
+                var permission = list[i];
+                if (permission.Name == permissionName)
+                {
+                    list.RemoveAt(i);
+                    return true;
+                }
+
+                if (permission._children.Count > 0)
+                {
+                    queue.Enqueue(list);
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public PermissionDefinition SetDisabled(bool isDisabled = true)
+    {
+        IsDisabled = isDisabled;
+        return this;
     }
 }
